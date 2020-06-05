@@ -1,0 +1,43 @@
+// https://www.cnblogs.com/hama1993/p/12034514.html
+plugins {
+    id 'java'
+    //引入intellij的gradle插件
+    id 'org.jetbrains.intellij' version '0.4.21'
+}
+
+group 'org.example'
+
+//定义jar包/zip包的版本号
+version '1.0-SNAPSHOT'
+
+//限制jdk的使用版本号，这里限制到8，表示生成的idea插件只能运行在jdk8以上的环境中
+//sourceCompatibility = 1.8
+
+repositories {
+    //远程仓库
+    mavenCentral()
+}
+
+dependencies {
+    //这里引别的依赖包
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+// See https://github.com/JetBrains/gradle-intellij-plugin/
+intellij {
+    // 这里是指打插件包的时候用idea什么版本的依赖包打
+    // 比如这里用2020.1.1打包，如果你的插件实现源码里用了2020.1.1不存在的依赖包或类，就会报错
+    // 一般就填当前IDEA的版本号即可
+    version '2020.1.1'
+}
+patchPluginXml {
+    //changeNotes里的内容展示位置参考图14
+    changeNotes """
+      Add change notes here.<br>
+      <em>most HTML tags may be used</em>"""
+
+    // 这个意思是说当前定义的这个插件最早支持到什么版本的IDEA
+    // 这里配置sinceBuild=191，表示插件只能被版本号大于等于2019.1版本的IDEA安装，低于这个版本的将抛无法兼容的错误
+    // ↑上方参考这篇问答：https://intellij-support.jetbrains.com/hc/en-us/community/posts/360003338799-Build-compatible-plugin
+//    sinceBuild "191"
+}
