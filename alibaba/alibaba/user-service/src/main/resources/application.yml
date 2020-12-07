@@ -1,0 +1,44 @@
+server:
+  port: 8089
+
+spring:
+  application:
+    name: user-service
+
+  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 49.234.12.16:8848
+
+    sentinel:
+      transport:
+        # 配置 sentinel 控制台的地址
+        dashboard: 49.234.12.16:8080
+        # 指定和控制台通信的 ip
+        # 如果不配置，会自动选择一个 ip 注册
+#        client-ip: 192.168.99.126
+    # spring cloud stream
+    stream:
+      binders:
+        defaultRabbit: # 表示定义的名称，bind 整合
+          type: rabbit  # 表示使用的是 rabbitmq 消息中间件，如果用的是 kafka ，则 type 设置为 kafka
+          environment:  # environment 就是设置使用的消息中间件的配置信息，包括 host、port、用户名、密码等
+            spring:
+              rabbitmq:
+                host: 49.234.12.16
+                port: 5672
+                username: admin
+                password: admin
+      bindings: # 表示消息的接收通道和发送通道
+        input:
+          # 对应到 rabbitmq 上就是不同的 exchange
+          destination: minestreamExchange  #  destination 属性指 exchange 的名称
+          binder: defaultRabbit
+          group: groupA
+        output:
+          destination: minestreamExchange
+          binder: defaultRabbit
+feign:
+  sentinel:
+    # 开启 sentinel 对 Feign 的支持
+    enabled: true

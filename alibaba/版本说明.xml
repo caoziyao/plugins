@@ -1,0 +1,55 @@
+<!-- https://blog.csdn.net/qq_43655835/article/details/104990596?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~sobaiduend~default-1-104990596.nonecase&utm_term=springboot选择版本号&spm=1000.2123.3001.4430 -->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>alibaba</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <!--使用maven分模块管理-->
+    <packaging>pom</packaging>
+
+    <!--为了项目的正确运行，必须让所有的子模块使用依赖项的统一版本
+    dependencyManagement元素。通过它元素来管理jar包的版本，
+    让子项目中引用一个依赖而不用显示的列出版本号。
+    Maven会沿着父子层次向上走，直到找到一个拥有dependencyManagement元素的项目，
+    然后它就会使用在这个dependencyManagement元素中指定的版本号。
+
+    dependencyManagement里只是声明依赖，并不实现引入
+    -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <!--版本关系查看 https://github.com/alibaba/spring-cloud-alibaba/wiki/版本说明 -->
+                <version>Hoxton.SR3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <!--版本关系查看 https://github.com/alibaba/spring-cloud-alibaba/wiki/版本说明 -->
+                <version>2.2.1.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!--dependencies即使在子模块中不写该依赖项，那么子模块仍然会从父项目中继承该依赖项-->
+    <dependencies>
+
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>
