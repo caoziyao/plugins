@@ -93,6 +93,7 @@ public class HttpRequest {
             List<NameValuePair> nvps = new ArrayList<NameValuePair>();
             // 通过map集成entrySet方法获取entity
             Set<Map.Entry<String, Object>> entrySet = paramMap.entrySet();
+
             // 循环遍历，获取迭代器
             Iterator<Map.Entry<String, Object>> i$ = entrySet.iterator();
             while (i$.hasNext()) {
