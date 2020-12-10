@@ -1,5 +1,6 @@
 package com.zel.market.service;
 
+import com.zel.market.config.Env;
 import com.zel.market.entity.User;
 import com.zel.market.mapper.UserMapper;
 import org.apache.commons.lang3.StringUtils;
@@ -62,5 +63,10 @@ public class UserService {
             return 0;
         }
         return userMapper.updateUser(id, username);
+    }
+
+    public void test() {
+        String token = Env.getContext().getToken();
+        System.out.println("token:" + token);
     }
 }
