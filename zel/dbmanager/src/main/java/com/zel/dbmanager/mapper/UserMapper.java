@@ -1,11 +1,10 @@
-package com.zel.market.mapper;
+package com.zel.dbmanager.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zel.market.entity.User;
+import com.zel.dbmanager.entity.User;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Description:
@@ -47,5 +46,5 @@ public interface UserMapper extends BaseMapper<User> {
     /**
      * 更新GoodInfo
      */
-    int updateUser(String id, String username);
+//    int updateUser(String id, String username);
 }

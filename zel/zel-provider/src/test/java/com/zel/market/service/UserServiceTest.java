@@ -1,12 +1,9 @@
 package com.zel.market.service;
 
 import com.zel.market.BaseTest;
-import com.zel.market.entity.User;
+import com.zel.dbmanager.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 
 class UserServiceTest extends BaseTest {

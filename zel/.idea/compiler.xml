@@ -8,12 +8,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="market" />
         <module name="pojo" />
+        <module name="dbmanager" />
         <module name="api" />
-        <module name="pom" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="api" target="1.8" />
+      <module name="dbmanager" target="1.8" />
       <module name="market" target="1.8" />
       <module name="pojo" target="1.8" />
       <module name="pom" target="1.8" />
@@ -22,6 +23,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="api" options="-parameters" />
+      <module name="dbmanager" options="-parameters" />
       <module name="market" options="-parameters" />
       <module name="pojo" options="-parameters" />
       <module name="pom" options="-parameters" />

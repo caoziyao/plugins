@@ -1,13 +1,10 @@
-package com.zel.market.service;
+package com.zel.dbmanager.service;
 
-import com.zel.market.annotation.ERoleType;
-import com.zel.market.annotation.RoleAnnotation;
-import com.zel.market.config.Env;
-import com.zel.market.entity.User;
-import com.zel.market.mapper.UserMapper;
+
+import com.zel.dbmanager.entity.User;
+import com.zel.dbmanager.mapper.UserMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,15 +58,13 @@ public class UserService {
 
     @Transactional
     public int updateUser(@NonNull String id, @NonNull String username) {
+
         if (StringUtils.isEmpty(id) || StringUtils.isEmpty(username)) {
             return 0;
         }
         return userMapper.updateUser(id, username);
     }
 
-    @RoleAnnotation(needLogin = true, roles = { ERoleType.EXPRESSOR })
     public void test() {
-        String token = Env.getContext().getToken();
-        System.out.println("token:" + token);
     }
 }

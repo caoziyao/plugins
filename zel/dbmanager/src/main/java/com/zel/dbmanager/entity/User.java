@@ -1,4 +1,4 @@
-package com.zel.market.entity;
+package com.zel.dbmanager.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 // @Builder 垃圾
 @TableName(value = "user")
 public class User {
+
     // TableId-数据库主键字段
     @TableId(value = "id", type= IdType.AUTO)
     private Long id;
