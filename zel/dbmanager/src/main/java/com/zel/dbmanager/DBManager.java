@@ -19,9 +19,10 @@ import java.util.List;
  * @since 2020/12/11
  */
 public class DBManager {
-    private static SqlSessionFactory sqlSessionFactory = null;
+    protected static SqlSessionFactory sqlSessionFactory = null;
 
     static {
+        System.out.println("DBManager static");
         String resource = "SqlMapConfig.xml";
         InputStream inputStream = null;
         try {
@@ -33,13 +34,6 @@ public class DBManager {
     }
 
     public static void main(String[] args) {
-        SqlSession session = sqlSessionFactory.openSession();
-        UserMapper mapper = session.getMapper(UserMapper.class);
-        List<User> all = mapper.findAll();
-        System.out.println(all);
-    }
-
-    public static void test(){
         SqlSession session = sqlSessionFactory.openSession();
         UserMapper mapper = session.getMapper(UserMapper.class);
         List<User> all = mapper.findAll();

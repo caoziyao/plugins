@@ -1,7 +1,5 @@
 package com.zel.market.controller;
 
-import com.zel.market.config.Env;
-import com.zel.market.config.Response;
 import com.zel.market.utils.TokenUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
