@@ -20,7 +20,7 @@ import java.util.Set;
 public class LoginFilter implements Filter {
 
     private static final Set<String> ALLOWED_PATHS = Collections.unmodifiableSet(new HashSet<>(
-            Arrays.asList("/login", "/logout")));
+            Arrays.asList("/login", "/logout", "/swagger-ui.html", "/webjars", "/v2/api-docs", "/csrf")));
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -44,13 +44,14 @@ public class LoginFilter implements Filter {
         Env.setContext(appContext);
 
         String path = req.getRequestURI();
-        if (ALLOWED_PATHS.contains(path)) {
+        if (ALLOWED_PATHS.contains(path) || path.contains("swagger")) {
             // 登录接口
         } else {
             // 校验token
             if (StringUtils.isEmpty(token)) {
                 Response rsp = new Response(EResponseCode.C403);
                 response.getWriter().write(rsp.toString());
+                System.out.println("拒绝：" + path);
                 return;
             }
         }

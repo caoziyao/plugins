@@ -1,7 +1,6 @@
 package com.zel.dbmanager.mapper;
 
 import com.zel.dbmanager.entity.Book;
-import com.zel.dbmanager.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
