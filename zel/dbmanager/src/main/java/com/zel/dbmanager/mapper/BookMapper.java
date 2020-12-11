@@ -1,6 +1,8 @@
 package com.zel.dbmanager.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zel.dbmanager.entity.Book;
+import com.zel.dbmanager.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -14,7 +16,7 @@ import java.util.List;
  * @since 2020/12/11
  */
 @Mapper
-public interface BookMapper {
+public interface BookMapper extends BaseMapper<Book> {
     @Select("SELECT * FROM book")
     List<Book> findAll();
 

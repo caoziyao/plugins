@@ -77,7 +77,7 @@ public class UserService extends DBManager {
         return userMapper.updateUser(id, username);
     }
 
-    public static void findAll() {
+    public  void findAll() {
         List<User> all = userMapper.findAll();
         for (User user: all) {
             System.out.println(user.toString());

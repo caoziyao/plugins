@@ -1,4 +1,4 @@
-package com.zel.market.config;
+package com.zel.market.common;
 
 public enum EResponseCode {
     C200("200", "成功"),

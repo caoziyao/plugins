@@ -1,9 +1,9 @@
 package com.zel.market.filter;
 
-import com.zel.market.config.AppContext;
-import com.zel.market.config.Env;
-import com.zel.market.config.Response;
-import com.zel.market.config.EResponseCode;
+import com.zel.market.common.AppContext;
+import com.zel.market.common.Env;
+import com.zel.market.common.Response;
+import com.zel.market.common.EResponseCode;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 

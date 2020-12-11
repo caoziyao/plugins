@@ -2,9 +2,7 @@ package com.zel.dbmanager.service;
 
 import com.zel.dbmanager.DBManager;
 import com.zel.dbmanager.entity.Book;
-import com.zel.dbmanager.entity.User;
 import com.zel.dbmanager.mapper.BookMapper;
-import com.zel.dbmanager.mapper.UserMapper;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -19,14 +17,15 @@ import java.util.List;
 public class BookService extends DBManager {
 
     private static BookMapper bookMapper = null;
+
     static {
         SqlSession session = sqlSessionFactory.openSession();
         bookMapper = session.getMapper(BookMapper.class);
     }
 
-    public static void findAll() {
+    public void findAll() {
         List<Book> all = bookMapper.findAll();
-        for (Book user: all) {
+        for (Book user : all) {
             System.out.println(user.toString());
         }
     }

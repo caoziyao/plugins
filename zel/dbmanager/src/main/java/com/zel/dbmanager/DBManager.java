@@ -19,7 +19,7 @@ import java.util.List;
  * @since 2020/12/11
  */
 public class DBManager {
-    protected static SqlSessionFactory sqlSessionFactory = null;
+    protected static SqlSessionFactory sqlSessionFactory;
 
     static {
         System.out.println("DBManager static");

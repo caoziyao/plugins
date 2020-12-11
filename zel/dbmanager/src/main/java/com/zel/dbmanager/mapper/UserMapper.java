@@ -6,17 +6,9 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
-/**
- * Description:
- *
- * @author csy
- * @version 1.0.0
- * @since 2020/10/25
- */
 
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
-
 
     @Select("SELECT * FROM user")
     List<User> findAll();
