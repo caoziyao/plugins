@@ -3,12 +3,11 @@ package com.zel.market.filter;
 import com.zel.market.config.AppContext;
 import com.zel.market.config.Env;
 import com.zel.market.config.Response;
-import com.zel.market.config.ResponseCode;
+import com.zel.market.config.EResponseCode;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -50,7 +49,7 @@ public class LoginFilter implements Filter {
         } else {
             // 校验token
             if (StringUtils.isEmpty(token)) {
-                Response rsp = new Response(ResponseCode.C403);
+                Response rsp = new Response(EResponseCode.C403);
                 response.getWriter().write(rsp.toString());
                 return;
             }

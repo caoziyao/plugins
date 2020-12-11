@@ -13,9 +13,9 @@ public class Response implements Serializable {
 
     }
 
-    public Response(ResponseCode responseCode) {
-        this.code = responseCode.toCode();
-        this.message = responseCode.toMessage();
+    public Response(EResponseCode EResponseCode) {
+        this.code = EResponseCode.toCode();
+        this.message = EResponseCode.toMessage();
     }
 
     public String getCode() {

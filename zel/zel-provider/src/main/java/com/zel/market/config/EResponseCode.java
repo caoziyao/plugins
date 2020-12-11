@@ -1,6 +1,6 @@
 package com.zel.market.config;
 
-public enum  ResponseCode {
+public enum EResponseCode {
     C200("200", "成功"),
     C201("201", "数据不存在"),
     C209("209", "提现金额超上限"),
@@ -21,7 +21,7 @@ public enum  ResponseCode {
     private final String msg;
 
 
-    ResponseCode(String code, String msg) {
+    EResponseCode(String code, String msg) {
         this.code = code;
         this.msg = msg;
     }

@@ -1,5 +1,7 @@
 package com.zel.market.service;
 
+import com.zel.market.annotation.ERoleType;
+import com.zel.market.annotation.RoleAnnotation;
 import com.zel.market.config.Env;
 import com.zel.market.entity.User;
 import com.zel.market.mapper.UserMapper;
@@ -65,6 +67,7 @@ public class UserService {
         return userMapper.updateUser(id, username);
     }
 
+    @RoleAnnotation(needLogin = true, roles = { ERoleType.EXPRESSOR })
     public void test() {
         String token = Env.getContext().getToken();
         System.out.println("token:" + token);
