@@ -32,6 +32,13 @@ public class DBManager {
          sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
     }
 
+    public static void main(String[] args) {
+        SqlSession session = sqlSessionFactory.openSession();
+        UserMapper mapper = session.getMapper(UserMapper.class);
+        List<User> all = mapper.findAll();
+        System.out.println(all);
+    }
+
     public static void test(){
         SqlSession session = sqlSessionFactory.openSession();
         UserMapper mapper = session.getMapper(UserMapper.class);
