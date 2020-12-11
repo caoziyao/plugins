@@ -1,6 +1,6 @@
 package com.zel.market.controller;
 
-import com.zel.dbmanager.service.UserService;
+//import com.zel.dbmanager.service.UserService;
 import com.zel.market.config.Env;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class IndexController {
 
-    @Autowired
-    private UserService userService;
+    //@Autowired
+    //private UserService userService;
 
     @ApiOperation(value="login", notes="login", produces="application/json")
     @RequestMapping(value = "/")

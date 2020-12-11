@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+//import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Description:
@@ -27,7 +27,7 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    @Transactional
+    //@Transactional
     public void transactTest() {
         User user = userMapper.findByUsername("zhangsan");
         User user2 = userMapper.findByUsername("lisi");
@@ -61,7 +61,7 @@ public class UserService {
         return userMapper.findById(id);
     }
 
-    @Transactional
+    //@Transactional
     public int updateUser(@NonNull String id, @NonNull String username) {
 
         if (StringUtils.isEmpty(id) || StringUtils.isEmpty(username)) {

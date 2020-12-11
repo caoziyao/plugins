@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 修改此文件时，请注意SQL字段五个一段, 以提高可维护性 -->
+
+<mapper namespace="com.zel.dbmanager.mapper.UserMapper" >
+
+    <update id="updateUser">
+        UPDATE user
+        SET
+        username = #{username}
+        WHERE id = #{id}
+    </update>
+
+</mapper>
