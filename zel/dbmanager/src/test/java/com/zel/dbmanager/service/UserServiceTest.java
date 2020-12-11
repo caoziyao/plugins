@@ -13,8 +13,8 @@ class UserServiceTest extends BaseTest {
     @Autowired
     private UserService userService;
 
-    @Test
-    void test1() {
-        userService.findById("1");
-    }
+//    @Test
+//    void test1() {
+//        userService.findById("1");
+//    }
 }

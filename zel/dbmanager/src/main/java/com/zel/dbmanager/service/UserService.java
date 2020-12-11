@@ -19,6 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserService {
 
+//    public static final UserService getInstance() {
+//        return Env.getBean("cptaskcount-service");
+//    }
+//
+
     @Autowired
     private UserMapper userMapper;
 

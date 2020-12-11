@@ -18,7 +18,7 @@ public class IndexController {
     @ApiOperation(value="login", notes="login", produces="application/json")
     @RequestMapping(value = "/")
     public String index() {
-        userService.test();
+//        userService.test();
         // System.out.println(u);
         long  userId = Env.getContext().getUserId();
         String token = Env.getContext().getToken();

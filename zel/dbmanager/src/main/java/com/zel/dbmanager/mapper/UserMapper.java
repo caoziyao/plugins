@@ -3,6 +3,7 @@ package com.zel.dbmanager.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zel.dbmanager.entity.User;
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -46,5 +47,5 @@ public interface UserMapper extends BaseMapper<User> {
     /**
      * 更新GoodInfo
      */
-//    int updateUser(String id, String username);
+    int updateUser(String id, String username);
 }
