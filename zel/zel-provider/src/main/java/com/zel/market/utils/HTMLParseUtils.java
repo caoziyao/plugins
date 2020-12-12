@@ -53,9 +53,8 @@ public class HTMLParseUtils {
                     ssAccount.setProtocol(proto);
                     ssAccount.setPlian(plian);
 
-                    ssAccount.setId(2l);
                     ssAccountService.save2(ssAccount);
-                    ssAccountService.save(ssAccount);
+                    //  ssAccountService.save(ssAccount);
                 }
             }
         } catch (IOException e) {

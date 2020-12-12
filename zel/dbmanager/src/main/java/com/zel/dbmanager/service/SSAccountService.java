@@ -11,7 +11,7 @@ import org.apache.ibatis.session.SqlSession;
  *
  * @author csy
  * @version 1.0.0
- * @since 2020/12/12
+ * @since 2020/10/12
  */
 public class SSAccountService extends DBManager {
     private static SSAccountMapper ssAccountMapper;
@@ -23,6 +23,7 @@ public class SSAccountService extends DBManager {
     }
 
     public void save2(SSAccount ssAccount) {
+        // Assert.notNull(ssAccount);
         if (ssAccount == null) {
             System.out.println("ssAccount null");
             return;

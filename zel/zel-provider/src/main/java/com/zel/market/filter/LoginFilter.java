@@ -4,6 +4,7 @@ import com.zel.market.common.AppContext;
 import com.zel.market.common.Env;
 import com.zel.market.common.Response;
 import com.zel.market.common.EResponseCode;
+import com.zel.market.utils.SysLoggers;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +34,9 @@ public class LoginFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         System.out.println("TestFilter: "+ request.getRequestURI());
+        SysLoggers.interceptor_log.error("interceptor_log eror");
+        SysLoggers.logic_error.error("logic_error errror");
+        SysLoggers.logic_error.info("logic_error info");
 
         AppContext appContext = new AppContext();
 

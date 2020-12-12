@@ -56,6 +56,7 @@
             <version>3.10</version>
         </dependency>
 
+
         <!--swagger start /swagger-ui.html-->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -85,9 +86,23 @@
             <version>1.13.1</version>
         </dependency>
 
+        <!-- 引入log4j2依赖 -->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-log4j2</artifactId>-->
+<!--            <version>2.4.0</version>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <!-- 去掉springboot默认配置 -->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.springframework.boot</groupId>-->
+<!--                    <artifactId>spring-boot-starter-logging</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
         </dependency>
 
         <dependency>
