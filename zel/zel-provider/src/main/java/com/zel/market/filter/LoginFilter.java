@@ -3,7 +3,7 @@ package com.zel.market.filter;
 import com.zel.market.common.AppContext;
 import com.zel.market.common.Env;
 import com.zel.market.common.Response;
-import com.zel.market.common.EResponseCode;
+import com.zel.market.common.enumcom.EResponseCode;
 import com.zel.market.utils.SysLoggers;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;

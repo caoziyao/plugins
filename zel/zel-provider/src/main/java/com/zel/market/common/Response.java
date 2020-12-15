@@ -1,5 +1,7 @@
 package com.zel.market.common;
 
+import com.zel.market.common.enumcom.EResponseCode;
+
 import java.io.Serializable;
 
 public class Response implements Serializable {

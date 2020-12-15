@@ -10,9 +10,9 @@ public class Task implements Callable<Integer> {
         int sum = 0;
         for(int i=0; i< 100 ; i++) {
             sum += i;
-            throw new NullPointerException("my eee");
+            //throw new NullPointerException("my eee");
         }
-
+        System.out.println("task:" + sum);
         return sum;
     }
 }

@@ -1,4 +1,4 @@
-package com.zel.market.common;
+package com.zel.market.common.enumcom;
 
 public enum EResponseCode {
     C200("200", "成功"),
