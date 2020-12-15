@@ -1,5 +1,6 @@
 package com.zel.market.controller;
 
+import com.google.common.util.concurrent.RateLimiter;
 import com.zel.dbmanager.service.BookService;
 import com.zel.dbmanager.service.SSAccountService;
 import com.zel.dbmanager.service.UserService;
@@ -27,10 +28,19 @@ public class IndexController {
     @Autowired
     private HTMLParseUtils htmlParseUtils;
 
+    // 允许每秒最多10个任务
+    public static final RateLimiter rateLimiter = RateLimiter.create(10);
+
     @ApiOperation(value="index", notes="index", produces="application/json")
     @GetMapping(value = "/")
     public String index() {
 
+        // 请求尝试获取令牌，获取不到返回服务器繁忙
+        if (rateLimiter.tryAcquire()) {
+            // 正常逻辑
+        } else {
+            // error
+        }
 //        userService.test();
         // System.out.println(u);
         //UserService userService = new UserService();
