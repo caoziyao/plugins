@@ -20,6 +20,25 @@ public class Response implements Serializable {
         this.message = EResponseCode.toMessage();
     }
 
+    /**
+     * ok
+     * @return
+     */
+    public static Response OK() {
+        return new Response(EResponseCode.C200);
+    }
+
+    /**
+     * ok
+     * @param data
+     * @return
+     */
+    public static Response OK(Object data) {
+        Response r = new Response(EResponseCode.C200);
+        r.setData(data);
+        return r;
+    }
+
     public String getCode() {
         return code;
     }

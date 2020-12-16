@@ -1,5 +1,7 @@
 package com.zel.market.utils;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
