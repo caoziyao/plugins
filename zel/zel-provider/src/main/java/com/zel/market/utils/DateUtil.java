@@ -7,18 +7,29 @@ import java.util.Date;
 
 public class DateUtil {
 
-    public static void test() {
-        // 不传参数默认当前日期
-        Date nowDate = new Date();
+    /**
+     * 当天凌晨
+     * @return
+     */
+    public static Date weeOfDate() {
+        return weeOfDate(new Date());
+    }
 
+    /**
+     * 该天凌晨
+     * @param date 日期
+     * @return
+     */
+    public static Date weeOfDate(Date date) {
         Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
 
         //当前凌晨日期
-        Date startDate = calendar.getTime();
-        System.out.println(startDate);
+        return calendar.getTime();
     }
 
     /**
@@ -52,11 +63,10 @@ public class DateUtil {
 
 
         // 半小时遍历时间
-        while (c1.getTimeInMillis() < c2.getTimeInMillis()) {
-            c1.add(Calendar.MINUTE, 30);
-            System.out.println(c1.getTime());
-        }
-
+//        while (c1.getTimeInMillis() < c2.getTimeInMillis()) {
+//            c1.add(Calendar.MINUTE, 30);
+//            System.out.println(c1.getTime());
+//        }
     }
 
 
@@ -78,13 +88,10 @@ public class DateUtil {
 
         boolean before = date1.before(date2);
         System.out.println(before);
-
-
     }
 
     /**
      * 时间 +-
-     * @param add
      */
     public static void add() {
         // Calendar 加减
@@ -92,7 +99,7 @@ public class DateUtil {
         c.add(Calendar.MONTH, 1); // 目前時間加1個月
         c.add(Calendar.HOUR, 3); // 目前時間加3小時
         c.add(Calendar.YEAR, -2); // 目前時間減2年
-        c.add(Calendar.DAY_OF_WEEK, 7); // 目前的時間加7天
+        c.add(Calendar.DAY_OF_WEEK, 1); // 目前的時間加1天
         c.add(Calendar.MINUTE, +2);  // 加2分钟
         System.out.println(c.getTime());
 
@@ -108,21 +115,43 @@ public class DateUtil {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
 
+    /**
+     * 时间 +-
+     */
+    public static Date addTime(Date date, int day, int hours, int minute) {
+        // Calendar 加减
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.DAY_OF_WEEK, day);
+        c.add(Calendar.HOUR, hours);
+        c.add(Calendar.MINUTE, minute);
+        return c.getTime();
+    }
 
+    /**
+     * test: 遍历当天0点到24点，间隔 30 min
+     */
+    public static void test30Min() {
+        Date wee = weeOfDate();
+        Date nextDay = addTime(wee, 1, 0, 0);
 
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(wee);
 
+        Calendar c2 = Calendar.getInstance();
+        c2.setTime(nextDay);
+
+        // 半小时遍历时间
+        while (c1.getTimeInMillis() <= c2.getTimeInMillis()) {
+            System.out.println(c1.getTime());
+            c1.add(Calendar.MINUTE, 30);
+
+        }
     }
 
     public static void main(String[] args) {
-
-
-            try {
-                DateUtil.compare();
-                add();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
+        test30Min();
     }
 }
