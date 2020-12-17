@@ -14,7 +14,7 @@ public class Response implements Serializable {
     protected Object data;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    protected String detailMessage;
+    protected String debugMessage;
 
     public Response() {
 
@@ -78,13 +78,14 @@ public class Response implements Serializable {
         this.data = data;
     }
 
-    public String getDetailMessage() {
-        return detailMessage;
+    public String getDebugMessage() {
+        return debugMessage;
     }
 
-    public void setDetailMessage(String detailMessage) {
-        this.detailMessage = detailMessage;
+    public void setDebugMessage(String debugMessage) {
+        this.debugMessage = debugMessage;
     }
+
 
 //    /**
 //     * todo JSON
