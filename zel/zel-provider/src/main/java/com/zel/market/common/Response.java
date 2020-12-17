@@ -1,8 +1,10 @@
 package com.zel.market.common;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.zel.market.common.enumcom.EResponseCode;
 
 import java.io.Serializable;
+
 
 public class Response implements Serializable {
     private static final long serialVersionUID = 1107929380704246470L;
@@ -10,6 +12,9 @@ public class Response implements Serializable {
     protected String code;
     protected String message;
     protected Object data;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    protected String detailMessage;
 
     public Response() {
 
@@ -73,16 +78,26 @@ public class Response implements Serializable {
         this.data = data;
     }
 
-    /**
-     * todo JSON
-     * @return
-     */
-    @Override
-    public String toString() {
-        return "{" +
-                "code=" + code +
-                ", message='" + message + '\'' +
-                ", data=" + data +
-                '}';
+    public String getDetailMessage() {
+        return detailMessage;
     }
+
+    public void setDetailMessage(String detailMessage) {
+        this.detailMessage = detailMessage;
+    }
+
+//    /**
+//     * todo JSON
+//     *
+//     * @return
+//     */
+//    @Override
+//    public String toString() {
+//        return "{" +
+//                "code='" + code + '\'' +
+//                ", message='" + message + '\'' +
+//                ", data=" + data +
+//                ", detailMessage='" + detailMessage + '\'' +
+//                '}';
+//    }
 }

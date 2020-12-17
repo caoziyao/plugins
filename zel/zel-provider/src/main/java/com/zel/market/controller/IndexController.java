@@ -61,6 +61,8 @@ public class IndexController {
     @ApiOperation(value = "index", notes = "index", produces = "application/json")
     @GetMapping(value = "/")
     public Response index(@RequestParam(required = false, defaultValue = "1") String statType) {
+        UserDTO u = null;
+        u.getPassword();
         if ("2".equals(statType)) {
             throw new BusinessException("参数错误2！");
         }
