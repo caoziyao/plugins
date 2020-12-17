@@ -30,6 +30,16 @@ public class Response implements Serializable {
 
     /**
      * ok
+     * @return
+     */
+    public static Response error(String message) {
+        Response response = new Response(EResponseCode.C500);
+        response.setMessage(message);
+        return response;
+    }
+
+    /**
+     * ok
      * @param data
      * @return
      */

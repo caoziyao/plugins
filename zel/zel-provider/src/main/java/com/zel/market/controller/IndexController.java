@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -60,12 +61,15 @@ public class IndexController {
     @ApiOperation(value = "index", notes = "index", produces = "application/json")
     @GetMapping(value = "/")
     public Response index(@RequestParam(required = false, defaultValue = "1") String statType) {
+        if ("2".equals(statType)) {
+            throw new BusinessException("参数错误2！");
+        }
         if (StringUtils.isEmpty(statType)) {
             throw new BusinessException("参数错误！");
         }
         IndexVO vo = new IndexVO();
         UserDTO user = new UserDTO();
-        user.setUserId("123");
+        user.setUserId("123:" + statType);
         user.setUsername("abc");
 
         vo.setUser(user);
