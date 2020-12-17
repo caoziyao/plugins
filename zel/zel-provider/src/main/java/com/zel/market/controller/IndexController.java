@@ -7,12 +7,17 @@ import com.zel.market.common.Env;
 import com.zel.market.common.Response;
 import com.zel.market.dto.IndexVO;
 import com.zel.market.dto.UserDTO;
+import com.zel.market.exception.BusinessException;
 import com.zel.market.utils.HTMLParseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Date;
 
 @Api(description = "index")
 @RestController
@@ -54,13 +59,17 @@ public class IndexController {
 
     @ApiOperation(value = "index", notes = "index", produces = "application/json")
     @GetMapping(value = "/")
-    public Response index() {
+    public Response index(@RequestParam(required = false, defaultValue = "1") String statType) {
+        if (StringUtils.isEmpty(statType)) {
+            throw new BusinessException("参数错误！");
+        }
         IndexVO vo = new IndexVO();
         UserDTO user = new UserDTO();
         user.setUserId("123");
         user.setUsername("abc");
 
         vo.setUser(user);
+        vo.setUpdateTime(new Date());
 
         return Response.OK(vo);
     }

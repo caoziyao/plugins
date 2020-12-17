@@ -19,19 +19,20 @@
     </properties>
 
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>com.zel</groupId>-->
-<!--            <artifactId>dbmanager</artifactId>-->
-<!--            <version>0.0.1-SNAPSHOT</version>-->
-<!--            <scope>system</scope>-->
-<!--            <systemPath>${project.basedir}/../dbmanager/target/dbmanager-0.0.1-SNAPSHOT.jar</systemPath>-->
-<!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.13</version>
         </dependency>
+        <!--lombok start-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.16</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--lombok end-->
         <!--mybatis-plus-->
         <dependency>
             <groupId>com.baomidou</groupId>

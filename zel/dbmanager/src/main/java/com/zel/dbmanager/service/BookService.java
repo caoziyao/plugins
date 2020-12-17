@@ -5,7 +5,9 @@ import com.zel.dbmanager.entity.Book;
 import com.zel.dbmanager.mapper.BookMapper;
 import org.apache.ibatis.session.SqlSession;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Description:
@@ -23,10 +25,8 @@ public class BookService extends DBManager {
         bookMapper = session.getMapper(BookMapper.class);
     }
 
-    public void findAll() {
+    public List<Book> findAll() {
         List<Book> all = bookMapper.findAll();
-        for (Book user : all) {
-            System.out.println(user.toString());
-        }
+        return Optional.ofNullable(all).orElse(new ArrayList<>());
     }
 }

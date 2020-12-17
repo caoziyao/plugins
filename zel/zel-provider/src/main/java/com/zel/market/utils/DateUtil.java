@@ -1,11 +1,14 @@
 package com.zel.market.utils;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.zel.dbmanager.entity.User;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Optional;
 
 public class DateUtil {
 
@@ -13,8 +16,8 @@ public class DateUtil {
      * 当天凌晨
      * @return
      */
-    public static Date weeOfDate() {
-        return weeOfDate(new Date());
+    public static Date dawnOfToday() {
+        return dawnOfDate(new Date());
     }
 
     /**
@@ -22,7 +25,7 @@ public class DateUtil {
      * @param date 日期
      * @return
      */
-    public static Date weeOfDate(Date date) {
+    public static Date dawnOfDate(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -35,12 +38,32 @@ public class DateUtil {
     }
 
     /**
+     * 昨天凌晨
+     */
+    public static void yestDawnDay() {
+
+    }
+
+
+    /**
      * 时间format
      */
     public static void format() {
         Date now = new Date( );
         SimpleDateFormat ft = new SimpleDateFormat("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
         System.out.println("Current Date: " + ft.format(now));
+
+        String beginTime = "2018-07-28 14:42:32";
+        String endTime = "2018-07-29 16:26:32";
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date date1 = format.parse(beginTime);
+            Date date2 = format.parse(endTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -62,13 +85,6 @@ public class DateUtil {
 
         Calendar c2 = Calendar.getInstance();
         c2.setTime(date2);
-
-
-        // 半小时遍历时间
-//        while (c1.getTimeInMillis() < c2.getTimeInMillis()) {
-//            c1.add(Calendar.MINUTE, 30);
-//            System.out.println(c1.getTime());
-//        }
     }
 
 
@@ -122,22 +138,32 @@ public class DateUtil {
     /**
      * 时间 +-
      */
-    public static Date addTime(Date date, int day, int hours, int minute) {
+    public static Date addTime(Date date, int year, int day, int hours, int minute) {
         // Calendar 加减
         Calendar c = Calendar.getInstance();
         c.setTime(date);
+        c.add(Calendar.YEAR, year);
         c.add(Calendar.DAY_OF_WEEK, day);
         c.add(Calendar.HOUR, hours);
         c.add(Calendar.MINUTE, minute);
         return c.getTime();
     }
 
+
+    /**
+     * 时间 +- 天数
+     */
+    public static Date addDay(Date date, int day) {
+        return addTime(date, 0, day, 0, 0);
+    }
+
+
     /**
      * test: 遍历当天0点到24点，间隔 30 min
      */
     public static void test30Min() {
-        Date wee = weeOfDate();
-        Date nextDay = addTime(wee, 1, 0, 0);
+        Date wee = dawnOfToday();
+        Date nextDay = addDay(wee, 1);
 
         Calendar c1 = Calendar.getInstance();
         c1.setTime(wee);
@@ -153,7 +179,43 @@ public class DateUtil {
         }
     }
 
+
+    /**
+     * test
+     */
+    public static void testTody() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(Calendar.SECOND, 0);
+        Date todayDawn = calendar.getTime(); //当天 0 点
+        Date now = new Date();
+
+        calendar.add(Calendar.DAY_OF_WEEK, -1);
+        Date yesterdayDawn = calendar.getTime(); // 昨天 0 点
+
+        calendar.add(Calendar.DAY_OF_WEEK, -6);
+        Date lastWeekDawn = calendar.getTime(); // 昨天晚上
+
+        calendar.add(Calendar.DAY_OF_WEEK, +1);
+        Date lastWeekNight = calendar.getTime(); // 昨天晚上
+
+        System.out.println(todayDawn);
+        System.out.println(now);
+        System.out.println(yesterdayDawn);
+        System.out.println(lastWeekDawn);
+        System.out.println(lastWeekNight);
+    }
+
     public static void main(String[] args) {
-        test30Min();
+        testTody();
+//        User defaultU = new User();
+//        defaultU.setAge(1);
+//        User u = new User();
+//        u.setAge(123);
+//        User a = Optional.ofNullable(u).orElse(defaultU);
+//        System.out.println(a);
+        // test30Min();
     }
 }
