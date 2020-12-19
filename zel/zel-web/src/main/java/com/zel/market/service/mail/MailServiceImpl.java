@@ -60,7 +60,6 @@ public class MailServiceImpl implements MailService {
             messageHelper.setSubject(subject);
             messageHelper.setText(content);
             mailSender.send(message);
-            System.out.println("邮件发送成功! ");
         } catch (MessagingException e) {
             System.out.println("发送邮件时发生异常!" + e);
         }
@@ -84,7 +83,6 @@ public class MailServiceImpl implements MailService {
             mimeMessageHelper.addAttachment(fileName, fileSystemResource);
 
             mailSender.send(message);
-            System.out.println("邮件发送成功! ");
         } catch (MessagingException e) {
             System.out.println("发送邮件时发生异常!" + e);
         }
@@ -107,7 +105,6 @@ public class MailServiceImpl implements MailService {
             Helper.addAttachment(resId, resource);
 
             mailSender.send(message);
-            System.out.println("邮件发送成功! ");
         } catch (MessagingException e) {
             System.out.println("发送邮件时发生异常!" + e);
         }

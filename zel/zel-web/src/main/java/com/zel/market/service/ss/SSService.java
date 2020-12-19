@@ -1,16 +1,22 @@
 package com.zel.market.service.ss;
 
+import com.zel.JacksonHelper;
 import com.zel.dbmanager.entity.SSAccount;
+import com.zel.market.service.mail.MailService;
+import com.zel.market.utils.Loggers;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.*;
 
 /**
  * Description:
@@ -22,24 +28,30 @@ import java.util.List;
 @Service
 public class SSService {
 
+    @Autowired
+    private MailService mailService;
+
     // System.out.println(ssAccount);
     // ssAccountService.save2(ssAccount);
     // ssAccountService.save(ssAccount);
 
     public final static String URL = "https://github.com/Alvin9999/new-pac/wiki/ss%E5%85%8D%E8%B4%B9%E8%B4%A6%E5%8F%B7";
 
-    public List<SSAccount> getAccount() {
-        List<SSAccount> list = new ArrayList<>();
+    private Document documentFromWeb() {
         Document document = null;
         try {
             document = Jsoup.parse(new URL(URL), 30000);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return document;
+    }
+
+    private List<SSAccount> accountFromDocument(Document document) {
+        List<SSAccount> list = new ArrayList<>();
         if (document == null) {
             return list;
         }
-
         Elements elements = document.select("table[role=table]");
         for (Element element : elements) {
             Elements tbody_tr = element.select("tbody tr");
@@ -65,6 +77,52 @@ public class SSService {
                 list.add(ssAccount);
             }
         }
+        return list;
+    }
+
+    public List<SSAccount> getAccount() {
+        Document document = documentFromWeb();
+        return accountFromDocument(document);
+    }
+
+    public List<SSAccount> getAccountWithThreadRunnable(String to) {
+        ExecutorService executor = Executors.newFixedThreadPool(5);
+        List<SSAccount> list = null;
+        executor.submit(new Runnable() {
+            @Override
+            public void run() {
+                Document document = documentFromWeb();
+                List<SSAccount> list = accountFromDocument(document);
+                System.out.println(list);
+                mailService.sendHtmlMail(to, "ss 账号", JacksonHelper.writeBeautiful(list));
+                Loggers.logic_error.info("发送邮件成功");
+            }
+        });
+
+        //executor.shutdown();
+        return list;
+    }
+
+    public List<SSAccount> getAccountWithThreadCallable() {
+        ExecutorService executor = Executors.newFixedThreadPool(5);
+        List<SSAccount> list = null;
+        Future<List<SSAccount>> futureTask = executor.submit(new Callable<List<SSAccount>>() {
+            @Override
+            public List<SSAccount> call() throws Exception {
+                Document document = documentFromWeb();
+                List<SSAccount> list = accountFromDocument(document);
+                System.out.println(list);
+                return list;
+            }
+        });
+        try {
+            list = futureTask.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        //executor.shutdown();
         return list;
     }
 

@@ -68,6 +68,23 @@ public class JacksonHelper {
         return json;
     }
 
+    /**
+     * 转化为 字符串
+     * 美化版
+     * @param
+     * @return
+     */
+    public static String writeBeautiful(Object o) {
+        ObjectMapper mapper = toJSONMapper;
+        String json = "";
+        try {
+            json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(o);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
+
     public static void main(String[] args) {
 
     }

@@ -11,15 +11,8 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author csy
  * @version 1.0.0
- * @since 2020/12/20
+ * @since 2020/4/20
  */
 class HTMLParseUtilsTest extends BaseTest {
 
-    @Autowired
-    HTMLParseUtils htmlParseUtils;
-
-    @Test
-    void parse() {
-        htmlParseUtils.parse();
-    }
 }

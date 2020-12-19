@@ -11,13 +11,18 @@ public class Test {
     public static void main(String[] args) {
         ExecutorService executor = Executors.newFixedThreadPool(5);
         List<Future<Integer>> resultList = new LinkedList<>();
-//        Task task = new Task();
+        // Task task = new Task();
         for (int i = 0; i < 5; i++) {
             Task task = new Task();
             Future<Integer> futureTask  = executor.submit(task);
             resultList.add(futureTask);
         }
 
+        /**
+         * ExecutorService.shutdown()
+         * 在终止时，执行程序没有任务在执行，也没有任务在等待执行，并且无法提交新任务。
+         * 关闭未使用的 ExecutorService 以允许回收其资源。
+         */
         executor.shutdown();
 
         try {
@@ -30,6 +35,7 @@ public class Test {
         int sum = 0;
         for (Future<Integer> future: resultList) {
             try {
+                // future.get()是阻塞的
                 Integer integer = future.get();
                 sum += integer;
             }  catch (Exception e) {

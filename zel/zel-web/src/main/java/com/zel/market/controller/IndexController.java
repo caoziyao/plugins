@@ -7,7 +7,6 @@ import com.zel.market.controller.vo.IndexVO;
 import com.zel.market.dto.UserDTO;
 import com.zel.market.exception.BusinessException;
 import com.zel.market.service.mail.MailService;
-import com.zel.market.utils.HTMLParseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
