@@ -36,6 +36,7 @@ public class MailServiceImpl implements MailService {
      */
     @Override
     public void sendSimpleMail(@NonNull String to, @NonNull String subject, @NonNull String content) {
+
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(from);
         message.setTo(to);

@@ -7,6 +7,7 @@ import com.zel.market.common.Response;
 import com.zel.market.controller.vo.IndexVO;
 import com.zel.market.dto.UserDTO;
 import com.zel.market.exception.BusinessException;
+import com.zel.market.service.MailService;
 import com.zel.market.utils.HTMLParseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,6 +23,9 @@ public class IndexController {
 
     @Autowired
     private HTMLParseUtils htmlParseUtils;
+
+    @Autowired
+    private MailService mailService;
 
     // 允许每秒最多10个任务
     public static final RateLimiter rateLimiter = RateLimiter.create(10);
