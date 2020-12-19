@@ -1,4 +1,4 @@
-package com.zel.market.service;
+package com.zel.market.service.mail;
 
 /**
  * Description:

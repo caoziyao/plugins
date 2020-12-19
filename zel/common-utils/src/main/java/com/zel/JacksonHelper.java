@@ -1,6 +1,7 @@
 package com.zel;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,7 +24,7 @@ public class JacksonHelper {
     public JacksonHelper() {
     }
 
-    public static <T> T fromJSON(String json, Class<T> clazz) {
+    public static <T> T read(String json, Class<T> clazz) {
         ObjectMapper mapper = fromJSONMapper;
 
         try {
@@ -37,7 +38,7 @@ public class JacksonHelper {
         }
     }
 
-    public static <T> T fromJSON(String json, TypeReference<T> type) {
+    public static <T> T read(String json, TypeReference<T> type) {
         ObjectMapper mapper = fromJSONMapper;
 
         try {
@@ -49,6 +50,22 @@ public class JacksonHelper {
         } catch (IOException var6) {
             throw new RuntimeException(var6);
         }
+    }
+
+    /**
+     * 转化为 字符串
+     * @param
+     * @return
+     */
+    public static String write(Object o) {
+        ObjectMapper mapper = toJSONMapper;
+        String json = "";
+        try {
+             json = mapper.writeValueAsString(o);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return json;
     }
 
     public static void main(String[] args) {

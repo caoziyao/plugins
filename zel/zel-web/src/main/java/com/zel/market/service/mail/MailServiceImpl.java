@@ -1,4 +1,4 @@
-package com.zel.market.service;
+package com.zel.market.service.mail;
 
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;

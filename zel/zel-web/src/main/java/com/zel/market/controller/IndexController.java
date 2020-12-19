@@ -1,13 +1,12 @@
 package com.zel.market.controller;
 
 import com.google.common.util.concurrent.RateLimiter;
-import com.zel.DateUtil;
 import com.zel.market.common.Env;
 import com.zel.market.common.Response;
 import com.zel.market.controller.vo.IndexVO;
 import com.zel.market.dto.UserDTO;
 import com.zel.market.exception.BusinessException;
-import com.zel.market.service.MailService;
+import com.zel.market.service.mail.MailService;
 import com.zel.market.utils.HTMLParseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,9 +19,6 @@ import java.util.Date;
 @Api(description = "index")
 @RestController
 public class IndexController {
-
-    @Autowired
-    private HTMLParseUtils htmlParseUtils;
 
     @Autowired
     private MailService mailService;
