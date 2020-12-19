@@ -5,45 +5,97 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.0</version>
+        <version>2.4.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.zel</groupId>
-    <artifactId>pom</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>pom</name>
-    <description>Demo project for Spring Boot</description>
 
+    <!--基本信息-->
+    <groupId>com.zel</groupId>
+    <artifactId>root</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging> <!--父项目打包方式配置为pom-->
+    <name>root</name>
+    <description>project for Spring Boot</description>
+
+    <!-- 子模块 -->
     <modules>
-        <module>zel-pojo</module>
+        <module>dbmanager</module>
+        <module>zel-web</module>
     </modules>
 
+    <!--定义属性值-->
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <spring-boot.version>2.4.1</spring-boot.version>
+        <lombok-version>1.18.16</lombok-version>
     </properties>
 
+    <!--依赖-->
     <dependencies>
+
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>20.0</version>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.10</version>
         </dependency>
+
+        <!--lombok start-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok-version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--lombok end-->
+
     </dependencies>
 
+    <!-- 依赖声明 -->
+    <!-- 统一依赖构件版本， 本身不下载依赖 -->
+    <dependencyManagement>
+        <dependencies>
+            <!--本项目模块的依赖 -->
+            <dependency>
+                <groupId>com.zel</groupId>
+                <artifactId>dbmanager</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zel</groupId>
+                <artifactId>web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--本项目模块的依赖 end-->
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+
+
+        </dependencies>
+    </dependencyManagement>
+
+    <!--编译管理 jdk版本和字符集编码-->
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.4.0</version>
-
-<!--                <version>2.2.6.RELEASE</version>-->
-            </plugin>
         </plugins>
     </build>
 

@@ -8,21 +8,4 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 class UserServiceTest extends BaseTest {
 
-
-    @Test
-    void transactTest() {
-
-    }
-
-    @Test
-    void createUser() {
-    }
-
-    @Test
-    void login() {
-    }
-
-    @Test
-    void findById() {
-    }
 }

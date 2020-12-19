@@ -1,7 +1,7 @@
 package com.zel.market.utils;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.zel.dbmanager.entity.User;
+//import com.zel.dbmanager.entity.User;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

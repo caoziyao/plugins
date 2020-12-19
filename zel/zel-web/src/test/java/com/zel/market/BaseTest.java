@@ -32,10 +32,10 @@ public class BaseTest {
     @Before
     public void setup() throws Exception {
         // 初始化MockMvc对象
-        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-        session = new MockHttpSession();
-        String token = "1234";
-        //拦截器那边会判断用户是否登录，所以这里注入一个 token
-        session.setAttribute("token", token);
+        //mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+        //session = new MockHttpSession();
+        //String token = "1234";
+        ////拦截器那边会判断用户是否登录，所以这里注入一个 token
+        //session.setAttribute("token", token);
     }
 }

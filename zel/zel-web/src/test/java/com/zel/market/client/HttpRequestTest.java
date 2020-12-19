@@ -8,13 +8,13 @@ class HttpRequestTest {
 
     @Test
     void get() {
-        String s = new HttpRequest().get("http://www.baidu.com");
-        System.out.println(s);
+        //String s = new HttpRequest().get("http://www.baidu.com");
+        //System.out.println(s);
     }
 
     @Test
     void post() {
-        String s = new HttpRequest().post("http://www.baidu.com", null);
-        System.out.println(s);
+        //String s = new HttpRequest().post("http://www.baidu.com", null);
+        //System.out.println(s);
     }
 }

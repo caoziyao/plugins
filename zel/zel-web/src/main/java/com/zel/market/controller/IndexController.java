@@ -1,8 +1,8 @@
 package com.zel.market.controller;
 
 import com.google.common.util.concurrent.RateLimiter;
-import com.zel.dbmanager.service.BookService;
-import com.zel.dbmanager.service.UserService;
+//import com.zel.dbmanager.service.BookService;
+//import com.zel.dbmanager.service.UserService;
 import com.zel.market.common.Env;
 import com.zel.market.common.Response;
 import com.zel.market.controller.dto.IndexReqBody;
@@ -21,12 +21,12 @@ import java.util.Date;
 @Api(description = "index")
 @RestController
 public class IndexController {
+    //
+    //@Autowired
+    //private UserService userService;
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private BookService bookService;
+    //@Autowired
+    //private BookService bookService;
 
     @Autowired
     private HTMLParseUtils htmlParseUtils;
@@ -42,14 +42,6 @@ public class IndexController {
         } else {
             // error
         }
-//        userService.test();
-        // System.out.println(u);
-        //UserService userService = new UserService();
-//        htmlParseUtils.parse();
-//        userService.findAll();
-//        bookService.findAll();
-        //UserService.findAll();
-        //BookService.findAll();
         long userId = Env.getContext().getUserId();
         String token = Env.getContext().getToken();
 
