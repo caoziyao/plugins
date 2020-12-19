@@ -58,7 +58,7 @@ public class IndexController {
 
     @ApiOperation(value = "index", notes = "index", produces = "application/json")
     @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
-    public Response index(@RequestParam(required = false, defaultValue = "1") String statType, @RequestBody IndexReqBody body) {
+    public Response index(@RequestParam(required = false, defaultValue = "1") String statType) {
 
         if ("2".equals(statType)) {
             throw new BusinessException("参数错误2！");
