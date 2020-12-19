@@ -6,15 +6,12 @@ import com.zel.market.common.enumcom.EResponseCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindException;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.ConstraintViolationException;
 
 /**
  * 开启了全局异常的捕获
@@ -70,7 +67,7 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     *Validator 校验异常
+     * Validator 校验异常
      * 或者 MethodArgumentNotValidException
      * @param ex 错误异常
      * @return
@@ -78,15 +75,15 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = BindException.class)
     @ResponseBody
     public Response handleMethodVoArgumentNotValidException(HttpServletRequest req, BindException ex) {
-        // field.ErrorgetField() 读取参数字段
-        // field.getDefaultMessage() 读取验证注解中的message值
         FieldError fieldError = ex.getFieldError();
 
-        String message = "参数{".concat(fieldError.getField()).concat("}").concat(fieldError.getDefaultMessage());
+        // field.ErrorgetField() 读取参数字段
+        // field.getDefaultMessage() 读取验证注解中的message值
+        // String message = "参数{".concat(fieldError.getField()).concat("}").concat(fieldError.getDefaultMessage());
+        String message = "参数" + fieldError.getField() + fieldError.getDefaultMessage();
         logger.info("参数校验失败111 {}", message);
         Response r = Response.error(EResponseCode.C400);
-        r.setDebugMessage(message);
-
+        r.setMessage(message);
         return r;
     }
 
