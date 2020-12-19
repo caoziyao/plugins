@@ -20,21 +20,29 @@ public class Response implements Serializable {
 
     }
 
-    public Response(EResponseCode EResponseCode) {
-        this.code = EResponseCode.toCode();
-        this.message = EResponseCode.toMessage();
+    public Response(EResponseCode eResponseCode) {
+        this.code = eResponseCode.toCode();
+        this.message = eResponseCode.toMessage();
     }
 
     /**
      * ok
      * @return
      */
-    public static Response OK() {
+    public static Response ok() {
         return new Response(EResponseCode.C200);
     }
 
     /**
-     * ok
+     * error
+     * @return
+     */
+    public static Response error(EResponseCode eResponseCode) {
+        return new Response(eResponseCode);
+    }
+
+    /**
+     * error
      * @return
      */
     public static Response error(String message) {
@@ -48,7 +56,7 @@ public class Response implements Serializable {
      * @param data
      * @return
      */
-    public static Response OK(Object data) {
+    public static Response ok(Object data) {
         Response r = new Response(EResponseCode.C200);
         r.setData(data);
         return r;

@@ -5,6 +5,7 @@ import com.zel.dbmanager.service.BookService;
 import com.zel.dbmanager.service.UserService;
 import com.zel.market.common.Env;
 import com.zel.market.common.Response;
+import com.zel.market.controller.dto.IndexReqBody;
 import com.zel.market.controller.vo.IndexVO;
 import com.zel.market.dto.UserDTO;
 import com.zel.market.exception.BusinessException;
@@ -13,9 +14,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
@@ -58,8 +57,8 @@ public class IndexController {
     }
 
     @ApiOperation(value = "index", notes = "index", produces = "application/json")
-    @GetMapping(value = "/")
-    public Response index(@RequestParam(required = false, defaultValue = "1") String statType) {
+    @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
+    public Response index(@RequestParam(required = false, defaultValue = "1") String statType, @RequestBody IndexReqBody body) {
 
         if ("2".equals(statType)) {
             throw new BusinessException("参数错误2！");
@@ -75,6 +74,6 @@ public class IndexController {
         vo.setUser(user);
         vo.setUpdateTime(new Date());
 
-        return Response.OK(vo);
+        return Response.ok(vo);
     }
 }

@@ -60,6 +60,5 @@ public class HTMLParseUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }
