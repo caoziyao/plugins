@@ -1,4 +1,4 @@
-package com.zel.market.utils;
+package com.zel;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;

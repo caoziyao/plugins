@@ -1,4 +1,4 @@
-package com.zel.market.utils;
+package com.zel;
 
 public class ThreadUtils {
     /**

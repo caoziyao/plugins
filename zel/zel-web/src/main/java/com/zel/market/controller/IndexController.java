@@ -1,11 +1,9 @@
 package com.zel.market.controller;
 
 import com.google.common.util.concurrent.RateLimiter;
-//import com.zel.dbmanager.service.BookService;
-//import com.zel.dbmanager.service.UserService;
+import com.zel.DateUtil;
 import com.zel.market.common.Env;
 import com.zel.market.common.Response;
-import com.zel.market.controller.dto.IndexReqBody;
 import com.zel.market.controller.vo.IndexVO;
 import com.zel.market.dto.UserDTO;
 import com.zel.market.exception.BusinessException;
@@ -21,12 +19,6 @@ import java.util.Date;
 @Api(description = "index")
 @RestController
 public class IndexController {
-    //
-    //@Autowired
-    //private UserService userService;
-
-    //@Autowired
-    //private BookService bookService;
 
     @Autowired
     private HTMLParseUtils htmlParseUtils;

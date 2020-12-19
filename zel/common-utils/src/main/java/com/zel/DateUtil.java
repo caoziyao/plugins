@@ -1,19 +1,16 @@
-package com.zel.market.utils;
+package com.zel;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-//import com.zel.dbmanager.entity.User;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Optional;
 
 public class DateUtil {
 
     /**
      * 当天凌晨
+     *
      * @return
      */
     public static Date dawnOfToday() {
@@ -22,6 +19,7 @@ public class DateUtil {
 
     /**
      * 该天凌晨
+     *
      * @param date 日期
      * @return
      */
@@ -49,7 +47,7 @@ public class DateUtil {
      * 时间format
      */
     public static void format() {
-        Date now = new Date( );
+        Date now = new Date();
         SimpleDateFormat ft = new SimpleDateFormat("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
         System.out.println("Current Date: " + ft.format(now));
 

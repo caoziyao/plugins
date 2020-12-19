@@ -13,6 +13,7 @@
         <groupId>com.zel</groupId>
         <artifactId>root</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+<!--        <relativePath>../pom.xml</relativePath>-->
     </parent>
 
     <artifactId>web</artifactId>
@@ -27,6 +28,10 @@
 
     <dependencies>
         <!-- 在依赖中引入另一子项目 -->
+        <dependency>
+            <groupId>com.zel</groupId>
+            <artifactId>common-utils</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.zel</groupId>
             <artifactId>dbmanager</artifactId>
