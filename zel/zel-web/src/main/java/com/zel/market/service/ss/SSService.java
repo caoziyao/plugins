@@ -107,7 +107,6 @@ public class SSService {
             public List<SSAccount> call() throws Exception {
                 Document document = documentFromWeb();
                 List<SSAccount> list = accountFromDocument(document);
-                System.out.println(list);
                 return list;
             }
         });

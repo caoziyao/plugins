@@ -8,6 +8,20 @@ import java.util.Date;
 
 public class DateUtil {
 
+    public static final long MILLISECOND = 1000;
+
+    public static final long SECOND = 1;
+
+    public static final long MINUTE = 60 * SECOND;
+
+    public static final long HOUR = 60 * MINUTE;
+
+    public static final long DAY = 24 * HOUR;
+
+
+    public static final SimpleDateFormat HMS = new SimpleDateFormat("HH:mm:ss");
+
+
     /**
      * 当天凌晨
      *
@@ -42,11 +56,20 @@ public class DateUtil {
 
     }
 
+    /**
+     * 格式化
+     * @param date
+     * @param format
+     * @return
+     */
+    public static String format(Date date, SimpleDateFormat format) {
+        return format.format(date);
+    }
 
     /**
      * 时间format
      */
-    public static void format() {
+    public static void testFormat() {
         Date now = new Date();
         SimpleDateFormat ft = new SimpleDateFormat("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
         System.out.println("Current Date: " + ft.format(now));

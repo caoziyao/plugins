@@ -12,7 +12,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
  *
  * @author csy
  * @version 1.0.0
- * @since 2020/12/20
+ * @since 2020/4/20
  */
 @Configuration
 public class MailConfig {

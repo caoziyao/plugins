@@ -1,4 +1,5 @@
 **/.idea
+**/cache
 # Compiled class file
 *.class
 
