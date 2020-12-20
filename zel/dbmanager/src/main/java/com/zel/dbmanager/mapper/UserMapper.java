@@ -39,4 +39,10 @@ public interface UserMapper extends BaseMapper<User> {
      * 更新GoodInfo
      */
     int updateUser(String id, String username);
+
+    /**
+     *
+     * @return
+     */
+    List<Object> findTest();
 }

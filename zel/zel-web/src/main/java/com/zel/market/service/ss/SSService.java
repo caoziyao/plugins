@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.*;
 
 /**
@@ -87,18 +86,15 @@ public class SSService {
 
     public List<SSAccount> getAccountWithThreadRunnable(String to) {
         ExecutorService executor = Executors.newFixedThreadPool(5);
-        List<SSAccount> list = null;
+        Document document = documentFromWeb();
+        List<SSAccount> list = accountFromDocument(document);
         executor.submit(new Runnable() {
             @Override
             public void run() {
-                Document document = documentFromWeb();
-                List<SSAccount> list = accountFromDocument(document);
-                System.out.println(list);
                 mailService.sendHtmlMail(to, "ss 账号", JacksonHelper.writeBeautiful(list));
                 Loggers.logic_error.info("发送邮件成功");
             }
         });
-
         //executor.shutdown();
         return list;
     }

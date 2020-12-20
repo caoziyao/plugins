@@ -2,7 +2,9 @@ package com.zel.dbmanager.service;
 
 import com.zel.dbmanager.DBManager;
 import com.zel.dbmanager.entity.Book;
+import com.zel.dbmanager.entity.Jobs;
 import com.zel.dbmanager.mapper.BookMapper;
+import com.zel.dbmanager.mapper.JobsMapper;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.ArrayList;
@@ -14,19 +16,19 @@ import java.util.Optional;
  *
  * @author csy
  * @version 1.0.0
- * @since 2020/12/11
+ * @since 2020/4/20
  */
-//public class BookService extends DBManager {
+//public class JobsService extends DBManager {
 //
-//    private static BookMapper bookMapper = null;
+//    private static JobsMapper jobsMapper = null;
 //
 //    static {
 //        SqlSession session = sqlSessionFactory.openSession();
-//        bookMapper = session.getMapper(BookMapper.class);
+//        jobsMapper = session.getMapper(JobsMapper.class);
 //    }
 //
-//    public List<Book> findAll() {
-//        List<Book> all = bookMapper.findAll();
-//        return Optional.ofNullable(all).orElse(new ArrayList<>());
+//    public Jobs findAll() {
+//        Jobs all = jobsMapper.selectById(1);
+//        return all;
 //    }
 //}
