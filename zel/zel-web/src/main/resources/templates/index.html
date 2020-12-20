@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>vue 1-2</title>
+    <script src="libs/vue@2.6.10.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div class="app1-2">
+
+    <ul>
+        <li v-for="(article, i) in articleList">
+            <a :href="article.articleUrl"  target="_blank"> {{ article.title }} </a>
+            <button @click="collectClick($event)" :data-id="article.id">收藏</button>
+        </li>
+    </ul>
+
+</div>
+
+<script>
+    let app = new Vue({
+        // 既然 el 是选择器，那么 class 选择器也是可以的
+        el: '.app1-2',
+        data: function () {
+            return {
+                articleList: [],
+            }
+        },
+        methods: {
+            check: function() {
+                return true;
+            },
+            getArticleList: function () {
+                axios.post('/article/list', {
+
+                }).then(response => {
+                        let data = response.data.data;
+                        this.articleList = data
+                        console.log(response)
+                        console.log(data)
+                    })
+            },
+            collectClick: function (event) {
+                // event.target.getAttribute("data-id")
+                let articleId = event.target.dataset.id;
+                axios.get("/article/collect?id=" + articleId)
+                    .then(response => {
+                        console.log(response)
+                    })
+            }
+
+        },
+        mounted () {
+            this.getArticleList();
+        }
+    })
+</script>
+</body>
+</html>

@@ -51,7 +51,7 @@ public class IndexController {
     @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
     public Response index(@RequestParam(required = false, defaultValue = "1") String statType) {
         if ("2".equals(statType)) {
-            throw new BusinessException("参数错误2！");
+            throw new BusinessException("参数错误5！");
         }
         if (StringUtils.isEmpty(statType)) {
             throw new BusinessException("参数错误！");

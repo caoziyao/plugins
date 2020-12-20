@@ -51,14 +51,14 @@ public class LoginFilter implements Filter {
             // 登录接口
         } else {
             // 校验token
-            if (StringUtils.isEmpty(token)) {
-                //throw new AuthorizationException("token is null");
-                Response rsp = new Response(EResponseCode.C403);
-                response.setHeader("Content-Type", "application/json");
-                response.getWriter().write(rsp.toString());
-                Loggers.interceptor_log.error("拒绝：" + path);
-                return;
-            }
+            //if (StringUtils.isEmpty(token)) {
+            //    //throw new AuthorizationException("token is null");
+            //    Response rsp = new Response(EResponseCode.C403);
+            //    response.setHeader("Content-Type", "application/json;charset=UTF-8");
+            //    response.getWriter().write(rsp.toString());
+            //    Loggers.interceptor_log.error("拒绝：" + path);
+            //    return;
+            //}
         }
 
         //执行

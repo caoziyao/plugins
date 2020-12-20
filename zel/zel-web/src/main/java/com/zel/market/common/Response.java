@@ -95,6 +95,16 @@ public class Response implements Serializable {
         this.debugMessage = debugMessage;
     }
 
+    //@Override
+    //public String toString() {
+    //    return "{" +
+    //            "code='" + code + '\'' +
+    //            ", message='" + message + '\'' +
+    //            ", data=" + data +
+    //            ", debugMessage='" + debugMessage + '\'' +
+    //            '}';
+    //}
+
 
     /**
      * todo JSON

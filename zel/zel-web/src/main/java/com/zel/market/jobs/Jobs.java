@@ -3,24 +3,21 @@ package com.zel.market.jobs;
 import com.zel.DateUtil;
 import com.zel.FileUtils;
 import com.zel.JacksonHelper;
-import com.zel.crypto.DigestCommon;
 import com.zel.crypto.Md5Utils;
 import com.zel.dbmanager.entity.SSAccount;
 import com.zel.market.service.mail.MailService;
 import com.zel.market.service.ss.SSService;
-import org.apache.commons.codec.digest.DigestUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import sun.security.provider.MD5;
-
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -48,7 +45,7 @@ public class Jobs {
     private MailService mailService;
 
     @Async
-    @Scheduled(fixedRate = 10 * DateUtil.MINUTE * DateUtil.MILLISECOND)
+    //@Scheduled(fixedRate = 10 * DateUtil.MINUTE * DateUtil.MILLISECOND)
     public void reportCurrentTime() {
         log.info("The time is now {}", DateUtil.format(new Date(), DateUtil.HMS));
 

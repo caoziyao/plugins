@@ -1,4 +1,4 @@
-package com.zel.market.controller.dto;
+package com.zel.market.controller.user.dto;
 
 
 import lombok.Getter;
