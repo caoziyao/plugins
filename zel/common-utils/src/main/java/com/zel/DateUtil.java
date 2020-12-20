@@ -18,8 +18,9 @@ public class DateUtil {
 
     public static final long DAY = 24 * HOUR;
 
-
     public static final SimpleDateFormat HMS = new SimpleDateFormat("HH:mm:ss");
+    public static final SimpleDateFormat YMD_HMS = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static final SimpleDateFormat YMD = new SimpleDateFormat("yyyy-MM-dd");
 
 
     /**
@@ -58,6 +59,7 @@ public class DateUtil {
 
     /**
      * 格式化
+     *
      * @param date
      * @param format
      * @return

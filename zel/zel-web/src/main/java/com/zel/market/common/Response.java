@@ -1,6 +1,7 @@
 package com.zel.market.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.zel.JacksonHelper;
 import com.zel.market.common.enumcom.EResponseCode;
 
 import java.io.Serializable;
@@ -95,18 +96,13 @@ public class Response implements Serializable {
     }
 
 
-//    /**
-//     * todo JSON
-//     *
-//     * @return
-//     */
-//    @Override
-//    public String toString() {
-//        return "{" +
-//                "code='" + code + '\'' +
-//                ", message='" + message + '\'' +
-//                ", data=" + data +
-//                ", detailMessage='" + detailMessage + '\'' +
-//                '}';
-//    }
+    /**
+     * todo JSON
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        return JacksonHelper.write(this);
+    }
 }

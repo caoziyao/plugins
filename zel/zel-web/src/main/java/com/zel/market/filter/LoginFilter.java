@@ -4,10 +4,12 @@ import com.zel.market.common.AppContext;
 import com.zel.market.common.Env;
 import com.zel.market.common.Response;
 import com.zel.market.common.enumcom.EResponseCode;
+import com.zel.market.exception.AuthorizationException;
 import com.zel.market.utils.Loggers;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
+import javax.security.sasl.AuthenticationException;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,9 +52,11 @@ public class LoginFilter implements Filter {
         } else {
             // 校验token
             if (StringUtils.isEmpty(token)) {
+                //throw new AuthorizationException("token is null");
                 Response rsp = new Response(EResponseCode.C403);
+                response.setHeader("Content-Type", "application/json");
                 response.getWriter().write(rsp.toString());
-                System.out.println("拒绝：" + path);
+                Loggers.interceptor_log.error("拒绝：" + path);
                 return;
             }
         }

@@ -9,6 +9,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,17 +25,14 @@ public class GlobalExceptionHandler {
     /**
      * 权限校验失败 如果请求为ajax返回json，普通请求跳转页面
      */
-//    @ExceptionHandler(AuthorizationException.class)
-//    public Object handleAuthorizationException(HttpServletRequest request, AuthorizationException e) {
-//        //log.error(e.getMessage(), e);
-//        if (ServletUtils.isAjaxRequest(request)) {
-//            return AjaxResult.unauth(PermissionUtils.getMsg(e.getMessage()));
-//        } else {
-//            ModelAndView modelAndView = new ModelAndView();
-//            modelAndView.setViewName("error/unauth");
-//            return modelAndView;
-//        }
-//    }
+    @ExceptionHandler(AuthorizationException.class)
+    @ResponseBody
+    public Response handleAuthorizationException(HttpServletRequest request, AuthorizationException e) {
+        logger.error(e.getMessage());
+        Response r = Response.error(EResponseCode.C403);
+        r.setMessage(e.getMessage());
+        return r;
+    }
 
     /**
      * 处理自定义的业务异常
