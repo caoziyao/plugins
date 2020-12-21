@@ -21,6 +21,5 @@ public class ScheduledConfig implements SchedulingConfigurer {
 
     @Override
     public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
-
     }
 }

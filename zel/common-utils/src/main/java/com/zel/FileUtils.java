@@ -41,4 +41,29 @@ public class FileUtils {
         in.close();
         return new String(filecontent);
     }
+
+    /**
+     * 判断文件是否存在，不存在则创建
+     * @param file
+     * @throws IOException
+     */
+    public boolean createFile(File file) throws IOException{
+        boolean flag = false;
+        // 创建文件夹
+        String path = file.getAbsolutePath();
+        int index = path.lastIndexOf("/");
+        path = path.substring(0, index);
+        File filePath = new File(path);
+        if (!filePath.exists()) {
+            filePath.mkdir();
+            flag = true;
+        }
+
+        // 创建文件
+        if (!file.exists()) {
+            file.createNewFile();
+            flag = true;
+        }
+        return flag;
+    }
 }
