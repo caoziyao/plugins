@@ -1,20 +1,16 @@
 package com.zel.market.controller.ss;
 
-import com.zel.DateUtil;
 import com.zel.dbmanager.entity.SSAccount;
 import com.zel.market.common.Response;
 import com.zel.market.config.Config;
 import com.zel.market.service.ss.SSService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,5 +53,4 @@ public class SSController {
 
         return Response.ok(map);
     }
-
 }

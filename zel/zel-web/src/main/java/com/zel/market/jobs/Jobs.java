@@ -1,9 +1,9 @@
 package com.zel.market.jobs;
 
-import com.zel.DateUtil;
-import com.zel.FileUtils;
-import com.zel.JacksonHelper;
-import com.zel.crypto.Md5Utils;
+import com.zel.commonutils.DateUtil;
+import com.zel.commonutils.FileUtils;
+import com.zel.commonutils.JacksonHelper;
+import com.zel.commonutils.crypto.Md5Utils;
 import com.zel.dbmanager.entity.SSAccount;
 import com.zel.market.config.Config;
 import com.zel.market.service.mail.MailService;
@@ -17,8 +17,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -48,11 +46,11 @@ public class Jobs {
     @Autowired
     private MailService mailService;
 
+    // long s = TimeUnit.MINUTES.toMinutes(10);
     @Async
     @Scheduled(fixedRate = 10 * DateUtil.MINUTE * DateUtil.MILLISECOND)
     public void reportCurrentTime() {
-        //1 * 60 * 10000
-        long s = TimeUnit.MINUTES.toMinutes(10);
+
         if (!Config.ENABLE_SS_ACCOUNT_REQUEST) {
             return;
         }

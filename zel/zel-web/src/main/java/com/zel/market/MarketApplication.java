@@ -12,7 +12,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 @SpringBootApplication
 @MapperScan(value = "com.zel.dbmanager.mapper")
-@ComponentScan(value ={"com.zel.redis"})
+@ComponentScan(value ={"com.zel.commonutils.redis", "com.zel.market"})
 public class MarketApplication {
 
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package com.zel.crypto;
+package com.zel.commonutils.crypto;
 
 /**
  * Description:

@@ -1,6 +1,5 @@
-package com.zel.redis;
+package com.zel.commonutils.redis;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisZSetCommands;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
@@ -18,7 +17,7 @@ import java.util.*;
  * @since 2020/6/22
  */
 @Component
-public class RedisUtils extends BaseRedisUtils {
+public class RedisUtils extends com.zel.commonutils.redis.BaseRedisUtils {
 
     @Resource
     private RedisTemplate<String, Object> redisTemplate;

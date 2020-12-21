@@ -1,6 +1,6 @@
 package com.zel.market.service.ss;
 
-import com.zel.JacksonHelper;
+import com.zel.commonutils.JacksonHelper;
 import com.zel.dbmanager.entity.SSAccount;
 import com.zel.market.service.mail.MailService;
 import com.zel.market.utils.Loggers;

@@ -1,4 +1,4 @@
-package com.zel.crypto;
+package com.zel.commonutils.crypto;
 
 import org.apache.commons.lang3.RandomStringUtils;
 

@@ -1,7 +1,7 @@
 package com.zel.market.controller.user;
 
 import com.zel.market.controller.user.dto.LoginReqDTO;
-import com.zel.TokenUtils;
+import com.zel.commonutils.TokenUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;

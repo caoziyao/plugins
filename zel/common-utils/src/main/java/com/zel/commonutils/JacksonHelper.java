@@ -1,4 +1,4 @@
-package com.zel;
+package com.zel.commonutils;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;

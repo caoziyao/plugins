@@ -1,4 +1,4 @@
-package com.zel.redis;
+package com.zel.commonutils.redis;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

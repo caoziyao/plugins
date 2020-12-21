@@ -1,4 +1,4 @@
-package com.zel.crypto;
+package com.zel.commonutils.crypto;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;

@@ -1,4 +1,4 @@
-package com.zel;
+package com.zel.commonutils;
 
 import org.apache.commons.lang3.StringUtils;
 

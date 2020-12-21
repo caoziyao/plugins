@@ -1,4 +1,4 @@
-package com.zel;
+package com.zel.commonutils;
 
 /**
  * 图片处理工具

@@ -1,4 +1,4 @@
-package com.zel;
+package com.zel.commonutils;
 
 
 import java.text.ParseException;

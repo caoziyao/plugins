@@ -1,7 +1,7 @@
 package com.zel.market.utils;
 
 import com.zel.market.BaseTest;
-import com.zel.redis.RedisUtils;
+import com.zel.commonutils.redis.RedisUtils;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

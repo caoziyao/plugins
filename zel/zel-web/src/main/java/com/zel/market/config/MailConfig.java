@@ -1,6 +1,6 @@
 package com.zel.market.config;
 
-import com.zel.crypto.CryptoUtils;
+import com.zel.commonutils.crypto.CryptoUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

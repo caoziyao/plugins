@@ -1,7 +1,7 @@
 package com.zel.market.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.zel.JacksonHelper;
+import com.zel.commonutils.JacksonHelper;
 import com.zel.market.common.enumcom.EResponseCode;
 
 import java.io.Serializable;

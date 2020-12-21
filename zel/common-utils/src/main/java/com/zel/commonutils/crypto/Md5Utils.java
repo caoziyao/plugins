@@ -1,4 +1,4 @@
-package com.zel.crypto;
+package com.zel.commonutils.crypto;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
