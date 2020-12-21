@@ -16,6 +16,14 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * StringRedisTemplate.opsForValue().* //操作String字符串类型
+ * StringRedisTemplate.delete(key/collection) //根据key/keys删除
+ * StringRedisTemplate.opsForList().*  //操作List类型
+ * StringRedisTemplate.opsForHash().*  //操作Hash类型
+ * StringRedisTemplate.opsForSet().*  //操作set类型
+ * StringRedisTemplate.opsForZSet().*  //操作有序set
+ */
 @Service
 public class JedisUtils {
     protected Logger logger = LoggerFactory.getLogger(JedisUtils.class);
