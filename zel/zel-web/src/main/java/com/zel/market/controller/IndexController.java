@@ -1,8 +1,6 @@
 package com.zel.market.controller;
 
 import com.google.common.util.concurrent.RateLimiter;
-import com.zel.dbmanager.entity.Jobs;
-import com.zel.dbmanager.entity.User;
 import com.zel.market.common.Env;
 import com.zel.market.common.Response;
 import com.zel.market.controller.vo.IndexVO;
@@ -14,10 +12,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @Api(description = "index")
 @RestController

@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Description: 定时任务
@@ -37,6 +38,8 @@ public class Jobs {
     private static final Logger log = LoggerFactory.getLogger(Jobs.class);
     private final String email = "984529803@qq.com";
 
+    private static final long timeout = TimeUnit.MINUTES.toMillis(10);
+
     private ConcurrentHashMap<String, List<SSAccount>> map = new ConcurrentHashMap<>();
 
     @Autowired
@@ -48,6 +51,8 @@ public class Jobs {
     @Async
     @Scheduled(fixedRate = 10 * DateUtil.MINUTE * DateUtil.MILLISECOND)
     public void reportCurrentTime() {
+        //1 * 60 * 10000
+        long s = TimeUnit.MINUTES.toMinutes(10);
         if (!Config.ENABLE_SS_ACCOUNT_REQUEST) {
             return;
         }

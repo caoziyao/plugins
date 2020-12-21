@@ -8,6 +8,8 @@ import java.util.Date;
 
 public class DateUtil {
 
+    // 建议使用 TimeUtil
+
     public static final long MILLISECOND = 1000;
 
     public static final long SECOND = 1;

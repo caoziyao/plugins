@@ -13,6 +13,15 @@
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
         <!-- jackson start -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
