@@ -50,13 +50,16 @@ public class Jobs {
     @Async
     @Scheduled(fixedRate = 10 * DateUtil.MINUTE * DateUtil.MILLISECOND)
     public void reportCurrentTime() {
-
         if (!Config.ENABLE_SS_ACCOUNT_REQUEST) {
             return;
         }
         log.info("The time is now {}", DateUtil.format(new Date(), DateUtil.HMS));
 
         List<SSAccount> account = ssService.getAccountWithThreadCallable();
+        if (account == null || account.size() == 0) {
+            log.error("ss请求为空");
+            return;
+        }
         String content = JacksonHelper.writeBeautiful(account);
         String key = Md5Utils.md5(content);
         if (map.containsKey(key)) {

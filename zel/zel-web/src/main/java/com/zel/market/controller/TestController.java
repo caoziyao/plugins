@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api(description = "index")
 @RestController
-public class IndexController {
+@RequestMapping(value = "/test")
+public class TestController {
 
     @Autowired
     private MailService mailService;

@@ -1,4 +1,4 @@
-package com.zel.market.controller.article;
+package com.zel.market.controller;
 
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -12,11 +12,15 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @since 2020/12/20
  */
 @Controller
-public class ArticleIndexController {
+public class LeIndexController {
 
-
-    @GetMapping(value = "/article")
+    @GetMapping(value = "/")
     public String index() {
         return "index";
+    }
+
+    @GetMapping(value = "/article")
+    public String article() {
+        return "article";
     }
 }
