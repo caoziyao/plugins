@@ -30,7 +30,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <spring-boot.version>2.4.1</spring-boot.version>
+        <spring.boot.version>2.4.1</spring.boot.version>
         <lombok-version>1.18.16</lombok-version>
         <jackson-version>2.12.0</jackson-version>
     </properties>
@@ -114,13 +114,13 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
-                <version>${spring-boot.version}</version>
+                <version>${spring.boot.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-test</artifactId>
-                <version>${spring-boot.version}</version>
+                <version>${spring.boot.version}</version>
                 <scope>test</scope>
             </dependency>
 

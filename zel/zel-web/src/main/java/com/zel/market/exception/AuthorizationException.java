@@ -14,5 +14,4 @@ public class AuthorizationException extends RuntimeException {
         super(message);
         this.bizMsg = message;
     }
-
 }

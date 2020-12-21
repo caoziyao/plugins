@@ -7,13 +7,5 @@ public enum  Config {
     INSTANCE;
 
     // 是否开启 ss 账号查询
-    private boolean enableSSAccountRequest = false;
-
-    public boolean isEnableSSAccountRequest() {
-        return enableSSAccountRequest;
-    }
-
-    public void setEnableSSAccountRequest(boolean enableSSAccountRequest) {
-        this.enableSSAccountRequest = enableSSAccountRequest;
-    }
+    public static boolean ENABLE_SS_ACCOUNT_REQUEST = false;
 }

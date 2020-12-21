@@ -5,6 +5,7 @@ import com.zel.FileUtils;
 import com.zel.JacksonHelper;
 import com.zel.crypto.Md5Utils;
 import com.zel.dbmanager.entity.SSAccount;
+import com.zel.market.config.Config;
 import com.zel.market.service.mail.MailService;
 import com.zel.market.service.ss.SSService;
 import org.slf4j.Logger;
@@ -45,8 +46,11 @@ public class Jobs {
     private MailService mailService;
 
     @Async
-    //@Scheduled(fixedRate = 10 * DateUtil.MINUTE * DateUtil.MILLISECOND)
+    @Scheduled(fixedRate = 10 * DateUtil.MINUTE * DateUtil.MILLISECOND)
     public void reportCurrentTime() {
+        if (!Config.ENABLE_SS_ACCOUNT_REQUEST) {
+            return;
+        }
         log.info("The time is now {}", DateUtil.format(new Date(), DateUtil.HMS));
 
         List<SSAccount> account = ssService.getAccountWithThreadCallable();

@@ -5,6 +5,7 @@ import com.zel.market.common.Response;
 import com.zel.market.controller.article.dto.ArticleReqBody;
 import com.zel.market.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,7 +33,6 @@ public class ArticleController {
     public Response list(@RequestBody ArticleReqBody body) {
         long articleId = body.getArticleId();
         long columnId = body.getColumnId();
-
         List<Article> allArticle = articleService.getAllArticle(articleId, columnId);
 
         return Response.ok(allArticle);
@@ -45,7 +45,6 @@ public class ArticleController {
      */
     @GetMapping(value = "/collect")
     public Response collect(@RequestParam("id") long id) {
-
         return Response.ok(id);
     }
 }
