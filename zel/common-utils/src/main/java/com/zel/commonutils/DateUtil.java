@@ -24,7 +24,6 @@ public class DateUtil {
     public static final SimpleDateFormat YMD_HMS = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public static final SimpleDateFormat YMD = new SimpleDateFormat("yyyy-MM-dd");
 
-
     /**
      * 当天凌晨
      *
@@ -35,7 +34,7 @@ public class DateUtil {
     }
 
     /**
-     * 该天凌晨
+     * 该天凌晨 0 点
      *
      * @param date 日期
      * @return
@@ -52,7 +51,11 @@ public class DateUtil {
         return calendar.getTime();
     }
 
-    public Date getNightDay(Date day) {
+
+    /**
+     * 当天 24 点
+     */
+    public static Date nightOfDate(Date day) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(day);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -61,14 +64,7 @@ public class DateUtil {
         calendar.set(Calendar.MILLISECOND, 0);
 
         calendar.add(Calendar.DAY_OF_WEEK, 1);
-        return calendar.getTime(); //当天 24 点
-    }
-
-    /**
-     * 昨天凌晨
-     */
-    public static void yestDawnDay() {
-
+        return calendar.getTime();
     }
 
     /**
@@ -103,52 +99,39 @@ public class DateUtil {
 
     }
 
-    /**
-     * 时间比较 before, after
-     */
-    public static void compare() throws ParseException {
-        String beginTime = "2018-07-28 14:42:32";
-        String endTime = "2018-07-29 16:26:32";
-
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date1 = format.parse(beginTime);
-        Date date2 = format.parse(endTime);
-
-        boolean before = date1.before(date2);
-        System.out.println(before);
-
-        Calendar c1 = Calendar.getInstance();
-        c1.setTime(date1);
-
-        Calendar c2 = Calendar.getInstance();
-        c2.setTime(date2);
-    }
-
 
     /**
      * 时间比较  getTime
      */
-    public static void compare2() throws ParseException {
-        String beginTime = "2018-07-28 14:42:32";
-        String endTime = "2018-07-29 12:26:32";
+    public static boolean compare(Date d1, Date d2) {
+        return d1.getTime() > d2.getTime();
+    }
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date1 = format.parse(beginTime);
-        Date date2 = format.parse(endTime);
-
-        long beginMillisecond = date1.getTime();
-        long endMillisecond = date2.getTime();
-
-        System.out.println(beginMillisecond > endMillisecond);
-
-        boolean before = date1.before(date2);
-        System.out.println(before);
+    /**
+     * 时间 +- 天数
+     */
+    public static Date add(Date date, int day) {
+        return add(date, 0, day, 0, 0);
     }
 
     /**
      * 时间 +-
      */
-    public static void add() {
+    public static Date add(Date date, int year, int day, int hours, int minute) {
+        // Calendar 加减
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.YEAR, year);
+        c.add(Calendar.DAY_OF_WEEK, day);
+        c.add(Calendar.HOUR, hours);
+        c.add(Calendar.MINUTE, minute);
+        return c.getTime();
+    }
+
+    /**
+     * 时间 +-
+     */
+    public static void testAdd() {
         // Calendar 加减
         Calendar c = Calendar.getInstance();
         c.add(Calendar.MONTH, 1); // 目前時間加1個月
@@ -172,26 +155,26 @@ public class DateUtil {
         }
     }
 
-    /**
-     * 时间 +-
-     */
-    public static Date addTime(Date date, int year, int day, int hours, int minute) {
-        // Calendar 加减
-        Calendar c = Calendar.getInstance();
-        c.setTime(date);
-        c.add(Calendar.YEAR, year);
-        c.add(Calendar.DAY_OF_WEEK, day);
-        c.add(Calendar.HOUR, hours);
-        c.add(Calendar.MINUTE, minute);
-        return c.getTime();
-    }
-
 
     /**
-     * 时间 +- 天数
+     * 时间比较 before, after
      */
-    public static Date addDay(Date date, int day) {
-        return addTime(date, 0, day, 0, 0);
+    public static void testCompare() throws ParseException {
+        String beginTime = "2018-07-28 14:42:32";
+        String endTime = "2018-07-29 16:26:32";
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date1 = format.parse(beginTime);
+        Date date2 = format.parse(endTime);
+
+        boolean before = date1.before(date2);
+        System.out.println(before);
+
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(date1);
+
+        Calendar c2 = Calendar.getInstance();
+        c2.setTime(date2);
     }
 
 
@@ -200,7 +183,7 @@ public class DateUtil {
      */
     public static void test30Min() {
         Date wee = dawnOfToday();
-        Date nextDay = addDay(wee, 1);
+        Date nextDay = add(wee, 1);
 
         Calendar c1 = Calendar.getInstance();
         c1.setTime(wee);
@@ -247,12 +230,5 @@ public class DateUtil {
 
     public static void main(String[] args) {
         testTody();
-//        User defaultU = new User();
-//        defaultU.setAge(1);
-//        User u = new User();
-//        u.setAge(123);
-//        User a = Optional.ofNullable(u).orElse(defaultU);
-//        System.out.println(a);
-        // test30Min();
     }
 }
