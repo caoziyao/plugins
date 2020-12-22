@@ -26,7 +26,6 @@ public class JacksonHelper {
 
     public static <T> T read(String json, Class<T> clazz) {
         ObjectMapper mapper = fromJSONMapper;
-
         try {
             return mapper.readValue(json, clazz);
         } catch (JsonParseException var4) {

@@ -1,11 +1,14 @@
 package com.zel.market.controller;
 
+import com.zel.commonutils.RequestUtil;
 import com.zel.dbmanager.entity.User;
 import com.zel.market.common.AppContext;
 import com.zel.market.common.Env;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Description:
@@ -18,10 +21,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class IndexController {
 
     @GetMapping(value = "/")
-    public String index(Model model) {
+    public String index(Model model, HttpServletRequest request) {
         AppContext context = Env.getContext();
         User user = context.getUser();
         model.addAttribute("user", user);
+
         return "index";
     }
 

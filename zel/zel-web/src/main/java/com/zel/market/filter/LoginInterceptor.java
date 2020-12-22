@@ -8,9 +8,7 @@ import com.zel.dbmanager.entity.User;
 import com.zel.market.common.AppContext;
 import com.zel.market.common.Constants;
 import com.zel.market.common.Env;
-import com.zel.market.common.Response;
 import com.zel.market.common.enumcom.ERedisKey;
-import com.zel.market.common.enumcom.EResponseCode;
 import com.zel.market.exception.AuthorizationException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * Description:
@@ -63,6 +60,9 @@ public class LoginInterceptor implements AsyncHandlerInterceptor {
         //System.out.println(">>>MyInterceptor1>>>>>>>在请求处理之前进行调用（Controller方法调用之前）");
         // set content
         System.out.println("interceptor:" + request.getRequestURI());
+        String curl = RequestUtil.curl(request);
+        System.out.println(curl);
+
         setContext(request);
 
         // 校验token
@@ -74,9 +74,12 @@ public class LoginInterceptor implements AsyncHandlerInterceptor {
         String userId = new AESEncrypt(TOKEN_KEY).decrypt(token).split("-")[0];
         // 从 redis 获取用户信息
         String userStr = (String) redisUtils.get(ERedisKey.USERID.formatKey(userId));
+        if (StringUtils.isBlank(userStr)) {
+            throw new AuthorizationException("登录过期");
+        }
         User user = JacksonHelper.read(userStr, User.class);
         if (user == null) {
-            throw new AuthorizationException("登录过期");
+            throw new AuthorizationException("解析 user 出错!");
         }
 
         // 只有返回true才会继续向下执行，返回false取消当前请求
