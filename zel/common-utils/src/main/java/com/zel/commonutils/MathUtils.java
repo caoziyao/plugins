@@ -1,12 +1,29 @@
 package com.zel.commonutils;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 public class MathUtils {
     public static void main(String[] args) {
-        BigDecimal b1 = new BigDecimal(Double.toString(2));
-        BigDecimal b2 = new BigDecimal(Double.toString(3));
-        String v = b1.divide(b2, 4, BigDecimal.ROUND_HALF_UP).doubleValue() * 100 + "%";
-        System.out.println(v);
+        String v = MathUtils.rate(1, 13);
+    }
+
+
+    /**
+     * rate = a / b
+     * @param a
+     * @param b
+     * @return
+     */
+     static String rate(int a, int b) {
+        if (b == 0) {
+            return "0%";
+        }
+        
+         BigDecimal bd = new BigDecimal((float) a / b * 100);
+         String s1 = bd.setScale(2, RoundingMode.HALF_UP) + "%";
+         System.out.println(s1);
+         return s1;
     }
 }
