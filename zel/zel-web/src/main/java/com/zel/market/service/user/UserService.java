@@ -40,6 +40,11 @@ public class UserService {
         return user;
     }
 
+    public User getUserByName(String username) {
+        // 从数据库，redis获取
+        return null;
+    }
+
     /**
      * 校验登录
      *

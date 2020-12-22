@@ -1,6 +1,6 @@
 package com.zel.market.config;
 
-import com.zel.commonutils.crypto.CryptoUtils;
+import com.zel.commonutils.crypto.AESEncrypt;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,7 +33,7 @@ public class MailConfig {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
         try {
-            CryptoUtils des = new CryptoUtils(KEY);
+            AESEncrypt des = new AESEncrypt(KEY);
             password = des.decrypt(password);
         } catch (Exception e) {
             e.printStackTrace();

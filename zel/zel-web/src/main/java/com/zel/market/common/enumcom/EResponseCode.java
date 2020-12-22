@@ -14,7 +14,22 @@ public enum EResponseCode {
     C405("405", "请求过期"),
     C406("406", "请求限制"),
     C410("410", "未注册"),
-    C415("415", "需要授权登陆");
+    C415("415", "需要授权登陆"),
+
+    /** 登录  */
+    LOGIN_CODE_EXPIRE("10701", "验证码已过期"),
+    LOGIN_CODE_ERR("10702", "验证码错误"),
+    LOGIN_MOBILE_ERR("10702", "手机号错误"),
+    NOT_REGISTER("10703", "手机号未注册"),
+    LOGIN_CODE_FREQUENT("10704", "验证码发送频繁"),
+    PASSWORD_EMPTY("10705", "密码为空"),
+    PASSWORD_ERR("10706", "密码错误"),
+    PASSWORD_NOT_EQUAL("10707", "密码不一致"),
+    NO_MENU_AUTHORITY("10708", "没有菜单权限"),
+    STAFF_STOP("10709", "账号已停用")
+
+
+    ;
 
 
     private final String code;

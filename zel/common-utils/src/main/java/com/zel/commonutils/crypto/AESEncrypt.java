@@ -12,7 +12,7 @@ import java.security.Key;
  * @version 1.0.0
  * @since 2020/3/20
  */
-public class CryptoUtils extends DigestCommon {
+public class AESEncrypt extends DigestCommon {
 
     /**
      * 对称加解密DES密钥Key
@@ -23,7 +23,7 @@ public class CryptoUtils extends DigestCommon {
     private static Cipher mEncryptCipher = null;
     private static Cipher mDecryptCipher = null;
 
-    public CryptoUtils(String key) throws Exception {
+    public AESEncrypt(String key) throws Exception {
         this.KEY = key;
         //初始化加密和解密密码提供类
         mEncryptCipher = Cipher.getInstance("DES");
@@ -93,7 +93,7 @@ public class CryptoUtils extends DigestCommon {
             System.out.println("KEY: " + KEY);
             String text = "cao183644";
             System.out.println("加密前：" + text);
-            CryptoUtils des = new CryptoUtils(KEY);
+            AESEncrypt des = new AESEncrypt(KEY);
             String pwd = des.encrypt(text);
             System.out.println("加密后：" + pwd);
             pwd = des.decrypt(pwd);

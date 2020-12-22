@@ -18,7 +18,6 @@ public class ScheduledConfig implements SchedulingConfigurer {
     @Autowired
     private ApplicationContext context;
 
-
     @Override
     public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
     }

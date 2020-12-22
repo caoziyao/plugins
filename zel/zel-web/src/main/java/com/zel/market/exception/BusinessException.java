@@ -1,5 +1,7 @@
 package com.zel.market.exception;
 
+import com.zel.market.common.enumcom.EResponseCode;
+
 public class BusinessException extends RuntimeException {
 
     /**
@@ -14,6 +16,11 @@ public class BusinessException extends RuntimeException {
     public BusinessException(String message) {
         super(message);
         this.bizMsg = message;
+    }
+
+    public BusinessException(EResponseCode responseCode) {
+        super(responseCode.toMessage());
+        this.bizMsg = responseCode.toMessage();
     }
 
     public BusinessException(String code, String message) {

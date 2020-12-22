@@ -5,7 +5,9 @@ package com.zel.market.common.enumcom;
  */
 public enum ERedisKey {
 
-    EXPRESS("EXPRESS:{1}", "过期");
+    EXPRESS("EXPRESS:{1}", "过期"),
+    USERID("USERID:{1}", "user id"),
+    ;
 
     private String key;
     private String desc;
