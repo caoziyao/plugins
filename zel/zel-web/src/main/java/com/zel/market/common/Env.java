@@ -2,6 +2,9 @@ package com.zel.market.common;
 
 import java.io.Serializable;
 
+/**
+ * env
+ */
 public final class Env implements Serializable {
     private static final ThreadLocal<AppContext> contextThreadLocal = new ThreadLocal();
 
@@ -16,8 +19,6 @@ public final class Env implements Serializable {
         contextThreadLocal.set(context);
         if (context == null) {
             System.out.println("setcontent null");
-        } else {
-            System.out.println("set content " + context.toString());
         }
     }
 

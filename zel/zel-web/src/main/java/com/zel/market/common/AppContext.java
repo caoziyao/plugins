@@ -1,24 +1,14 @@
 package com.zel.market.common;
 
+import com.zel.dbmanager.entity.User;
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ * 上下文
+ */
+@Getter
+@Setter
 public class AppContext {
-
-    private long userId;
-
-    private String token;
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
+    private User user;
 }

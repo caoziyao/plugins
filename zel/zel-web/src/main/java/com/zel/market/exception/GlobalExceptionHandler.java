@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * 开启了全局异常的捕获
@@ -27,10 +29,11 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(AuthorizationException.class)
     @ResponseBody
-    public Response handleAuthorizationException(HttpServletRequest request, AuthorizationException e) {
+    public Response handleAuthorizationException(HttpServletRequest request, HttpServletResponse response, AuthorizationException e) throws IOException {
         logger.error(e.getMessage());
         Response r = Response.error(EResponseCode.C403);
         r.setMessage(e.getMessage());
+        response.sendRedirect("/login");
         return r;
     }
 

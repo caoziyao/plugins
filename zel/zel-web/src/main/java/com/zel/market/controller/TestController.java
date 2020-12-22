@@ -1,14 +1,12 @@
 package com.zel.market.controller;
 
 import com.google.common.util.concurrent.RateLimiter;
-import com.zel.market.common.Env;
 import com.zel.market.common.Response;
 import com.zel.market.controller.vo.IndexVO;
 import com.zel.market.dto.UserDTO;
 import com.zel.market.exception.BusinessException;
 import com.zel.market.service.mail.MailService;
 import com.zel.market.service.user.UserService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(description = "index")
+
 @RestController
 @RequestMapping(value = "/test")
 public class TestController {
@@ -27,7 +25,6 @@ public class TestController {
 
     @Autowired
     private UserService userService;
-    
 
     // 允许每秒最多10个任务
     public static final RateLimiter rateLimiter = RateLimiter.create(10);
@@ -40,10 +37,7 @@ public class TestController {
         } else {
             // error
         }
-        long userId = Env.getContext().getUserId();
-        String token = Env.getContext().getToken();
-
-        return "response:" + userId + token;
+        return "";
     }
 
     @ApiOperation(value = "index", notes = "index", produces = "application/json")

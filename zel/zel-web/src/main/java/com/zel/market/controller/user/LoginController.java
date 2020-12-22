@@ -11,13 +11,11 @@ import com.zel.market.common.Response;
 import com.zel.market.common.enumcom.ERedisKey;
 import com.zel.market.common.enumcom.EResponseCode;
 import com.zel.market.controller.user.dto.LoginReqDTO;
-import com.zel.commonutils.TokenUtils;
 import com.zel.market.exception.BusinessException;
 import com.zel.market.service.user.UserService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +31,9 @@ import java.util.concurrent.TimeUnit;
 @RestController
 public class LoginController {
 
+    @Value("${TOKEN_SALT}")
+    private String TOKEN_KEY;
+
     @Autowired
     private UserService userService;
 
@@ -47,29 +48,49 @@ public class LoginController {
         return user;
     }
 
-    @ApiOperation(value="login", notes="login", produces="application/json")
-    @GetMapping("/login")
-    // @Validated @RequestBody LoginReqDTO body,
-    public Response index(HttpServletRequest request
-            , HttpServletResponse response) throws Exception {
-        String username = "abc";
-        String password = "1234";
-
-        // User user = userService.getUserByName(username);
-        User user = getDefaultUser();
-        if(user == null){
+    @PostMapping("/login")
+    public Response index(@Validated @RequestBody LoginReqDTO body,
+                          HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String username = body.getUsername();
+        String password = body.getPassword();
+        User user = userService.getUserByName(username);
+        if (user == null) {
             throw new BusinessException(EResponseCode.NOT_REGISTER);
         }
 
         // 密码判断
         String md5 = Md5Utils.md5(password);
-        if(!user.getPassword().equals(md5)){
+        if (!user.getPassword().equals(md5)) {
             throw new BusinessException(EResponseCode.PASSWORD_ERR);
         }
 
         // 生成并设置TOKEN
-        String newToken = new AESEncrypt("random key").encrypt(user.getId() + "-" + System.currentTimeMillis()/1000);
-        //        String newToken = TokenUtils.INSTANCE.buildToken(username + password);
+        String newToken = new AESEncrypt(TOKEN_KEY).encrypt(user.getId() + "-" + System.currentTimeMillis() / 1000);
+        // 设置TOKEN
+        redisUtils.set(ERedisKey.USERID.formatKey(user.getId().toString()), JacksonHelper.write(user), 24L, TimeUnit.HOURS);
+        // 保存到 cookie 或 header 里面
+        RequestUtil.saveCookie(Constants.SESSIONID, newToken, request, response);
+
+        return Response.ok(user);
+    }
+
+
+    @GetMapping("/superlogin")
+    public Response superlogin(HttpServletRequest request
+            , HttpServletResponse response) throws Exception {
+        String username = "abc";
+        String password = "1234";
+
+        User user = getDefaultUser();
+
+        // 密码判断
+        String md5 = Md5Utils.md5(password);
+        if (!user.getPassword().equals(md5)) {
+            throw new BusinessException(EResponseCode.PASSWORD_ERR);
+        }
+
+        // 生成并设置TOKEN
+        String newToken = new AESEncrypt("random key").encrypt(user.getId() + "-" + System.currentTimeMillis() / 1000);
         // 设置TOKEN
         redisUtils.set(ERedisKey.USERID.formatKey(user.getId().toString()), JacksonHelper.write(user), 24L, TimeUnit.HOURS);
         // 保存到 cookie 或 header 里面
