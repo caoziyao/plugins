@@ -25,46 +25,33 @@ public class DateUtil {
     public static final SimpleDateFormat YMD = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
-     * 当天凌晨
-     *
+     * 当天0点
+     * @param date
      * @return
      */
-    public static Date dawnOfToday() {
-        return dawnOfDate(new Date());
-    }
-
-    /**
-     * 该天凌晨 0 点
-     *
-     * @param date 日期
-     * @return
-     */
-    public static Date dawnOfDate(Date date) {
+    private static Date getDawnOf(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
-
-        //当前凌晨日期
-        return calendar.getTime();
+        return  calendar.getTime();
     }
 
-
     /**
-     * 当天 24 点
+     * 当天 23：59:59
+     * @param date
+     * @return
      */
-    public static Date nightOfDate(Date day) {
+    private static Date getNightOf(Date date) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(day);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
         calendar.set(Calendar.MILLISECOND, 0);
-
-        calendar.add(Calendar.DAY_OF_WEEK, 1);
-        return calendar.getTime();
+        return  calendar.getTime();
     }
 
     /**
@@ -182,7 +169,7 @@ public class DateUtil {
      * test: 遍历当天0点到24点，间隔 30 min
      */
     public static void test30Min() {
-        Date wee = dawnOfToday();
+        Date wee = getDawnOf(new Date());
         Date nextDay = add(wee, 1);
 
         Calendar c1 = Calendar.getInstance();
