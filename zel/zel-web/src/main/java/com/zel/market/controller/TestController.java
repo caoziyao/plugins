@@ -7,6 +7,7 @@ import com.zel.market.dto.UserDTO;
 import com.zel.market.exception.BusinessException;
 import com.zel.market.service.mail.MailService;
 import com.zel.market.service.user.UserService;
+import com.zel.market.startup.MailRunner;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class TestController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MailRunner mailRunner;
+
     // 允许每秒最多10个任务
     public static final RateLimiter rateLimiter = RateLimiter.create(10);
 
@@ -40,25 +44,25 @@ public class TestController {
         return "";
     }
 
-    @ApiOperation(value = "index", notes = "index", produces = "application/json")
     @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
     public Response index(@RequestParam(required = false, defaultValue = "1") String statType) {
-        if ("2".equals(statType)) {
-            throw new BusinessException("参数错误5！");
-        }
-        if (StringUtils.isEmpty(statType)) {
-            throw new BusinessException("参数错误！");
-        }
-        IndexVO vo = new IndexVO();
-        UserDTO user = new UserDTO();
-        user.setUserId("123:" + statType);
-        user.setUsername("abc");
-
-        Object all = userService.findTest();
+        mailRunner.add("hello");
+//        if ("2".equals(statType)) {
+//            throw new BusinessException("参数错误5！");
+//        }
+//        if (StringUtils.isEmpty(statType)) {
+//            throw new BusinessException("参数错误！");
+//        }
+//        IndexVO vo = new IndexVO();
+//        UserDTO user = new UserDTO();
+//        user.setUserId("123:" + statType);
+//        user.setUsername("abc");
+//
+//        Object all = userService.findTest();
 
         //vo.setUser(user);
         //vo.setUpdateTime(new Date());
 
-        return Response.ok(all);
+        return Response.ok(null);
     }
 }

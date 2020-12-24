@@ -31,6 +31,11 @@ public class MailServiceImpl implements MailService {
     @Value("${spring.mail.username}")
     private String from;
 
+    @Override
+    public void mock(String message) {
+        System.out.println("send mail: " + message);
+    }
+
     /**
      * 发送最简单的文本邮件
      */

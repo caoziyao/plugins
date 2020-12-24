@@ -90,4 +90,12 @@ public class MessageFormatter {
         }
         return rStr;
     }
+
+    public static void main(String[] args) {
+        Integer a = null;
+        int b = a;
+//        if (b == 0) {
+//            System.out.println("asdfe");
+//        }
+    }
 }

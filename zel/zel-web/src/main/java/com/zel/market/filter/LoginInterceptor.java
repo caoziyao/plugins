@@ -59,9 +59,9 @@ public class LoginInterceptor implements AsyncHandlerInterceptor {
             throws Exception {
         //System.out.println(">>>MyInterceptor1>>>>>>>在请求处理之前进行调用（Controller方法调用之前）");
         // set content
-        System.out.println("interceptor:" + request.getRequestURI());
-        String curl = RequestUtil.curl(request);
-        System.out.println(curl);
+//        System.out.println("interceptor:" + request.getRequestURI());
+//        String curl = RequestUtil.curl(request);
+//        System.out.println(curl);
 
         setContext(request);
 
