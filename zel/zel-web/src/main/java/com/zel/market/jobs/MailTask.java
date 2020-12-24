@@ -1,12 +1,13 @@
 package com.zel.market.jobs;
 
 import com.zel.market.service.mail.MailService;
-import com.zel.market.utils.SpringBeanUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 通知任务
@@ -15,32 +16,31 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 @Component
 public class MailTask implements Runnable {
-    public  static BlockingQueue<String> queue = new LinkedBlockingQueue<>();
+    public static BlockingQueue<String> queue = new LinkedBlockingQueue<>();
 
     @Autowired
     private MailService mailService;
 
-    private static int taskId = 0;// 任务id
-
     @Override
     public void run() {
-        System.out.println("start MailRunner..." + mailService);
+        System.out.println("start MailTask..." + mailService);
         // this.mailService = (MailService) SpringBeanUtil.getBean(MailService.class);
 
         while (true) {
             try {
-                while (!queue.isEmpty()) {
-                    String po = queue.poll();
+                String po = queue.poll(5, TimeUnit.SECONDS);
+//                System.out.println("queue poll: " + po  + ": "+ new Date() + ":" + Thread.currentThread().getName());
+                if (StringUtils.isNotBlank(po)) {
                     mailService.mock(po);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                Thread.sleep(5000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
         }
     }
 
