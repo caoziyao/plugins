@@ -5,6 +5,7 @@ import com.zel.commonutils.redis.RedisUtils;
 import com.zel.dbmanager.entity.User;
 import com.zel.dbmanager.mapper.UserMapper;
 import com.zel.market.common.enumcom.ERedisKey;
+import com.zel.market.config.Config;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,15 +30,13 @@ public class UserService {
     @Autowired
     private RedisUtils redisUtils;
 
-    private final String USER_ONLINE_KEY = ERedisKey.USER_ONLINE.getKey();
-
     /**
      * 在线用户
      * @param userId
      */
     public void addOnlineUser(long userId) {
         long time = new Date().getTime();
-        redisUtils.zAdd(USER_ONLINE_KEY, time, String.valueOf(userId));
+        redisUtils.zAdd(Config.USER_ONLINE_KEY, time, String.valueOf(userId));
     }
 
 
@@ -46,7 +45,7 @@ public class UserService {
      * @param userId
      */
     public void removeOnlineUser(long userId) {
-        redisUtils.zRem(USER_ONLINE_KEY, String.valueOf(userId));
+        redisUtils.zRem(Config.USER_ONLINE_KEY, String.valueOf(userId));
     }
 
     /**
@@ -57,7 +56,7 @@ public class UserService {
      * @return
      */
     public long onlineUserNum(Date start, Date end) {
-        return redisUtils.zCount(USER_ONLINE_KEY, start.getTime(), end.getTime());
+        return redisUtils.zCount(Config.USER_ONLINE_KEY, start.getTime(), end.getTime());
     }
 
     /**
@@ -75,7 +74,7 @@ public class UserService {
      * @return
      */
     public long onlineUserNumAll() {
-        return redisUtils.zCard(USER_ONLINE_KEY);
+        return redisUtils.zCard(Config.USER_ONLINE_KEY);
     }
 
     //@Transactional

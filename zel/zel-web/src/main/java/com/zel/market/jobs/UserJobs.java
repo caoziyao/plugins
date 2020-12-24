@@ -2,9 +2,6 @@ package com.zel.market.jobs;
 
 import com.zel.commonutils.DateUtil;
 import com.zel.commonutils.client.HttpRequest;
-import com.zel.market.service.mail.MailService;
-import com.zel.market.service.ss.SSService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -24,12 +21,6 @@ import java.util.concurrent.Executors;
  */
 @Component
 public class UserJobs {
-
-    @Autowired
-    private SSService ssService;
-
-    @Autowired
-    private MailService mailService;
 
     @Value("${server.port}")
     private int port;

@@ -1,5 +1,6 @@
 package com.zel.market.config;
 
+import com.zel.market.common.enumcom.ERedisKey;
 import org.springframework.beans.factory.annotation.Value;
 
 /**
@@ -13,6 +14,8 @@ public class Config {
 
     // 是否开启 ss 账号查询
     public static boolean ENABLE_SS_ACCOUNT_REQUEST = false;
+
+    public static final String USER_ONLINE_KEY = ERedisKey.USER_ONLINE.getKey();
 
     public String getEnv() {
         return env;
