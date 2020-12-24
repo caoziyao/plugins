@@ -4,6 +4,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import javax.crypto.Cipher;
 import java.security.Key;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -20,20 +21,30 @@ public class AESEncrypt extends DigestCommon {
      * 对称加解密DES密钥Key
      */
     // public final static String KEY = "VTLiISh6CzlRGd15";
-    private String KEY = null;
-
+    //private String KEY = null;
     private static Cipher mEncryptCipher = null;
     private static Cipher mDecryptCipher = null;
 
+    private static ConcurrentHashMap<String, AESEncrypt> Map = new ConcurrentHashMap<>();
+
     public AESEncrypt(String key) throws Exception {
-        this.KEY = key;
+        //this.KEY = key;
         //初始化加密和解密密码提供类
         mEncryptCipher = Cipher.getInstance("DES");
-        mEncryptCipher.init(Cipher.ENCRYPT_MODE, getKey(KEY.getBytes()));
+        mEncryptCipher.init(Cipher.ENCRYPT_MODE, getKey(key.getBytes()));
         mDecryptCipher = Cipher.getInstance("DES");
-        mDecryptCipher.init(Cipher.DECRYPT_MODE, getKey(KEY.getBytes()));
+        mDecryptCipher.init(Cipher.DECRYPT_MODE, getKey(key.getBytes()));
     }
 
+    public static AESEncrypt getInstance(String key) throws Exception {
+        if (Map.containsKey(key)) {
+            return Map.get(key);
+        } else {
+            AESEncrypt aes = new AESEncrypt(key);
+            Map.put(key, aes);
+            return aes;
+        }
+    }
 
     /**
      * 对 字符串 加密
@@ -93,9 +104,10 @@ public class AESEncrypt extends DigestCommon {
         try {
             String KEY = RandomStringUtils.randomAlphanumeric(16);
             System.out.println("KEY: " + KEY);
-            String text = "cao183644";
+            String text = "cado1836ads44";
             System.out.println("加密前：" + text);
-            AESEncrypt des = new AESEncrypt(KEY);
+
+            AESEncrypt des = AESEncrypt.getInstance(KEY);
             String pwd = des.encrypt(text);
             System.out.println("加密后：" + pwd);
             pwd = des.decrypt(pwd);

@@ -33,7 +33,7 @@ public class MailConfig {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
         try {
-            AESEncrypt des = new AESEncrypt(KEY);
+            AESEncrypt des =  AESEncrypt.getInstance(KEY);
             password = des.decrypt(password);
         } catch (Exception e) {
             e.printStackTrace();

@@ -70,7 +70,7 @@ public class LoginController {
         }
 
         // 生成并设置TOKEN
-        String newToken = new AESEncrypt(TOKEN_KEY).encrypt(user.getId() + "-" + System.currentTimeMillis() / 1000);
+        String newToken =  AESEncrypt.getInstance(TOKEN_KEY).encrypt(user.getId() + "-" + System.currentTimeMillis() / 1000);
         // 设置TOKEN
         redisUtils.set(ERedisKey.USER_ID.formatKey(user.getId().toString()), JacksonHelper.write(user), TOKEN_TIMEOUT, TimeUnit.HOURS);
         // 保存到 cookie 或 header 里面
@@ -96,7 +96,7 @@ public class LoginController {
         }
 
         // 生成并设置TOKEN
-        String newToken = new AESEncrypt(TOKEN_KEY).encrypt(user.getId() + "-" + System.currentTimeMillis() / 1000);
+        String newToken =  AESEncrypt.getInstance(TOKEN_KEY).encrypt(user.getId() + "-" + System.currentTimeMillis() / 1000);
         // 设置TOKEN
         redisUtils.set(ERedisKey.USER_ID.formatKey(user.getId().toString()), JacksonHelper.write(user), TOKEN_TIMEOUT, TimeUnit.HOURS);
         // 保存到 cookie 或 header 里面

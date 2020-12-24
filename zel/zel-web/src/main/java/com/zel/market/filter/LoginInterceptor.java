@@ -48,7 +48,7 @@ public class LoginInterceptor implements AsyncHandlerInterceptor {
         if (StringUtils.isBlank(token)) {
             return;
         }
-        String userId = new AESEncrypt(TOKEN_KEY).decrypt(token).split("-")[0];
+        String userId =  AESEncrypt.getInstance(TOKEN_KEY).decrypt(token).split("-")[0];
         String userStr = (String) redisUtils.get(ERedisKey.USER_ID.formatKey(userId));
         if (StringUtils.isBlank(userStr)) {
             return;
@@ -75,7 +75,7 @@ public class LoginInterceptor implements AsyncHandlerInterceptor {
         if (StringUtils.isBlank(token)) {
             throw new AuthorizationException("请登录");
         }
-        String userId = new AESEncrypt(TOKEN_KEY).decrypt(token).split("-")[0];
+        String userId =  AESEncrypt.getInstance(TOKEN_KEY).decrypt(token).split("-")[0];
         // 从 redis 获取用户信息
         String userStr = (String) redisUtils.get(ERedisKey.USER_ID.formatKey(userId));
         if (StringUtils.isBlank(userStr)) {
