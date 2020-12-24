@@ -38,14 +38,13 @@ public class DataDictInit implements CommandLineRunner {
         Thread monitor = new Thread(monitorService, "ThreadPoolMonitorService");
         monitor.start();
 
-//         启动发送通知线程
+        //  启动发送通知线程
         for (int i = 1; i <= 10; i++) {
             executor.execute(mailTask);
         }
 
         //启动发送通知线程
         //  new Thread(mailTask, "TaskNoticeService").start();
-
         log.info("CommandLineRunner结束");
     }
 }

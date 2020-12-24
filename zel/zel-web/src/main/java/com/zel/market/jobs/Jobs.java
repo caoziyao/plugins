@@ -69,6 +69,7 @@ public class Jobs {
             String s1 = ssFromFile();
             if (!s1.equals(content)) {
                 write(content);
+                //  mailService.addTask();
                 mailService.sendHtmlMail(email, "ss 账号", content);
                 log.info("发送email通知");
             } else {

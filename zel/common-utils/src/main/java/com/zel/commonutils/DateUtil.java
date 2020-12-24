@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 public class DateUtil {
 
@@ -215,7 +217,36 @@ public class DateUtil {
         System.out.println(lastWeekNight);
     }
 
+    /**
+     * java.util.function
+     * 按天数遍历
+     *
+     * https://www.runoob.com/java/java8-functional-interfaces.html
+     *
+     * Predicate<T>	T	boolean	用来比较操作
+     * Consumer<T>	T	void	没有返回值的函数
+     * Function<T, R>	T	R	有返回值的函数
+     * Supplier<T>	None	T	工厂方法-返回一个对象
+     * UnaryOperator<T>	T	T	入参和出参都是相同对象的函数
+     * BinaryOperator<T>	(T,T)	T	求两个对象的操作结果
+     *
+     */
+    public static void foreach(Date date1, Date date2, BiConsumer<Calendar, Calendar> func) {
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(date1);
+
+        Calendar c2 = Calendar.getInstance();
+        c2.setTime(date2);
+
+        while (c1.getTimeInMillis() < c2.getTimeInMillis()) {
+            func.accept(c1, c2);
+            c1.add(Calendar.DAY_OF_WEEK, 1);
+        }
+    }
+
     public static void main(String[] args) {
-        testTody();
+        foreach(new Date(), add(new Date(), 7), (c1, c2) -> {
+            System.out.println(c1.getTime());
+        });
     }
 }

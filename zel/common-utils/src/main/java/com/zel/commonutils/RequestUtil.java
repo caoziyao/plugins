@@ -87,7 +87,7 @@ public class RequestUtil {
         StringBuffer url = request.getRequestURL();
         String query = request.getQueryString();
         if (StringUtils.isNotBlank(query)) {
-            url.append("?" + query);
+            url.append("?").append(query);
         }
 
         return url.toString();

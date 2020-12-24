@@ -8,4 +8,10 @@ public class Loggers {
     //记录方法调用的时间
     public static final Logger interceptor_log = LoggerFactory.getLogger("interceptor_log");
     public static final Logger logic_error = LoggerFactory.getLogger("logic_error");
+
+    public static void main(String[] args) {
+        Integer a = null;
+        int b = a;
+        System.out.println(b);
+    }
 }

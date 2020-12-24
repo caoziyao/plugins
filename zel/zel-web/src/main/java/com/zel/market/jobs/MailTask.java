@@ -11,8 +11,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 通知任务
- * <p>
- * spring bean 出于线程安全考虑，不得注入bean至线程类（Runnable）
  */
 @Component
 public class MailTask implements Runnable {
@@ -29,7 +27,7 @@ public class MailTask implements Runnable {
         while (true) {
             try {
                 String po = queue.poll(5, TimeUnit.SECONDS);
-//                System.out.println("queue poll: " + po  + ": "+ new Date() + ":" + Thread.currentThread().getName());
+                //  System.out.println("queue poll: " + po  + ": "+ new Date() + ":" + Thread.currentThread().getName());
                 if (StringUtils.isNotBlank(po)) {
                     mailService.mock(po);
                 }
