@@ -45,7 +45,7 @@ public class LoginInterceptor implements AsyncHandlerInterceptor {
             return;
         }
         String userId = new AESEncrypt(TOKEN_KEY).decrypt(token).split("-")[0];
-        String userStr = (String) redisUtils.get(ERedisKey.USERID.formatKey(userId));
+        String userStr = (String) redisUtils.get(ERedisKey.USER_ID.formatKey(userId));
         if (StringUtils.isBlank(userStr)) {
             return;
         }
@@ -73,7 +73,7 @@ public class LoginInterceptor implements AsyncHandlerInterceptor {
         }
         String userId = new AESEncrypt(TOKEN_KEY).decrypt(token).split("-")[0];
         // 从 redis 获取用户信息
-        String userStr = (String) redisUtils.get(ERedisKey.USERID.formatKey(userId));
+        String userStr = (String) redisUtils.get(ERedisKey.USER_ID.formatKey(userId));
         if (StringUtils.isBlank(userStr)) {
             throw new AuthorizationException("登录过期");
         }

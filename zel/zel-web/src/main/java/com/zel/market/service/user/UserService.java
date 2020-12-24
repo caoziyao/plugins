@@ -1,11 +1,15 @@
 package com.zel.market.service.user;
 
+import com.zel.commonutils.DateUtil;
+import com.zel.commonutils.redis.RedisUtils;
 import com.zel.dbmanager.entity.User;
 import com.zel.dbmanager.mapper.UserMapper;
+import com.zel.market.common.enumcom.ERedisKey;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +25,58 @@ public class UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private RedisUtils redisUtils;
+
+    private final String USER_ONLINE_KEY = ERedisKey.USER_ONLINE.getKey();
+
+    /**
+     * 在线用户
+     * @param userId
+     */
+    public void addOnlineUser(long userId) {
+        long time = new Date().getTime();
+        redisUtils.zAdd(USER_ONLINE_KEY, time, String.valueOf(userId));
+    }
+
+
+    /**
+     * 离线用户
+     * @param userId
+     */
+    public void removeOnlineUser(long userId) {
+        redisUtils.zRem(USER_ONLINE_KEY, String.valueOf(userId));
+    }
+
+    /**
+     * 在线用户
+     *
+     * @param start
+     * @param end
+     * @return
+     */
+    public long onlineUserNum(Date start, Date end) {
+        return redisUtils.zCount(USER_ONLINE_KEY, start.getTime(), end.getTime());
+    }
+
+    /**
+     * 当天用户在线数
+     * @return
+     */
+    public long onlineUserNumToday() {
+        Date now = new Date();
+        Date dawn = DateUtil.dawnOf(now);
+        return onlineUserNum(dawn, now);
+    }
+
+    /**
+     * 总用户在线数
+     * @return
+     */
+    public long onlineUserNumAll() {
+        return redisUtils.zCard(USER_ONLINE_KEY);
+    }
 
     //@Transactional
     public void transactTest() {

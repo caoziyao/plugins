@@ -6,7 +6,8 @@ package com.zel.market.common.enumcom;
 public enum ERedisKey {
 
     EXPRESS("EXPRESS:{1}", "过期"),
-    USERID("USERID:{1}", "user id"),
+    USER_ID("USER:ID:{1}", "user id"),
+    USER_ONLINE("USER:ONLINE", "用户在线数"),
     ;
 
     private String key;
@@ -15,6 +16,17 @@ public enum ERedisKey {
     ERedisKey(String key, String desc) {
         this.key = key;
         this.desc = desc;
+    }
+
+    /**
+     * redis的key
+     * 形式为：
+     * 表名:主键名:主键值
+     *
+     * @return
+     */
+    public String getKey() {
+        return this.key;
     }
 
     /**
@@ -58,23 +70,6 @@ public enum ERedisKey {
         return buffer.toString();
     }
 
-    /**
-     * redis的key
-     * 形式为：
-     * 表名:主键名:主键值
-     *
-     * @param tableName     表名
-     * @param majorKey      主键名
-     * @param majorKeyValue 主键值
-     * @return
-     */
-    public static String getKey(String tableName, String majorKey, String majorKeyValue) {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(tableName).append(":");
-        buffer.append(majorKey).append(":");
-        buffer.append(majorKeyValue).append(":");
-        return buffer.toString();
-    }
 
     public static void main(String[] args) {
         System.out.println(ERedisKey.EXPRESS.formatKey("89"));

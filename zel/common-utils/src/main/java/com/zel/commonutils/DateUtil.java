@@ -31,7 +31,7 @@ public class DateUtil {
      * @param date
      * @return
      */
-    private static Date getDawnOf(Date date) {
+    public static Date dawnOf(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -46,7 +46,7 @@ public class DateUtil {
      * @param date
      * @return
      */
-    private static Date getNightOf(Date date) {
+    public static Date nightOf(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 23);
@@ -171,7 +171,7 @@ public class DateUtil {
      * test: 遍历当天0点到24点，间隔 30 min
      */
     public static void test30Min() {
-        Date wee = getDawnOf(new Date());
+        Date wee = dawnOf(new Date());
         Date nextDay = add(wee, 1);
 
         Calendar c1 = Calendar.getInstance();

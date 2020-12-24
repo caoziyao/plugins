@@ -24,7 +24,9 @@ public class ThreadPoolMonitorService implements Runnable {
                 " - CompletedTaskCount：" + executor.getCompletedTaskCount() +
                 " - TotalTaskCount：" + executor.getTaskCount() +
                 " - isTerminated：" + executor.isTerminated();
-        System.out.println(buffer);
+        if (executor.isTerminated()) {
+            logger.error(buffer);
+        }
     }
 
 

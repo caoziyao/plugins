@@ -1,9 +1,10 @@
 package com.zel.market.controller;
 
-import com.zel.commonutils.RequestUtil;
 import com.zel.dbmanager.entity.User;
 import com.zel.market.common.AppContext;
 import com.zel.market.common.Env;
+import com.zel.market.service.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +21,16 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class IndexController {
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping(value = "/")
     public String index(Model model, HttpServletRequest request) {
         AppContext context = Env.getContext();
         User user = context.getUser();
+        long online = userService.onlineUserNumToday();
         model.addAttribute("user", user);
+        model.addAttribute("onlineUserNum", online);
 
         return "index";
     }

@@ -34,6 +34,9 @@ public class LoginController {
     @Value("${TOKEN_SALT}")
     private String TOKEN_KEY;
 
+    @Value("${token.timeout}")
+    private long TOKEN_TIMEOUT;
+
     @Autowired
     private UserService userService;
 
@@ -42,7 +45,7 @@ public class LoginController {
 
     private User getDefaultUser() {
         User user = new User();
-        user.setId(12L);
+        user.setId(11L);
         user.setPassword("81dc9bdb52d04dc20036dbd8313ed055");
         user.setUsername("abc");
         return user;
@@ -67,9 +70,11 @@ public class LoginController {
         // 生成并设置TOKEN
         String newToken = new AESEncrypt(TOKEN_KEY).encrypt(user.getId() + "-" + System.currentTimeMillis() / 1000);
         // 设置TOKEN
-        redisUtils.set(ERedisKey.USERID.formatKey(user.getId().toString()), JacksonHelper.write(user), 24L, TimeUnit.HOURS);
+        redisUtils.set(ERedisKey.USER_ID.formatKey(user.getId().toString()), JacksonHelper.write(user), TOKEN_TIMEOUT, TimeUnit.HOURS);
         // 保存到 cookie 或 header 里面
         RequestUtil.saveCookie(Constants.SESSIONID, newToken, request, response);
+        // 设置在线用户
+        userService.addOnlineUser(user.getId());
 
         return Response.ok(user);
     }
@@ -83,6 +88,8 @@ public class LoginController {
 
         User user = getDefaultUser();
 
+        userService.addOnlineUser(user.getId());
+
         // 密码判断
         String md5 = Md5Utils.md5(password);
         if (!user.getPassword().equals(md5)) {
@@ -92,7 +99,7 @@ public class LoginController {
         // 生成并设置TOKEN
         String newToken = new AESEncrypt("random key").encrypt(user.getId() + "-" + System.currentTimeMillis() / 1000);
         // 设置TOKEN
-        redisUtils.set(ERedisKey.USERID.formatKey(user.getId().toString()), JacksonHelper.write(user), 24L, TimeUnit.HOURS);
+        redisUtils.set(ERedisKey.USER_ID.formatKey(user.getId().toString()), JacksonHelper.write(user), 24L, TimeUnit.HOURS);
         // 保存到 cookie 或 header 里面
         RequestUtil.saveCookie(Constants.SESSIONID, newToken, request, response);
 
