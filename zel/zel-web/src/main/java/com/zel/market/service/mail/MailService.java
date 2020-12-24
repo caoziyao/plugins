@@ -21,4 +21,6 @@ public interface MailService {
     void sendInlineResourceMail(String to, String subject, String content, String resPath, String resId);
 
     void mock(String message);
+
+    void addTask(String message);
 }

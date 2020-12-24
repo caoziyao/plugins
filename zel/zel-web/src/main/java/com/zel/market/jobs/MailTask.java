@@ -1,7 +1,8 @@
-package com.zel.market.startup;
+package com.zel.market.jobs;
 
 import com.zel.market.service.mail.MailService;
 import com.zel.market.utils.SpringBeanUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.BlockingQueue;
@@ -13,17 +14,18 @@ import java.util.concurrent.LinkedBlockingQueue;
  * spring bean 出于线程安全考虑，不得注入bean至线程类（Runnable）
  */
 @Component
-public class MailRunner implements Runnable {
-    public static BlockingQueue<String> queue = new LinkedBlockingQueue<>();
+public class MailTask implements Runnable {
+    public  static BlockingQueue<String> queue = new LinkedBlockingQueue<>();
 
+    @Autowired
     private MailService mailService;
 
     private static int taskId = 0;// 任务id
 
     @Override
     public void run() {
-        System.out.println("start MailRunner...");
-        this.mailService = (MailService) SpringBeanUtil.getBean(MailService.class);
+        System.out.println("start MailRunner..." + mailService);
+        // this.mailService = (MailService) SpringBeanUtil.getBean(MailService.class);
 
         while (true) {
             try {
