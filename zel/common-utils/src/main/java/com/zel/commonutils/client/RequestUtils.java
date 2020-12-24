@@ -1,20 +1,18 @@
-package com.zel.commonutils;
+package com.zel.commonutils.client;
 
+import com.zel.commonutils.MessageFormatter;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RequestUtil {
+public class RequestUtils {
 
     public static void saveCookie(String key, String value, HttpServletRequest request
             , HttpServletResponse response) {

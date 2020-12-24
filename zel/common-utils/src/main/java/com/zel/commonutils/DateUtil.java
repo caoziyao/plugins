@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -101,6 +102,16 @@ public class DateUtil {
      */
     public static Date add(Date date, int day) {
         return add(date, 0, day, 0, 0);
+    }
+
+    /**
+     * 时间 +-
+     * @param date
+     * @param minute
+     * @return
+     */
+    public static Date addMinute(Date date, int minute) {
+        return add(date, 0, 0, 0, minute);
     }
 
     /**
@@ -244,9 +255,14 @@ public class DateUtil {
         }
     }
 
-    public static void main(String[] args) {
+    public static void test() {
         foreach(new Date(), add(new Date(), 7), (c1, c2) -> {
             System.out.println(c1.getTime());
         });
+    }
+
+    public static void main(String[] args) {
+        long a = new Random().nextInt(100);
+        System.out.println(a);
     }
 }

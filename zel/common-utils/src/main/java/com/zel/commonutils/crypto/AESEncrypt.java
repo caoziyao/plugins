@@ -4,10 +4,12 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import javax.crypto.Cipher;
 import java.security.Key;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Description:
- *
+ *   javax. crypto.Cipher 每次都要实例化，大量的实例化导致 Cipher 实例化失败。
+ *   产生了java.lang.IllegalStateException:Cipher not initialized问题
  * @author csy
  * @version 1.0.0
  * @since 2020/3/20

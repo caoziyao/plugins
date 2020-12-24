@@ -6,6 +6,7 @@ import com.zel.commonutils.JacksonHelper;
 import com.zel.commonutils.crypto.Md5Utils;
 import com.zel.dbmanager.entity.SSAccount;
 import com.zel.market.config.Config;
+import com.zel.market.jobs.mail.MailTask;
 import com.zel.market.service.mail.MailService;
 import com.zel.market.service.ss.SSService;
 import org.slf4j.Logger;
@@ -29,11 +30,11 @@ import java.util.concurrent.TimeUnit;
  * 3. worker 直接从内存中拿定时器任务，进行处理；处理完毕后更新 mysql 中的状态
  */
 @Component
-public class Jobs {
+public class SSJobs {
     @Value("${ss.path}")
     private String ssPath;
 
-    private static final Logger log = LoggerFactory.getLogger(Jobs.class);
+    private static final Logger log = LoggerFactory.getLogger(SSJobs.class);
     private final String email = "984529803@qq.com";
 
     private static final long timeout = TimeUnit.MINUTES.toMillis(10);
@@ -70,7 +71,12 @@ public class Jobs {
             if (!s1.equals(content)) {
                 write(content);
                 //  mailService.addTask();
-                mailService.sendHtmlMail(email, "ss 账号", content);
+                MailTask task = MailTask.builder()
+                        .to(email)
+                        .subject("ss 账号")
+                        .content(content)
+                        .build();
+                mailService.addTask(task);
                 log.info("发送email通知");
             } else {
                 log.info("无改动");

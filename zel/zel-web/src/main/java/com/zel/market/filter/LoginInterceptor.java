@@ -1,7 +1,7 @@
 package com.zel.market.filter;
 
 import com.zel.commonutils.JacksonHelper;
-import com.zel.commonutils.RequestUtil;
+import com.zel.commonutils.client.RequestUtils;
 import com.zel.commonutils.crypto.AESEncrypt;
 import com.zel.commonutils.redis.RedisUtils;
 import com.zel.dbmanager.entity.User;
@@ -10,6 +10,7 @@ import com.zel.market.common.Constants;
 import com.zel.market.common.Env;
 import com.zel.market.common.enumcom.ERedisKey;
 import com.zel.market.exception.AuthorizationException;
+import com.zel.market.service.user.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,12 +36,15 @@ public class LoginInterceptor implements AsyncHandlerInterceptor {
     private String TOKEN_KEY;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private RedisUtils redisUtils;
 
     private void setContext(HttpServletRequest request) throws Exception {
         AppContext appContext = new AppContext();
 
-        String token = RequestUtil.getCookie(request, Constants.SESSIONID);
+        String token = RequestUtils.getCookie(request, Constants.SESSIONID);
         if (StringUtils.isBlank(token)) {
             return;
         }
@@ -67,7 +71,7 @@ public class LoginInterceptor implements AsyncHandlerInterceptor {
 
         // 校验token
         // 从 session 或 header 获取 token
-        String token = RequestUtil.getCookie(request, Constants.SESSIONID);
+        String token = RequestUtils.getCookie(request, Constants.SESSIONID);
         if (StringUtils.isBlank(token)) {
             throw new AuthorizationException("请登录");
         }
@@ -81,6 +85,8 @@ public class LoginInterceptor implements AsyncHandlerInterceptor {
         if (user == null) {
             throw new AuthorizationException("解析 user 出错!");
         }
+
+        userService.addOnlineUser(user.getId());
 
         // 只有返回true才会继续向下执行，返回false取消当前请求
         return true;

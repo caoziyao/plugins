@@ -1,5 +1,6 @@
 package com.zel.market.service.mail;
 
+import com.zel.market.jobs.mail.MailTask;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +13,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface MailService {
-    void sendSimpleMail(@NonNull String to, @NonNull String subject, @NonNull String content);
+    void sendSimpleMail(String to, String subject, String content);
 
-    void sendHtmlMail(@NonNull String to, @NonNull String subject, @NonNull String content);
+    void sendHtmlMail(String to, String subject, String content);
 
     void sendAttachmentsMail(String to, String subject, String content, String filePath);
 
@@ -22,5 +23,5 @@ public interface MailService {
 
     void mock(String message);
 
-    void addTask(String message);
+    void addTask(MailTask task);
 }

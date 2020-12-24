@@ -1,4 +1,4 @@
-package com.zel.market.jobs;
+package com.zel.market.jobs.mail;
 
 import com.zel.market.service.mail.MailService;
 import org.apache.commons.lang3.StringUtils;
@@ -13,8 +13,8 @@ import java.util.concurrent.TimeUnit;
  * 通知任务
  */
 @Component
-public class MailTask implements Runnable {
-    public static BlockingQueue<String> queue = new LinkedBlockingQueue<>();
+public class MailTaskRunner implements Runnable {
+    public static BlockingQueue<MailTask> queue = new LinkedBlockingQueue<>();
 
     @Autowired
     private MailService mailService;
@@ -26,10 +26,13 @@ public class MailTask implements Runnable {
 
         while (true) {
             try {
-                String po = queue.poll(5, TimeUnit.SECONDS);
+                MailTask task = queue.poll(5, TimeUnit.SECONDS);
                 //  System.out.println("queue poll: " + po  + ": "+ new Date() + ":" + Thread.currentThread().getName());
-                if (StringUtils.isNotBlank(po)) {
-                    mailService.mock(po);
+                if (task != null) {
+                    String to = task.getTo();
+                    String content = task.getContent();
+                    String subject = task.getSubject();
+                    mailService.sendSimpleMail(to, subject, content);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -45,9 +48,9 @@ public class MailTask implements Runnable {
     /**
      * add
      *
-     * @param e
+     * @param task
      */
-    public void add(String e) {
-        queue.add(e);
+    public void add(MailTask task) {
+        queue.add(task);
     }
 }

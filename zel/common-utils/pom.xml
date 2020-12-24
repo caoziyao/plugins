@@ -22,6 +22,12 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
             <version>${spring.boot.version}</version>
         </dependency>
+        <!-- httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.13</version>
+        </dependency>
         <!-- jackson start -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

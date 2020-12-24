@@ -1,4 +1,4 @@
-package com.zel.market.client;
+package com.zel.commonutils.client;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;

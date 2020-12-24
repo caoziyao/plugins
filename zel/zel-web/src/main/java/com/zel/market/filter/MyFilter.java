@@ -1,5 +1,6 @@
 package com.zel.market.filter;
 
+import com.zel.commonutils.client.RequestUtils;
 import com.zel.market.common.Response;
 import com.zel.market.common.enumcom.EResponseCode;
 import lombok.SneakyThrows;
@@ -33,7 +34,7 @@ public class MyFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        System.out.println("filter: " + request.getRequestURI());
+        System.out.println("filter: " + RequestUtils.getURL(request));
         //执行
         filterChain.doFilter(servletRequest, servletResponse);
     }

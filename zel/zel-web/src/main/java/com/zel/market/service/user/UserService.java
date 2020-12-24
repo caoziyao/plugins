@@ -61,12 +61,12 @@ public class UserService {
     }
 
     /**
-     * 当天用户在线数
+     * 30分钟，用户在线数
      * @return
      */
     public long onlineUserNumToday() {
         Date now = new Date();
-        Date dawn = DateUtil.dawnOf(now);
+        Date dawn = DateUtil.addMinute(now, -30);
         return onlineUserNum(dawn, now);
     }
 

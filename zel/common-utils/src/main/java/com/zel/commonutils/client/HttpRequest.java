@@ -1,4 +1,4 @@
-package com.zel.market.client;
+package com.zel.commonutils.client;
 
 
 import java.io.IOException;
@@ -7,7 +7,6 @@ import java.util.*;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -28,7 +27,7 @@ public class HttpRequest {
         return this;
     }
 
-    public String get(String url) {
+    public static String get(String url) {
         String result = "";
         CloseableHttpResponse response = null;
 
@@ -72,7 +71,7 @@ public class HttpRequest {
         return result;
     }
 
-    public String post(String url, Map<String, Object> paramMap) {
+    public static String post(String url, Map<String, Object> paramMap) {
         String result = "";
         CloseableHttpResponse response = null;
 

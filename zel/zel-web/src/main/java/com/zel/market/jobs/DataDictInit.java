@@ -1,5 +1,6 @@
 package com.zel.market.jobs;
 
+import com.zel.market.jobs.mail.MailTaskRunner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class DataDictInit implements CommandLineRunner {
     private final static Logger log = LogManager.getLogger(DataDictInit.class);
 
     @Autowired
-    private MailTask mailTask;
+    private MailTaskRunner mailTask;
 
     @Autowired
     private ThreadPoolMonitorService monitorService;

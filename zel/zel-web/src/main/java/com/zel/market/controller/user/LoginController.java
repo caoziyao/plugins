@@ -1,7 +1,7 @@
 package com.zel.market.controller.user;
 
 import com.zel.commonutils.JacksonHelper;
-import com.zel.commonutils.RequestUtil;
+import com.zel.commonutils.client.RequestUtils;
 import com.zel.commonutils.crypto.AESEncrypt;
 import com.zel.commonutils.crypto.Md5Utils;
 import com.zel.commonutils.redis.RedisUtils;
@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 
@@ -45,7 +46,8 @@ public class LoginController {
 
     private User getDefaultUser() {
         User user = new User();
-        user.setId(11L);
+        long userId = new Random().nextInt(1000);
+        user.setId(userId);
         user.setPassword("81dc9bdb52d04dc20036dbd8313ed055");
         user.setUsername("abc");
         return user;
@@ -72,7 +74,7 @@ public class LoginController {
         // 设置TOKEN
         redisUtils.set(ERedisKey.USER_ID.formatKey(user.getId().toString()), JacksonHelper.write(user), TOKEN_TIMEOUT, TimeUnit.HOURS);
         // 保存到 cookie 或 header 里面
-        RequestUtil.saveCookie(Constants.SESSIONID, newToken, request, response);
+        RequestUtils.saveCookie(Constants.SESSIONID, newToken, request, response);
         // 设置在线用户
         userService.addOnlineUser(user.getId());
 
@@ -85,10 +87,7 @@ public class LoginController {
             , HttpServletResponse response) throws Exception {
         String username = "abc";
         String password = "1234";
-
         User user = getDefaultUser();
-
-        userService.addOnlineUser(user.getId());
 
         // 密码判断
         String md5 = Md5Utils.md5(password);
@@ -97,11 +96,13 @@ public class LoginController {
         }
 
         // 生成并设置TOKEN
-        String newToken = new AESEncrypt("random key").encrypt(user.getId() + "-" + System.currentTimeMillis() / 1000);
+        String newToken = new AESEncrypt(TOKEN_KEY).encrypt(user.getId() + "-" + System.currentTimeMillis() / 1000);
         // 设置TOKEN
-        redisUtils.set(ERedisKey.USER_ID.formatKey(user.getId().toString()), JacksonHelper.write(user), 24L, TimeUnit.HOURS);
+        redisUtils.set(ERedisKey.USER_ID.formatKey(user.getId().toString()), JacksonHelper.write(user), TOKEN_TIMEOUT, TimeUnit.HOURS);
         // 保存到 cookie 或 header 里面
-        RequestUtil.saveCookie(Constants.SESSIONID, newToken, request, response);
+        RequestUtils.saveCookie(Constants.SESSIONID, newToken, request, response);
+        // 设置在线用户
+        userService.addOnlineUser(user.getId());
 
         return Response.ok(user);
     }
