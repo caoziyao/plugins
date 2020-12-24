@@ -27,7 +27,7 @@ public class AESEncrypt extends DigestCommon {
 
     private static ConcurrentHashMap<String, AESEncrypt> Map = new ConcurrentHashMap<>();
 
-    public AESEncrypt(String key) throws Exception {
+    private AESEncrypt(String key) throws Exception {
         //this.KEY = key;
         //初始化加密和解密密码提供类
         mEncryptCipher = Cipher.getInstance("DES");
