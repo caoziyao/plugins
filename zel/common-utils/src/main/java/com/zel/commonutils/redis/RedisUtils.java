@@ -1,11 +1,12 @@
 package com.zel.commonutils.redis;
 
 import org.springframework.data.redis.connection.RedisZSetCommands;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ZSetOperations;
+import org.springframework.data.redis.core.*;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -24,6 +25,34 @@ public class RedisUtils extends com.zel.commonutils.redis.BaseRedisUtils {
 
 
     /**************************************************** key 相关操作 *************************************************/
+
+    /**
+     * 使用SCAN命令扫描key替代KEYS避免redis服务器阻塞
+     *
+     * @param patternKey
+     * @return
+     */
+    public List<String> scan(String patternKey) {
+        //需要匹配的key
+        // String patternKey = "pay:*";
+        ScanOptions options = ScanOptions.scanOptions()
+                //这里指定每次扫描key的数量(很多博客瞎说要指定Integer.MAX_VALUE，这样的话跟        keys有什么区别？)
+                .count(10000)
+                .match(patternKey).build();
+        RedisSerializer<String> redisSerializer = (RedisSerializer<String>) redisTemplate.getKeySerializer();
+        Cursor cursor = (Cursor) redisTemplate.executeWithStickyConnection(redisConnection -> new ConvertingCursor<>(redisConnection.scan(options), redisSerializer::deserialize));
+        List<String> result = new ArrayList<>();
+        while (cursor.hasNext()) {
+            result.add(cursor.next().toString());
+        }
+        //切记这里一定要关闭，否则会耗尽连接数。报Cannot get Jedis connection; nested exception is redis.clients.jedis.exceptions.JedisException: Could not get a
+        try {
+            cursor.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
     /**
      * 实现命令：DEL key1 [key2 ...]

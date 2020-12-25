@@ -21,7 +21,7 @@ public class MailTaskRunner implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("start MailTask..." + mailService);
+        System.out.println("start MailTask..." + mailService + " " +  Thread.currentThread().getName());
         // this.mailService = (MailService) SpringBeanUtil.getBean(MailService.class);
 
         while (true) {

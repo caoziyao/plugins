@@ -27,6 +27,8 @@ public class UserJobs {
 
     private static String baseUrl;
 
+    private ExecutorService executor = Executors.newFixedThreadPool(5);
+
     static {
         InetAddress address = null;
         try {
@@ -41,7 +43,7 @@ public class UserJobs {
     public void reportCurrentTime() {
         String host = baseUrl + port;
         int num = new Random().nextInt(20);
-        ExecutorService executor = Executors.newFixedThreadPool(5);
+
         for (int i = 0; i < num; i++) {
             int finalI = i;
             executor.submit(new Runnable() {
