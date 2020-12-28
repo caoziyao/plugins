@@ -1,7 +1,7 @@
-package com.zel.mq.fanout;
+package com.zel.mq.patterndemo.fanout;
 
 import com.rabbitmq.client.Channel;
-import com.zel.mq.dto.IRabbitQueue;
+import com.zel.mq.patterndemo.IRabbitQueue;
 import org.springframework.amqp.core.ExchangeTypes;
 import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.amqp.rabbit.annotation.Queue;

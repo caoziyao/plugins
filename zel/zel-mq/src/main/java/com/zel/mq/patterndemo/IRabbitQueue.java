@@ -1,4 +1,4 @@
-package com.zel.mq.dto;
+package com.zel.mq.patterndemo;
 
 /**
  * Description:

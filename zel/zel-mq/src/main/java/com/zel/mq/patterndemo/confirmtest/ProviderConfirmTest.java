@@ -1,6 +1,6 @@
-package com.zel.mq.confirmtest;
+package com.zel.mq.patterndemo.confirmtest;
 
-import com.zel.mq.dto.IRabbitQueue;
+import com.zel.mq.patterndemo.IRabbitQueue;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

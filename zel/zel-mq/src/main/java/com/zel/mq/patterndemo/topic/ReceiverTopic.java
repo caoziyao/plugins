@@ -1,6 +1,6 @@
-package com.zel.mq.topic;
+package com.zel.mq.patterndemo.topic;
 
-import com.zel.mq.dto.IRabbitQueue;
+import com.zel.mq.patterndemo.IRabbitQueue;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;

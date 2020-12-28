@@ -4,7 +4,7 @@ import com.google.common.util.concurrent.RateLimiter;
 import com.zel.market.common.Response;
 import com.zel.market.service.mail.MailService;
 import com.zel.market.service.user.UserService;
-import com.zel.mq.helloworld.ProviderHelloWorld;
+import com.zel.mq.patterndemo.helloworld.ProviderHelloWorld;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

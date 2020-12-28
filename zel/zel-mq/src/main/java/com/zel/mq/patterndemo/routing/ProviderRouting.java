@@ -1,8 +1,8 @@
-package com.zel.mq.routing;
+package com.zel.mq.patterndemo.routing;
 
 
-import com.zel.mq.dto.IRabbitQueue;
-import com.zel.mq.dto.IRabbitRouteKey;
+import com.zel.mq.patterndemo.IRabbitQueue;
+import com.zel.mq.patterndemo.IRabbitRouteKey;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

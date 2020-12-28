@@ -1,6 +1,6 @@
-package com.zel.mq.fanout;
+package com.zel.mq.patterndemo.fanout;
 
-import com.zel.mq.dto.IRabbitQueue;
+import com.zel.mq.patterndemo.IRabbitQueue;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

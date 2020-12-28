@@ -1,6 +1,6 @@
-package com.zel.mq.routing;
+package com.zel.mq.patterndemo.routing;
 
-import com.zel.mq.dto.IRabbitQueue;
+import com.zel.mq.patterndemo.IRabbitQueue;
 import org.springframework.amqp.rabbit.annotation.*;
 import org.springframework.stereotype.Component;
 

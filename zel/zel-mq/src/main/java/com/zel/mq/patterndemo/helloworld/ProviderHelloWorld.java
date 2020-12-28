@@ -1,7 +1,7 @@
-package com.zel.mq.helloworld;
+package com.zel.mq.patterndemo.helloworld;
 
 
-import com.zel.mq.dto.IRabbitQueue;
+import com.zel.mq.patterndemo.IRabbitQueue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package com.zel.mq.dto;
+package com.zel.mq.patterndemo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
