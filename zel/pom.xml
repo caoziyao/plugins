@@ -21,8 +21,10 @@
     <modules>
         <module>common-utils</module>
         <module>dbmanager</module>
+        <module>zel-mq</module>
         <module>zel-web</module>
         <module>zel-pojo</module>
+
     </modules>
 
     <!--定义属性值-->
@@ -108,10 +110,22 @@
             </dependency>
             <dependency>
                 <groupId>com.zel</groupId>
+                <artifactId>zel-mq</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zel</groupId>
                 <artifactId>web</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!--本项目模块的依赖 end-->
+
+            <!--rabbitmq-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-amqp</artifactId>
+                <version>2.4.1</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>

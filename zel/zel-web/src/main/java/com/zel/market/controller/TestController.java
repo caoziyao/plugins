@@ -4,6 +4,7 @@ import com.google.common.util.concurrent.RateLimiter;
 import com.zel.market.common.Response;
 import com.zel.market.service.mail.MailService;
 import com.zel.market.service.user.UserService;
+import com.zel.mq.helloworld.ProviderHelloWorld;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,8 +22,8 @@ public class TestController {
     @Autowired
     private UserService userService;
 
-//    @Autowired
-//    private MailService mailService;
+    @Autowired
+    private ProviderHelloWorld providerHelloWorld;
 
     // 允许每秒最多10个任务
     public static final RateLimiter rateLimiter = RateLimiter.create(10);
@@ -41,6 +42,7 @@ public class TestController {
     @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
     public Response index(@RequestParam(required = false, defaultValue = "1") String statType) {
 
+        providerHelloWorld.sendMessage();
 //        if ("2".equals(statType)) {
 //            throw new BusinessException("参数错误5！");
 //        }
