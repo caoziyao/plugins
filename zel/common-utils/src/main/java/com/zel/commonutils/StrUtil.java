@@ -13,6 +13,9 @@ import java.util.Map;
  */
 public class StrUtil {
 
+    public static final char C_CR = '\r';
+    public static final char C_LF = '\n';
+    public static final char C_TAB = '	';
     public final static String SPACE = " ";
 
     private StrUtil() {
@@ -76,6 +79,7 @@ public class StrUtil {
      * @return 替换好的文本
      */
     public static final String format(String message, Object... args) {
+        // 🤔👍🍓🤔
         if (message == null || args == null || args.length <= 0) {
             return message;
         }
