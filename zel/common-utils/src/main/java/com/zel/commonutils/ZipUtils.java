@@ -1,5 +1,6 @@
 package com.zel.commonutils;
 
+import java.util.LinkedList;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
@@ -18,12 +19,5 @@ public class ZipUtils {
         return null;
     }
 
-    /**
-     * 解压缩
-     *
-     */
-    public static byte[] decompress(byte[] data) {
-        Inflater decompresser = new Inflater();
-        return null;
-    }
+
 }

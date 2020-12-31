@@ -1,6 +1,6 @@
 package com.zel.commonutils.client;
 
-import com.zel.commonutils.MessageFormatter;
+import com.zel.commonutils.StrUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.Cookie;
@@ -105,13 +105,13 @@ public class RequestUtils {
 
         for (String key : headers.keySet()) {
             String value = headers.get(key);
-            curl.append(MessageFormatter.formatWithArgs(" -H '{}: {}' ", key, value));
+            curl.append(StrUtil.format(" -H '{}: {}' ", key, value));
         }
 
         if (StringUtils.isNotEmpty(body)) {
-            curl.append(MessageFormatter.formatWithArgs("--data-raw '{}' ", body));
+            curl.append(StrUtil.format("--data-raw '{}' ", body));
         }
-        curl.append(MessageFormatter.formatWithArgs("--compressed '{}'", url));
+        curl.append(StrUtil.format("--compressed '{}'", url));
         return curl.toString();
     }
 }
