@@ -5,6 +5,8 @@ import com.zel.market.common.Response;
 import com.zel.market.service.mail.MailService;
 import com.zel.market.service.user.UserService;
 import com.zel.mq.patterndemo.helloworld.ProviderHelloWorld;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/test")
 public class TestController {
+
+    Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private MailService mailService;
@@ -39,8 +43,14 @@ public class TestController {
         return "";
     }
 
-    @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/t", method = {RequestMethod.GET, RequestMethod.POST})
     public Response index(@RequestParam(required = false, defaultValue = "1") String statType) {
+
+        logger.trace("Trace 日志...");
+        logger.debug("Debug 日志...");
+        logger.info("Info 日志...");
+        logger.warn("Warn 日志...");
+        logger.error("Error 日志...");
 
         providerHelloWorld.sendMessage();
 //        if ("2".equals(statType)) {
