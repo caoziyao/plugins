@@ -10,4 +10,5 @@ package com.zel.market.config.kafka;
 public interface KafkaTopic {
     String mail = "topic_mail";
     String topic1 = "topic1";
+    String topic2 = "topic2";
 }

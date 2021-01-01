@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Description:
@@ -17,6 +18,9 @@ import java.util.List;
 @Mapper
 public interface ArticleMapper extends BaseMapper<Article> {
 
-    @Select("select * from tb_article")
-    List<Article> findAll();
+    @Select("select * from tb_article LIMIT #{offset}, #{limit} ")
+    List<Article> findAll(Map<String, Object> params);
+
+    @Select("select count(*) num from tb_article")
+    int countAll();
 }

@@ -5,13 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>vue 1-2</title>
     <link rel="stylesheet" href="css/common.css">
-    <script src="libs/vue@2.6.10.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- element 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <style type="text/css">
     </style>
 </head>
 <body>
-<div class="app1-2">
+<div class="app">
+
+    <el-input
+            placeholder="请输入内容"
+            prefix-icon="el-icon-search"
+            v-model="searchValue">
+    </el-input>
+
+    <el-button @click="visible = true">Button</el-button>
+    <el-dialog :visible.sync="visible" title="Hello world">
+        <p>Try Element</p>
+    </el-dialog>
 
     <ul>
         <li v-for="(article, i) in articleList">
@@ -20,37 +31,73 @@
         </li>
     </ul>
 
-    <button><a href="/ss/account/enable">点击激活ss</a></button>
+    <!--分页-->
+    <el-pagination
+            background
+            layout="prev, pager, next"
+            @current-change="handleCurrentChange"
+            :total="total"
+            :page-size="10">
+    </el-pagination>
 
 
-    <button @click="addArticle">添加article</button>
+    <el-button><a href="/ss/account/enable">点击激活ss</a></el-button>
+    <el-button @click="addArticle">添加article</el-button>
     <form>
-        <input placeholder="标题" v-model="title">
-        <input placeholder="url" v-model="url">
+        <el-input placeholder="标题" v-model="title"></el-input>
+        <el-input placeholder="url" v-model="url"></el-input>
     </form>
+
+
 </div>
+
+</body>
+
+<!--vue-->
+<!--<script src="libs/vue@2.6.10.js"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!-- element 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<!--axios-->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 
 <script>
     let app = new Vue({
         // 既然 el 是选择器，那么 class 选择器也是可以的
-        el: '.app1-2',
+        el: '.app',
         data: function () {
             return {
+                searchValue: "",
+                visible: false,
                 title: "",
                 url: "",
+                total: 0,
                 articleList: [],
             }
         },
         methods: {
+            handleCurrentChange: function(val) {
+                // 改变默认的页数
+               // this.currentPage=val
+                axios.post('/article/list', {
+                    page:val,
+                }).then(response => {
+                    let data = response.data.data;
+                    this.articleList = data.article;
+                    this.total = data.total;
+                    console.log(response)
+                })
+            },
             check: function () {
                 return true;
             },
             getArticleList: function () {
                 axios.post('/article/list', {}).then(response => {
                     let data = response.data.data;
-                    this.articleList = data
+                    this.articleList = data.article;
+                    this.total = data.total;
                     console.log(response)
-                    console.log(data)
                 })
             },
             addArticle: function (event) {
@@ -77,5 +124,4 @@
         }
     })
 </script>
-</body>
 </html>

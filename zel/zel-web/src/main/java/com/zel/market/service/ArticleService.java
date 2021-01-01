@@ -22,13 +22,27 @@ public class ArticleService {
     @Autowired
     private ArticleMapper articleMapper;
 
-    public List<Article> getAllArticle(long id, long columnId) {
+    /**
+     * 文章
+     * @param page
+     * @param limit
+     * @return
+     */
+    public List<Article> getArticle(int page, int limit) {
         Map<String, Object> params = new HashMap<>();
-        params.put("id", id);
-        params.put("column_id", columnId);
-        //List<Article> articles = articleMapper.selectByMap(params);
-        List<Article> all = articleMapper.findAll();
+        int offset = limit * page - limit;
+        params.put("offset", offset);
+        params.put("limit", limit);
+        List<Article> all = articleMapper.findAll(params);
         return all;
+    }
+
+    /**
+     * 总数
+     * @return
+     */
+    public int totalArticle() {
+        return articleMapper.countAll();
     }
 
     /**
@@ -36,7 +50,7 @@ public class ArticleService {
      * @return
      */
     public Article add(Article article) {
-        int insert = articleMapper.insert(article);
+        articleMapper.insert(article);
         return article;
     }
 }

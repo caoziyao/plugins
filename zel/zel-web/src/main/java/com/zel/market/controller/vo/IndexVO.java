@@ -14,7 +14,7 @@ public class IndexVO {
     @JsonProperty("user")
     private UserDTO user;
 
-    @JsonFormat( pattern="yyyy年MM月dd日 HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date updateTime;
 
     public UserDTO getUser() {

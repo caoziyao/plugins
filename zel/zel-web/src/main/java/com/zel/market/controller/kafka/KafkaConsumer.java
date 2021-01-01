@@ -5,6 +5,7 @@ import com.zel.market.config.kafka.KafkaTopic;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.annotation.TopicPartition;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,18 +19,28 @@ import org.springframework.stereotype.Component;
 @Component
 public class KafkaConsumer {
 
+    /**
+     * 使用 topicPartitions 指定 topic、parition、offset
+     * 注意：topics 和 topicPartitions 不能同时使用。
+     *      一个消费组中的消费者只能和一个分区一一对应
+     * @param record
+     */
+    @KafkaListener(groupId = KafkaConsumerGroup.group1,
+            topicPartitions = @TopicPartition(topic = KafkaTopic.topic1, partitions = "0"))
+    public void onMessage2(ConsumerRecord<?, ?> record) {
+        // 消费的哪个topic、partition的消息,打印出消息内容
+        log.info("简单消费2：" + record.topic() + "-" + record.partition() + "-" + record.value());
+    }
 
     // 消费监听
-    @KafkaListener(topics = {KafkaTopic.topic1}, groupId = KafkaConsumerGroup.group1)
+    //@KafkaListener(topics = {KafkaTopic.topic1}, groupId = KafkaConsumerGroup.group1)
+    @KafkaListener(groupId = KafkaConsumerGroup.group1,
+            topicPartitions = @TopicPartition(topic = KafkaTopic.topic1, partitions = "1"))
     public void onMessage1(ConsumerRecord<?, ?> record) {
         // 消费的哪个topic、partition的消息,打印出消息内容
         log.info("简单消费：" + record.topic() + "-" + record.partition() + "-" + record.value());
     }
 
-    @KafkaListener(topics = {KafkaTopic.topic1}, groupId = KafkaConsumerGroup.group1)
-    public void onMessage2(ConsumerRecord<?, ?> record) {
-        // 消费的哪个topic、partition的消息,打印出消息内容
-        log.info("简单消费2：" + record.topic() + "-" + record.partition() + "-" + record.value());
-    }
+
 
 }

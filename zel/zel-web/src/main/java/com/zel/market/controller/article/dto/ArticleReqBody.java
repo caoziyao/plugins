@@ -1,5 +1,6 @@
 package com.zel.market.controller.article.dto;
 
+import com.zel.market.controller.dto.BaseReqDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +13,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class ArticleReqBody {
+public class ArticleReqBody extends BaseReqDTO {
 
     private long articleId;
     private long columnId;
