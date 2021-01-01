@@ -17,4 +17,6 @@ public class ArticleReqBody extends BaseReqDTO {
 
     private long articleId;
     private long columnId;
+
+    private boolean refresh;
 }

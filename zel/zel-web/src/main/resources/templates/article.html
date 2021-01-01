@@ -27,7 +27,7 @@
     <ul>
         <li v-for="(article, i) in articleList">
             <a :href="article.articleUrl" target="_blank"> {{ article.title }} </a>
-            <button @click="collectClick($event)" :data-id="article.id">收藏</button>
+<!--            <button @click="collectClick($event)" :data-id="article.id">收藏</button>-->
         </li>
     </ul>
 
@@ -92,8 +92,10 @@
             check: function () {
                 return true;
             },
-            getArticleList: function () {
-                axios.post('/article/list', {}).then(response => {
+            getArticleList: function (refresh) {
+                axios.post('/article/list', {
+                    refresh: refresh,
+                }).then(response => {
                     let data = response.data.data;
                     this.articleList = data.article;
                     this.total = data.total;
@@ -111,7 +113,8 @@
                     if (code === "0") {
                         this.title = ""
                         this.url = "";
-                        this.getArticleList();
+                        let refresh = true;
+                        this.getArticleList(refresh);
                     }
                 })
             },

@@ -50,22 +50,27 @@ public class ArticleController {
     public Response list(@RequestBody ArticleReqBody body) {
         int page = body.getPage();
         int limit = body.getLimit();
-
-        String key = ERedisKey.ARTICLE_PAGE.formatKey(page, limit);
-        String cache = (String) redisUtils.get(key);
+        boolean refresh = body.isRefresh();
         List<Article> articles = new ArrayList<>();
 
-        if (StringUtils.isBlank(cache)) {
+        String key = ERedisKey.ARTICLE_PAGE.formatKey(page, limit);
+        if (refresh) {
+            // 读取数据库
             articles = articleService.getArticle(page, limit);
             redisUtils.set(key, JsonHelper.write(articles), 10L, TimeUnit.MINUTES);
         } else {
-            log.info("命中缓存 {}", key);
-            articles = JsonHelper.read(cache, new TypeReference<List<Article>>() {});
+            String cache = (String) redisUtils.get(key);
+            if (StringUtils.isBlank(cache)) {
+                articles = articleService.getArticle(page, limit);
+                redisUtils.set(key, JsonHelper.write(articles), 10L, TimeUnit.MINUTES);
+            } else {
+                log.info("命中缓存 {}", key);
+                articles = JsonHelper.read(cache, new TypeReference<List<Article>>() {});
+            }
         }
 
         int total = articleService.totalArticle();
         int num = articles.size();
-
         ArticleListVO vo = ArticleListVO.builder()
                 .article(articles)
                 .total(total)
