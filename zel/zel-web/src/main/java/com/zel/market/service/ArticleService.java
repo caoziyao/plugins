@@ -1,6 +1,6 @@
 package com.zel.market.service;
 
-import com.zel.dbmanager.entity.Article;
+import com.zel.pojo.entity.Article;
 import com.zel.dbmanager.mapper.ArticleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,5 +29,14 @@ public class ArticleService {
         //List<Article> articles = articleMapper.selectByMap(params);
         List<Article> all = articleMapper.findAll();
         return all;
+    }
+
+    /**
+     * 新增 文章
+     * @return
+     */
+    public Article add(Article article) {
+        int insert = articleMapper.insert(article);
+        return article;
     }
 }

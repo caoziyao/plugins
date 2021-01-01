@@ -1,4 +1,4 @@
-package com.zel.dbmanager.entity;
+package com.zel.pojo.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

@@ -5,7 +5,7 @@ import com.zel.commonutils.client.RequestUtils;
 import com.zel.commonutils.crypto.AESEncrypt;
 import com.zel.commonutils.crypto.Md5Utils;
 import com.zel.commonutils.redis.RedisUtils;
-import com.zel.dbmanager.entity.User;
+import com.zel.pojo.entity.User;
 import com.zel.market.common.Constants;
 import com.zel.market.common.Response;
 import com.zel.market.common.enumcom.ERedisKey;

@@ -1,6 +1,6 @@
 package com.zel.market.controller;
 
-import com.zel.dbmanager.entity.User;
+import com.zel.pojo.entity.User;
 import com.zel.market.common.AppContext;
 import com.zel.market.common.Env;
 import com.zel.market.service.user.UserService;

@@ -1,6 +1,6 @@
 package com.zel.dbmanager;
 
-import com.zel.dbmanager.entity.User;
+import com.zel.pojo.entity.User;
 import com.zel.dbmanager.mapper.UserMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;

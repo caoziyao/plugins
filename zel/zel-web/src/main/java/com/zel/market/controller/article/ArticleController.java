@@ -1,14 +1,16 @@
 package com.zel.market.controller.article;
 
-import com.zel.dbmanager.entity.Article;
+import com.zel.pojo.entity.Article;
 import com.zel.market.common.Response;
 import com.zel.market.controller.article.dto.ArticleReqBody;
 import com.zel.market.service.ArticleService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Description:
@@ -20,6 +22,9 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/article")
 public class ArticleController {
+
+    private final static Logger log = LogManager.getLogger(ArticleController.class);
+
 
     @Autowired
     private ArticleService articleService;
@@ -36,6 +41,24 @@ public class ArticleController {
         List<Article> allArticle = articleService.getAllArticle(articleId, columnId);
 
         return Response.ok(allArticle);
+    }
+
+    /**
+     * 添加列表
+     * @param body
+     * @return
+     */
+    @PostMapping(value = "/add")
+    public Response add(@RequestBody Map<String,String> map) {
+        String title = map.getOrDefault("title", "");
+        String url = map.getOrDefault("url", "");
+
+        Article article = new Article();
+        article.setTitle(title);
+        article.setArticleUrl(url);
+        articleService.add(article);
+
+        return Response.ok(article);
     }
 
     /**

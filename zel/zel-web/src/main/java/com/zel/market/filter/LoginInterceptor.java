@@ -4,7 +4,7 @@ import com.zel.commonutils.JacksonHelper;
 import com.zel.commonutils.client.RequestUtils;
 import com.zel.commonutils.crypto.AESEncrypt;
 import com.zel.commonutils.redis.RedisUtils;
-import com.zel.dbmanager.entity.User;
+import com.zel.pojo.entity.User;
 import com.zel.market.common.AppContext;
 import com.zel.market.common.Constants;
 import com.zel.market.common.Env;

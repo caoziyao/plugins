@@ -1,7 +1,7 @@
 package com.zel.dbmanager.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zel.dbmanager.entity.Column;
+import com.zel.pojo.entity.Column;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

@@ -10,7 +10,7 @@
     <insert
             id="insertAccount"
             keyProperty="id"
-            parameterType="com.zel.dbmanager.entity.SSAccount"
+            parameterType="com.zel.pojo.entity.SSAccount"
             flushCache="true"
             statementType="PREPARED"
             timeout="20" />

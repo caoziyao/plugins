@@ -1,8 +1,7 @@
 package com.zel.market.config;
 
 
-import com.zel.dbmanager.entity.SSAccount;
-import org.springframework.context.annotation.Bean;
+import com.zel.pojo.entity.SSAccount;
 import org.springframework.context.annotation.Configuration;
 
 /**

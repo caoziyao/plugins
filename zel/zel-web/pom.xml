@@ -30,6 +30,10 @@
         <!-- 在依赖中引入另一子项目 -->
         <dependency>
             <groupId>com.zel</groupId>
+            <artifactId>pojo</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zel</groupId>
             <artifactId>common-utils</artifactId>
         </dependency>
         <dependency>

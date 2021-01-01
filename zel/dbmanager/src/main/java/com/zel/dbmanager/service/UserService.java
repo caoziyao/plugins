@@ -1,15 +1,10 @@
 package com.zel.dbmanager.service;
 
 
-import com.zel.dbmanager.DBManager;
-import com.zel.dbmanager.entity.User;
-import com.zel.dbmanager.mapper.UserMapper;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.session.SqlSession;
+import com.zel.pojo.entity.User;
 //import org.springframework.lang.NonNull;
 //import org.springframework.stereotype.Service;
 
-import java.util.List;
 //import org.springframework.transaction.annotation.Transactional;
 
 /**

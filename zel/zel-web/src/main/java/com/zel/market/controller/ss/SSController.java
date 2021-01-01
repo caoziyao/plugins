@@ -1,6 +1,6 @@
 package com.zel.market.controller.ss;
 
-import com.zel.dbmanager.entity.SSAccount;
+import com.zel.pojo.entity.SSAccount;
 import com.zel.market.common.Response;
 import com.zel.market.config.Config;
 import com.zel.market.service.ss.SSService;

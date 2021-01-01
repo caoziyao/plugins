@@ -1,10 +1,6 @@
 package com.zel.dbmanager.service;
 
-import com.zel.dbmanager.DBManager;
-import com.zel.dbmanager.entity.SSAccount;
-import com.zel.dbmanager.mapper.SSAccountMapper;
-import com.zel.dbmanager.mapper.UserMapper;
-import org.apache.ibatis.session.SqlSession;
+import com.zel.pojo.entity.SSAccount;
 
 /**
  * Description:

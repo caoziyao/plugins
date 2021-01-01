@@ -2,9 +2,8 @@ package com.zel.market.service.user;
 
 import com.zel.commonutils.DateUtil;
 import com.zel.commonutils.redis.RedisUtils;
-import com.zel.dbmanager.entity.User;
+import com.zel.pojo.entity.User;
 import com.zel.dbmanager.mapper.UserMapper;
-import com.zel.market.common.enumcom.ERedisKey;
 import com.zel.market.config.Config;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,8 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>vue 1-2</title>
+    <link rel="stylesheet" href="css/common.css">
     <script src="libs/vue@2.6.10.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <style type="text/css">
@@ -20,6 +21,13 @@
     </ul>
 
     <button><a href="/ss/account/enable">点击激活ss</a></button>
+
+
+    <button @click="addArticle">添加article</button>
+    <form>
+        <input placeholder="标题" v-model="title">
+        <input placeholder="url" v-model="url">
+    </form>
 </div>
 
 <script>
@@ -28,6 +36,8 @@
         el: '.app1-2',
         data: function () {
             return {
+                title: "",
+                url: "",
                 articleList: [],
             }
         },
@@ -41,6 +51,15 @@
                     this.articleList = data
                     console.log(response)
                     console.log(data)
+                })
+            },
+            addArticle: function (event) {
+                console.log(this.title, this.url)
+                axios.post("/article/add", {
+                    "title": this.title,
+                    "url": this.url,
+                }).then(response => {
+                    console.log(response)
                 })
             },
             collectClick: function (event) {

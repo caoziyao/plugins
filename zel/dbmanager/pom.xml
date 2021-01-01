@@ -19,6 +19,11 @@
     </properties>
 
     <dependencies>
+        <!-- 在依赖中引入另一子项目 -->
+        <dependency>
+            <groupId>com.zel</groupId>
+            <artifactId>pojo</artifactId>
+        </dependency>
         <!--mybatis-plus-->
         <!--        <dependency>-->
         <!--            <groupId>com.baomidou</groupId>-->

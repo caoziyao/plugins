@@ -1,6 +1,6 @@
 package com.zel.market.common;
 
-import com.zel.dbmanager.entity.User;
+import com.zel.pojo.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 

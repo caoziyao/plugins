@@ -4,7 +4,7 @@ import com.zel.commonutils.DateUtil;
 import com.zel.commonutils.FileUtils;
 import com.zel.commonutils.JacksonHelper;
 import com.zel.commonutils.crypto.Md5Utils;
-import com.zel.dbmanager.entity.SSAccount;
+import com.zel.pojo.entity.SSAccount;
 import com.zel.market.config.Config;
 import com.zel.market.jobs.mail.MailTask;
 import com.zel.market.service.mail.MailService;
