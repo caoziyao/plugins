@@ -39,7 +39,7 @@ public class UserJobs {
         baseUrl = "http://" + address.getHostAddress() + ":";
     }
 
-    @Scheduled(fixedRate = 1 * DateUtil.MINUTE * DateUtil.MILLISECOND)
+    @Scheduled(fixedRate = 30 * DateUtil.MINUTE * DateUtil.MILLISECOND)
     public void reportCurrentTime() {
         String host = baseUrl + port;
         int num = new Random().nextInt(20);
@@ -53,6 +53,5 @@ public class UserJobs {
                 }
             });
         }
-
     }
 }

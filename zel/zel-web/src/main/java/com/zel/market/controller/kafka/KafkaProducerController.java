@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/kafka")
-public class KafkaProducer {
+public class KafkaProducerController {
+
     @Autowired
     private KafkaTemplate<String, Object> kafkaTemplate;
-
 
     /**
      * 不手动创建topic时，执行代码kafkaTemplate.send("topic1", normalMessage)发送消息时，kafka会帮我们自动完成topic的创建工作，
