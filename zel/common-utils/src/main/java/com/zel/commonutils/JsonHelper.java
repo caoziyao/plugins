@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 
-public class JacksonHelper {
+public class JsonHelper {
 
     private static ObjectMapper toJSONMapper = new ObjectMapper();
     private static ObjectMapper fromJSONMapper = new ObjectMapper();
@@ -21,7 +21,7 @@ public class JacksonHelper {
 //        fromJSONMapper.configure(org.codehaus.jackson.JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
     }
 
-    public JacksonHelper() {
+    public JsonHelper() {
     }
 
     public static <T> T read(String json, Class<T> clazz) {

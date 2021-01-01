@@ -1,12 +1,16 @@
 package com.zel.market.common.enumcom;
 
+import com.zel.commonutils.StrUtil;
+
 /**
  * redis key
  */
 public enum ERedisKey {
 
-    EXPRESS("EXPRESS:{1}", "过期"),
-    USER_ID("USER:ID:{1}", "user id"),
+    ARTICLE_PAGE("ARTICLE:page{}:limit{}", "文章页面"),
+
+    EXPRESS("EXPRESS:{}", "过期"),
+    USER_ID("USER:ID:{}", "user id"),
     USER_ONLINE("USER:ONLINE", "用户在线数"),
     ;
 
@@ -36,18 +40,20 @@ public enum ERedisKey {
      * @return
      */
     public String formatKey(Object... params) {
-        if (params != null && params.length != 0) {
-            String temp = this.key;
+        return StrUtil.format(this.key, params);
 
-            for (int i = 0; i < params.length; ++i) {
-                if (-1 != temp.indexOf("{" + (i + 1) + "}")) {
-                    temp = temp.replace("{" + (i + 1) + "}", params[i].toString());
-                }
-            }
-            return temp;
-        } else {
-            return this.key;
-        }
+        //if (params != null && params.length != 0) {
+        //    String temp = this.key;
+        //
+        //    for (int i = 0; i < params.length; ++i) {
+        //        if (-1 != temp.indexOf("{" + (i + 1) + "}")) {
+        //            temp = temp.replace("{" + (i + 1) + "}", params[i].toString());
+        //        }
+        //    }
+        //    return temp;
+        //} else {
+        //    return this.key;
+        //}
     }
 
     /**

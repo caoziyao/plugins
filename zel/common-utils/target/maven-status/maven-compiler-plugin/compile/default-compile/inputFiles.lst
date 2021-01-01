@@ -3,7 +3,6 @@
 /Users/yao/NutstoreFiles/myjianguoyun/longprj/plugins/zel/common-utils/src/main/java/com/zel/commonutils/ZipUtils.java
 /Users/yao/NutstoreFiles/myjianguoyun/longprj/plugins/zel/common-utils/src/main/java/com/zel/commonutils/ImageUtil.java
 /Users/yao/NutstoreFiles/myjianguoyun/longprj/plugins/zel/common-utils/src/main/java/com/zel/commonutils/StrUtil.java
-/Users/yao/NutstoreFiles/myjianguoyun/longprj/plugins/zel/common-utils/src/main/java/com/zel/commonutils/JacksonHelper.java
 /Users/yao/NutstoreFiles/myjianguoyun/longprj/plugins/zel/common-utils/src/main/java/com/zel/commonutils/redis/RedisUtils.java
 /Users/yao/NutstoreFiles/myjianguoyun/longprj/plugins/zel/common-utils/src/main/java/com/zel/commonutils/crypto/AESEncrypt.java
 /Users/yao/NutstoreFiles/myjianguoyun/longprj/plugins/zel/common-utils/src/main/java/com/zel/commonutils/redis/BaseRedisUtils.java
@@ -20,4 +19,5 @@
 /Users/yao/NutstoreFiles/myjianguoyun/longprj/plugins/zel/common-utils/src/main/java/com/zel/commonutils/Assert.java
 /Users/yao/NutstoreFiles/myjianguoyun/longprj/plugins/zel/common-utils/src/main/java/com/zel/commonutils/crypto/Md5Utils.java
 /Users/yao/NutstoreFiles/myjianguoyun/longprj/plugins/zel/common-utils/src/main/java/com/zel/commonutils/DateUtil.java
+/Users/yao/NutstoreFiles/myjianguoyun/longprj/plugins/zel/common-utils/src/main/java/com/zel/commonutils/JsonHelper.java
 /Users/yao/NutstoreFiles/myjianguoyun/longprj/plugins/zel/common-utils/src/main/java/com/zel/commonutils/client/HttpRequest.java

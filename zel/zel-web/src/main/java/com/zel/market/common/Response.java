@@ -1,7 +1,7 @@
 package com.zel.market.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.zel.commonutils.JacksonHelper;
+import com.zel.commonutils.JsonHelper;
 import com.zel.market.common.enumcom.EResponseCode;
 
 import java.io.Serializable;
@@ -31,7 +31,7 @@ public class Response implements Serializable {
      * @return
      */
     public static Response ok() {
-        return new Response(EResponseCode.C200);
+        return new Response(EResponseCode.OK);
     }
 
     /**
@@ -47,7 +47,7 @@ public class Response implements Serializable {
      * @return
      */
     public static Response error(String message) {
-        Response response = new Response(EResponseCode.C500);
+        Response response = new Response(EResponseCode.ERROR);
         response.setMessage(message);
         return response;
     }
@@ -58,7 +58,7 @@ public class Response implements Serializable {
      * @return
      */
     public static Response ok(Object data) {
-        Response r = new Response(EResponseCode.C200);
+        Response r = new Response(EResponseCode.OK);
         r.setData(data);
         return r;
     }
@@ -113,6 +113,6 @@ public class Response implements Serializable {
      */
     @Override
     public String toString() {
-        return JacksonHelper.write(this);
+        return JsonHelper.write(this);
     }
 }

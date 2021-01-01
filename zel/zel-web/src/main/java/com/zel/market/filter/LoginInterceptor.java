@@ -1,6 +1,6 @@
 package com.zel.market.filter;
 
-import com.zel.commonutils.JacksonHelper;
+import com.zel.commonutils.JsonHelper;
 import com.zel.commonutils.client.RequestUtils;
 import com.zel.commonutils.crypto.AESEncrypt;
 import com.zel.commonutils.redis.RedisUtils;
@@ -53,7 +53,7 @@ public class LoginInterceptor implements AsyncHandlerInterceptor {
         if (StringUtils.isBlank(userStr)) {
             return;
         }
-        User user = JacksonHelper.read(userStr, User.class);
+        User user = JsonHelper.read(userStr, User.class);
         appContext.setUser(user);
         Env.setContext(appContext);
     }
@@ -81,7 +81,7 @@ public class LoginInterceptor implements AsyncHandlerInterceptor {
         if (StringUtils.isBlank(userStr)) {
             throw new AuthorizationException("登录过期");
         }
-        User user = JacksonHelper.read(userStr, User.class);
+        User user = JsonHelper.read(userStr, User.class);
         if (user == null) {
             throw new AuthorizationException("解析 user 出错!");
         }

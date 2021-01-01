@@ -2,7 +2,7 @@ package com.zel.market.jobs;
 
 import com.zel.commonutils.DateUtil;
 import com.zel.commonutils.FileUtils;
-import com.zel.commonutils.JacksonHelper;
+import com.zel.commonutils.JsonHelper;
 import com.zel.commonutils.crypto.Md5Utils;
 import com.zel.pojo.entity.SSAccount;
 import com.zel.market.config.Config;
@@ -61,7 +61,7 @@ public class SSJobs {
             log.error("ss请求为空");
             return;
         }
-        String content = JacksonHelper.writeBeautiful(account);
+        String content = JsonHelper.writeBeautiful(account);
         String key = Md5Utils.md5(content);
         if (map.containsKey(key)) {
             log.info("已经存在");

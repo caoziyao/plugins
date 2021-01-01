@@ -1,6 +1,6 @@
 package com.zel.market.controller.user;
 
-import com.zel.commonutils.JacksonHelper;
+import com.zel.commonutils.JsonHelper;
 import com.zel.commonutils.client.RequestUtils;
 import com.zel.commonutils.crypto.AESEncrypt;
 import com.zel.commonutils.crypto.Md5Utils;
@@ -72,7 +72,7 @@ public class LoginController {
         // 生成并设置TOKEN
         String newToken =  AESEncrypt.getInstance(TOKEN_KEY).encrypt(user.getId() + "-" + System.currentTimeMillis() / 1000);
         // 设置TOKEN
-        redisUtils.set(ERedisKey.USER_ID.formatKey(user.getId().toString()), JacksonHelper.write(user), TOKEN_TIMEOUT, TimeUnit.HOURS);
+        redisUtils.set(ERedisKey.USER_ID.formatKey(user.getId().toString()), JsonHelper.write(user), TOKEN_TIMEOUT, TimeUnit.HOURS);
         // 保存到 cookie 或 header 里面
         RequestUtils.saveCookie(Constants.SESSIONID, newToken, request, response);
         // 设置在线用户
@@ -98,7 +98,7 @@ public class LoginController {
         // 生成并设置TOKEN
         String newToken =  AESEncrypt.getInstance(TOKEN_KEY).encrypt(user.getId() + "-" + System.currentTimeMillis() / 1000);
         // 设置TOKEN
-        redisUtils.set(ERedisKey.USER_ID.formatKey(user.getId().toString()), JacksonHelper.write(user), TOKEN_TIMEOUT, TimeUnit.HOURS);
+        redisUtils.set(ERedisKey.USER_ID.formatKey(user.getId().toString()), JsonHelper.write(user), TOKEN_TIMEOUT, TimeUnit.HOURS);
         // 保存到 cookie 或 header 里面
         RequestUtils.saveCookie(Constants.SESSIONID, newToken, request, response);
         // 设置在线用户

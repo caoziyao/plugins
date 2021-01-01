@@ -5,7 +5,7 @@ com/zel/commonutils/redis/BaseRedisUtils$1.class
 com/zel/commonutils/ZipUtils.class
 com/zel/commonutils/crypto/DigestCommon.class
 com/zel/commonutils/TokenUtils.class
-com/zel/commonutils/JacksonHelper.class
+com/zel/commonutils/JsonHelper.class
 com/zel/commonutils/ImageUtil.class
 com/zel/commonutils/Console.class
 com/zel/commonutils/ThreadUtils.class

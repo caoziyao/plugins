@@ -25,22 +25,19 @@ public class KafkaConsumer {
      *      一个消费组中的消费者只能和一个分区一一对应
      * @param record
      */
-    @KafkaListener(groupId = KafkaConsumerGroup.group1,
-            topicPartitions = @TopicPartition(topic = KafkaTopic.topic1, partitions = "0"))
-    public void onMessage2(ConsumerRecord<?, ?> record) {
-        // 消费的哪个topic、partition的消息,打印出消息内容
-        log.info("简单消费2：" + record.topic() + "-" + record.partition() + "-" + record.value());
-    }
+    //@KafkaListener(groupId = KafkaConsumerGroup.group1,
+    //        topicPartitions = @TopicPartition(topic = KafkaTopic.topic1, partitions = "0"))
+    //public void onMessage2(ConsumerRecord<?, ?> record) {
+    //    // 消费的哪个topic、partition的消息,打印出消息内容
+    //    log.info("简单消费0：" + record.topic() + "-" + record.partition() + "-" + record.value());
+    //}
 
     // 消费监听
     //@KafkaListener(topics = {KafkaTopic.topic1}, groupId = KafkaConsumerGroup.group1)
-    @KafkaListener(groupId = KafkaConsumerGroup.group1,
-            topicPartitions = @TopicPartition(topic = KafkaTopic.topic1, partitions = "1"))
-    public void onMessage1(ConsumerRecord<?, ?> record) {
-        // 消费的哪个topic、partition的消息,打印出消息内容
-        log.info("简单消费：" + record.topic() + "-" + record.partition() + "-" + record.value());
-    }
-
-
-
+    //@KafkaListener(groupId = KafkaConsumerGroup.group1,
+    //        topicPartitions = @TopicPartition(topic = KafkaTopic.topic1, partitions = "1"))
+    //public void onMessage1(ConsumerRecord<?, ?> record) {
+    //    // 消费的哪个topic、partition的消息,打印出消息内容
+    //    log.info("简单消费1：" + record.topic() + "-" + record.partition() + "-" + record.value());
+    //}
 }

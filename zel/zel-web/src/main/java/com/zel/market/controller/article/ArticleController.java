@@ -1,17 +1,24 @@
 package com.zel.market.controller.article;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.zel.commonutils.JsonHelper;
+import com.zel.commonutils.redis.RedisUtils;
+import com.zel.market.common.enumcom.ERedisKey;
 import com.zel.market.controller.article.dto.ArticleListVO;
 import com.zel.pojo.entity.Article;
 import com.zel.market.common.Response;
 import com.zel.market.controller.article.dto.ArticleReqBody;
 import com.zel.market.service.ArticleService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Description:
@@ -26,9 +33,12 @@ public class ArticleController {
 
     private final static Logger log = LogManager.getLogger(ArticleController.class);
 
-
     @Autowired
     private ArticleService articleService;
+
+    @Autowired
+    private RedisUtils redisUtils;
+
 
     /**
      * 文章列表
@@ -40,7 +50,18 @@ public class ArticleController {
     public Response list(@RequestBody ArticleReqBody body) {
         int page = body.getPage();
         int limit = body.getLimit();
-        List<Article> articles = articleService.getArticle(page, limit);
+
+        String key = ERedisKey.ARTICLE_PAGE.formatKey(page, limit);
+        String cache = (String) redisUtils.get(key);
+        List<Article> articles = new ArrayList<>();
+
+        if (StringUtils.isBlank(cache)) {
+            articles = articleService.getArticle(page, limit);
+            redisUtils.set(key, JsonHelper.write(articles), 10L, TimeUnit.MINUTES);
+        } else {
+            log.info("命中缓存 {}", key);
+            articles = JsonHelper.read(cache, new TypeReference<List<Article>>() {});
+        }
 
         int total = articleService.totalArticle();
         int num = articles.size();
@@ -63,6 +84,10 @@ public class ArticleController {
     public Response add(@RequestBody Map<String, String> map) {
         String title = map.getOrDefault("title", "");
         String url = map.getOrDefault("url", "");
+
+        if (StringUtils.isBlank(url) || StringUtils.isBlank(title)) {
+            return Response.error("title 或者 url 为空");
+        }
 
         Article article = new Article();
         article.setTitle(title);

@@ -1,6 +1,6 @@
 package com.zel.market.service.ss;
 
-import com.zel.commonutils.JacksonHelper;
+import com.zel.commonutils.JsonHelper;
 import com.zel.pojo.entity.SSAccount;
 import com.zel.market.service.mail.MailService;
 import com.zel.market.utils.Loggers;
@@ -91,7 +91,7 @@ public class SSService {
         executor.submit(new Runnable() {
             @Override
             public void run() {
-                mailService.sendHtmlMail(to, "ss 账号", JacksonHelper.writeBeautiful(list));
+                mailService.sendHtmlMail(to, "ss 账号", JsonHelper.writeBeautiful(list));
                 Loggers.logic_error.info("发送邮件成功");
             }
         });
