@@ -26,8 +26,8 @@ public class TestController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private ProviderHelloWorld providerHelloWorld;
+    //@Autowired
+    //private ProviderHelloWorld providerHelloWorld;
 
     // 允许每秒最多10个任务
     public static final RateLimiter rateLimiter = RateLimiter.create(10);
@@ -52,7 +52,7 @@ public class TestController {
         logger.warn("Warn 日志...");
         logger.error("Error 日志...");
 
-        providerHelloWorld.sendMessage();
+        //providerHelloWorld.sendMessage();
 //        if ("2".equals(statType)) {
 //            throw new BusinessException("参数错误5！");
 //        }

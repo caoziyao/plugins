@@ -39,7 +39,7 @@ public class MyFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         logger.info("filter: {}", RequestUtils.getURL(request));
-        Loggers.interceptor_log.info("abccccccccccccc");
+        //Loggers.interceptor_log.info("abccccccccccccc");
         //执行
         filterChain.doFilter(servletRequest, servletResponse);
     }
