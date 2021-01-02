@@ -1,7 +1,7 @@
 package com.zel.market.service.mail;
 
-import com.zel.market.jobs.mail.MailTask;
-import com.zel.market.jobs.mail.MailTaskRunner;
+import com.zel.market.dto.MailTaskDTO;
+import com.zel.market.jobs.runner.MailTaskRunner;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,7 +42,7 @@ public class MailServiceImpl implements MailService {
     private MailTaskRunner mailTask;
 
     @Override
-    public void addTask(MailTask task) {
+    public void addTask(MailTaskDTO task) {
         mailTask.add(task);
     }
 

@@ -1,4 +1,4 @@
-package com.zel.market.jobs;
+package com.zel.market.jobs.http;
 
 import com.zel.commonutils.DateUtil;
 import com.zel.commonutils.FileUtils;
@@ -6,7 +6,7 @@ import com.zel.commonutils.JsonHelper;
 import com.zel.commonutils.crypto.Md5Utils;
 import com.zel.pojo.entity.SSAccount;
 import com.zel.market.config.Config;
-import com.zel.market.jobs.mail.MailTask;
+import com.zel.market.dto.MailTaskDTO;
 import com.zel.market.service.mail.MailService;
 import com.zel.market.service.ss.SSService;
 import org.slf4j.Logger;
@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -24,17 +23,20 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * @deprecated  该类已经过期，建议不使用
  * Description: 定时任务
+ *
  * 1. 直接用 MySQL 存储，超时时间戳加索引
  * 2. 周期性从 MySQL 中将超时的任务批量取出，缓存在内存中
  * 3. worker 直接从内存中拿定时器任务，进行处理；处理完毕后更新 mysql 中的状态
  */
+@Deprecated
 @Component
-public class SSJobs {
+public class SSParseJobs {
     @Value("${ss.path}")
     private String ssPath;
 
-    private static final Logger log = LoggerFactory.getLogger(SSJobs.class);
+    private static final Logger log = LoggerFactory.getLogger(SSParseJobs.class);
     private final String email = "984529803@qq.com";
 
     private static final long timeout = TimeUnit.MINUTES.toMillis(10);
@@ -49,7 +51,7 @@ public class SSJobs {
 
     // long s = TimeUnit.MINUTES.toMinutes(10);
     @Async
-    @Scheduled(fixedRate = 10 * DateUtil.MINUTE * DateUtil.MILLISECOND)
+    // @Scheduled(fixedRate = 10 * DateUtil.MINUTE * DateUtil.MILLISECOND)
     public void reportCurrentTime() {
         if (!Config.ENABLE_SS_ACCOUNT_REQUEST) {
             return;
@@ -71,12 +73,11 @@ public class SSJobs {
             if (!s1.equals(content)) {
                 write(content);
                 //  mailService.addTask();
-                MailTask task = MailTask.builder()
-                        .to(email)
-                        .subject("ss 账号")
-                        .content(content)
-                        .build();
-                mailService.addTask(task);
+                MailTaskDTO task = new MailTaskDTO();
+                task.setTo(email);
+                task.setSubject("ss 账号");
+                task.setContent(content);
+                // mailService.addTask(task);
                 log.info("发送email通知");
             } else {
                 log.info("无改动");

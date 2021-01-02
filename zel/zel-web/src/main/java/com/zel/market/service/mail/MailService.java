@@ -1,7 +1,6 @@
 package com.zel.market.service.mail;
 
-import com.zel.market.jobs.mail.MailTask;
-import lombok.NonNull;
+import com.zel.market.dto.MailTaskDTO;
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,5 +22,5 @@ public interface MailService {
 
     void mock(String message);
 
-    void addTask(MailTask task);
+    void addTask(MailTaskDTO task);
 }

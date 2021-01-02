@@ -1,6 +1,7 @@
 package com.zel.market.jobs;
 
-import com.zel.market.jobs.mail.MailTaskRunner;
+import com.zel.market.jobs.runner.MailTaskRunner;
+import com.zel.market.jobs.runner.ThreadPoolMonitorRunner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * load-on-startup
  *
- * @description 启动时初始化数据
+ * @description 实现 CommandLineRunner，会在启动时调用
  * @Date 2020/3/20 17:49
  **/
 @Component
@@ -25,11 +26,11 @@ public class DataDictInit implements CommandLineRunner {
     private MailTaskRunner mailTask;
 
     @Autowired
-    private ThreadPoolMonitorService monitorService;
+    private ThreadPoolMonitorRunner monitorService;
 
     @Override
     public void run(String... args) throws Exception {
-        log.info("CommandLineRunner开始" + mailTask);
+        //log.info("CommandLineRunner开始" + mailTask);
 
         ThreadPoolExecutor  executor = new ThreadPoolExecutor(5, 5, 30, TimeUnit.SECONDS, new ArrayBlockingQueue<>(10) );
         executor.allowCoreThreadTimeOut(true);
@@ -40,9 +41,9 @@ public class DataDictInit implements CommandLineRunner {
         monitor.start();
 
         //  启动发送通知线程
-        for (int i = 1; i <= 10; i++) {
-            executor.execute(mailTask);
-        }
+        //for (int i = 1; i <= 10; i++) {
+        //    executor.execute(mailTask);
+        //}
 
         //启动发送通知线程
         //  new Thread(mailTask, "TaskNoticeService").start();

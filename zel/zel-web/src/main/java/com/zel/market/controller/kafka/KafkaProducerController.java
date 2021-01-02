@@ -46,10 +46,10 @@ public class KafkaProducerController {
     // 发送消息
     @GetMapping("/normal2/{message}")
     public void sendMessage2(@PathVariable("message") String normalMessage) {
-        kafkaTemplate.send(KafkaTopic.topic1, 0, "key1", "message1" );
-        kafkaTemplate.send(KafkaTopic.topic1, 1, "key2", "message2");
-        kafkaTemplate.send(KafkaTopic.topic1, 1, "key2", "message3");
-        kafkaTemplate.send(KafkaTopic.topic1, 1, "key2", "message4");
+        kafkaTemplate.send(KafkaTopic.topic1,  "key1", "message1" );
+        kafkaTemplate.send(KafkaTopic.topic1,  "key1", "message2");
+        kafkaTemplate.send(KafkaTopic.topic1,  "key2", "message3");
+        kafkaTemplate.send(KafkaTopic.topic1, "key2", "message4");
         //kafkaTemplate.send(KafkaTopic.topic2, 0, "key3", "message3");
         //kafkaTemplate.send(KafkaTopic.topic2, 1, "key4", "message4");
     }

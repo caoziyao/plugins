@@ -1,4 +1,4 @@
-package com.zel.market.jobs;
+package com.zel.market.jobs.runner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,9 +10,9 @@ import java.util.concurrent.ThreadPoolExecutor;
  * 监控线程类
  */
 @Service
-public class ThreadPoolMonitorService implements Runnable {
+public class ThreadPoolMonitorRunner implements Runnable {
 
-    private Logger logger = LoggerFactory.getLogger(ThreadPoolMonitorService.class);
+    private Logger logger = LoggerFactory.getLogger(ThreadPoolMonitorRunner.class);
 
     private ThreadPoolExecutor executor;
 

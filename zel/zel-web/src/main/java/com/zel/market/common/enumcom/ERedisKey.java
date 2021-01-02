@@ -7,6 +7,8 @@ import com.zel.commonutils.StrUtil;
  */
 public enum ERedisKey {
 
+    HTML_SS("HTML:ss", "ss页面"),
+
     ARTICLE_PAGE("ARTICLE:page{}:limit{}", "文章页面"),
 
     EXPRESS("EXPRESS:{}", "过期"),

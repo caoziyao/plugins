@@ -32,4 +32,9 @@ public class KafkaInitialConfiguration {
     public NewTopic initialTopic1() {
         return new NewTopic(KafkaTopic.topic1, 2, (short) 1);
     }
+
+    @Bean
+    public NewTopic initialTopicHTML() {
+        return new NewTopic(KafkaTopic.spider, 2, (short) 1);
+    }
 }

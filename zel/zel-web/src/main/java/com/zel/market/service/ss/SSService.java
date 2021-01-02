@@ -37,6 +37,7 @@ public class SSService {
     public final static String URL = "https://github.com/Alvin9999/new-pac/wiki/ss%E5%85%8D%E8%B4%B9%E8%B4%A6%E5%8F%B7";
 
     private Document documentFromWeb() {
+
         Document document = null;
         try {
             document = Jsoup.parse(new URL(URL), 30000);
@@ -46,7 +47,7 @@ public class SSService {
         return document;
     }
 
-    private List<SSAccount> accountFromDocument(Document document) {
+    public List<SSAccount> accountFromDocument(Document document) {
         List<SSAccount> list = new ArrayList<>();
         if (document == null) {
             return list;
