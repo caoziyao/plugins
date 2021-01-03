@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Select;
 import java.util.Date;
 
 /**
- * Description:
+ * Description: 实体类
  *
  * @author csy
  * @version 1.0.0
@@ -41,4 +41,10 @@ public class Article {
 
     @TableField(value = "content")
     private String content;
+
+    // 专栏
+    private Column column;
+
+    //private List<ETeacher> teachers;
+
 }

@@ -5,6 +5,44 @@
 
 <!-- 修改此文件时，请注意SQL字段五个一段, 以提高可维护性 -->
 
+<!--
+https://www.cnblogs.com/fsjohnhuang/p/4014819.html
+-->
 <mapper namespace="com.zel.dbmanager.mapper.ArticleMapper" >
 
+    <resultMap id="ArticleResult" type="com.zel.pojo.entity.Article">
+        <id property="id" column="id" />
+        <result property="articleUrl" column="article_url" />
+        <result property="columnsId" column="column_id" />
+        <result property="title" column="title" />
+<!--        <result property="name" column="name" />-->
+        <!-- 一对一关系 -->
+        <association property="column" javaType="com.zel.pojo.entity.Column">
+            <id property="id" column="column_id"/>
+            <result property="name" column="columnName"/>
+        </association>
+
+        <!-- 一对多关系 -->
+<!--        <collection property="teachers" ofType="ETeacher">-->
+<!--            <id property="id" column="c_id"/>-->
+<!--            <result property="name" column="c_name"/>-->
+<!--            <result property="classId" column="c_classId"/>-->
+<!--        </collection>-->
+    </resultMap>
+
+    <select id="findAll" resultMap="ArticleResult">
+        SELECT
+            t1.id ,
+            t1.article_url ,
+            t1.column_id ,
+            t1.title,
+            t2.name columnName
+        FROM
+            tb_article t1
+        LEFT JOIN tb_column t2
+        ON t1.column_id = t2.id
+        ORDER BY
+            t1.create_time DESC
+        LIMIT #{offset}, #{limit}
+    </select>
 </mapper>
