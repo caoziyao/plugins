@@ -7,6 +7,7 @@ import com.zel.commonutils.JsonHelper;
 import com.zel.commonutils.crypto.Md5Utils;
 import com.zel.commonutils.redis.RedisUtils;
 import com.zel.market.common.enumcom.ERedisKey;
+import com.zel.market.config.Config;
 import com.zel.market.config.kafka.KafkaTopic;
 import com.zel.market.dto.SpiderJobsDTO;
 import com.zel.market.service.mail.MailService;
@@ -70,9 +71,9 @@ public class SSHtmlJobs {
     @Async
     @Scheduled(fixedRate = 10 * DateUtil.MINUTE * DateUtil.MILLISECOND)
     public void reportCurrentTime() {
-        //if (!Config.ENABLE_SS_ACCOUNT_REQUEST) {
-        //    return;
-        //}
+        if (!Config.ENABLE_SS_ACCOUNT_REQUEST) {
+            return;
+        }
         log.info("SSHtmlJobs time is now {}", DateUtil.format(new Date(), DateUtil.HMS));
 
         // 1, 获取需要 html

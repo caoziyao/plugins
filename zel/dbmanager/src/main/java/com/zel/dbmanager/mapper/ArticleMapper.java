@@ -18,7 +18,7 @@ import java.util.Map;
 @Mapper
 public interface ArticleMapper extends BaseMapper<Article> {
 
-    @Select("select * from tb_article LIMIT #{offset}, #{limit} ")
+    @Select("select * from tb_article ORDER BY create_time desc  LIMIT #{offset}, #{limit} ")
     List<Article> findAll(Map<String, Object> params);
 
     @Select("select count(*) num from tb_article")

@@ -1,6 +1,7 @@
 package com.zel.market.exception;
 
 
+import com.zel.commonutils.ExceptionUtil;
 import com.zel.market.common.Response;
 import com.zel.market.common.enumcom.EResponseCode;
 import org.slf4j.Logger;
@@ -99,9 +100,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public Response exceptionHandler(HttpServletRequest req, Exception e) {
-        logger.error("未知异常！原因是:", e);
-        Response r = Response.error("未知异常！");
-        r.setDebugMessage(e.toString());
+        logger.error("系统错误！原因是:", e);
+        Response r = Response.error("系统错误！");
+        r.setDebugMessage(ExceptionUtil.getStackTrace(e));
         return r;
     }
 }

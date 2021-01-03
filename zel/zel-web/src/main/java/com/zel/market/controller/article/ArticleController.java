@@ -89,6 +89,7 @@ public class ArticleController {
     public Response add(@RequestBody Map<String, String> map) {
         String title = map.getOrDefault("title", "");
         String url = map.getOrDefault("url", "");
+        String column = map.getOrDefault("column", "6");
 
         if (StringUtils.isBlank(url) || StringUtils.isBlank(title)) {
             return Response.error("title 或者 url 为空");
@@ -97,6 +98,7 @@ public class ArticleController {
         Article article = new Article();
         article.setTitle(title);
         article.setArticleUrl(url);
+        article.setColumnsId(Integer.parseInt(column));
         articleService.add(article);
 
         return Response.ok(article);

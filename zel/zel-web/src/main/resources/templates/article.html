@@ -6,6 +6,7 @@
     <title>vue 1-2</title>
     <link rel="stylesheet" href="css/common.css">
     <!-- element 引入样式 -->
+<!--    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
     <link rel="stylesheet" href="libs/element-ui@2.14.1/index.css">
     <style type="text/css">
     </style>
@@ -20,9 +21,11 @@
     </el-input>
 
     <el-button @click="visible = true">Button</el-button>
+
     <el-dialog :visible.sync="visible" title="Hello world">
         <p>Try Element</p>
     </el-dialog>
+    <el-button><a href="/ss/account/enable">点击激活ss</a></el-button>
 
     <ul>
         <li v-for="(article, i) in articleList">
@@ -41,8 +44,20 @@
     </el-pagination>
 
 
-    <el-button><a href="/ss/account/enable">点击激活ss</a></el-button>
+
     <el-button @click="addArticle">添加article</el-button>
+
+    <template>
+        <el-select v-model="column" placeholder="请选择">
+            <el-option
+                    v-for="item in columnOptions"
+                    :key="item.id"
+                    :label="item.name"
+                    :value="item.id">
+            </el-option>
+        </el-select>
+    </template>
+
     <form>
         <el-input placeholder="标题" v-model="title"></el-input>
         <el-input placeholder="url" v-model="url"></el-input>
@@ -67,15 +82,20 @@
         el: '.app',
         data: function () {
             return {
+                column: "",
                 searchValue: "",
                 visible: false,
                 title: "",
                 url: "",
                 total: 0,
                 articleList: [],
+                columnOptions: [],
             }
         },
         methods: {
+            handleClick: function() {
+              console.log("dropdown")
+            },
             handleCurrentChange: function(val) {
                 // 改变默认的页数
                // this.currentPage=val
@@ -98,13 +118,21 @@
                     let data = response.data.data;
                     this.articleList = data.article;
                     this.total = data.total;
-                    console.log(response)
+                    console.log('/article/list', response)
+                })
+            },
+            getColumnList: function() {
+                axios.get('/column/list').then(response => {
+                    let data = response.data.data;
+                    this.columnOptions = data.column;
+                    console.log('/column/list', data)
                 })
             },
             addArticle: function (event) {
                 axios.post("/article/add", {
                     "title": this.title,
                     "url": this.url,
+                    "column": this.column,
                 }).then(response => {
                     let data = response.data.data;
                     let code = response.data.code
@@ -129,6 +157,7 @@
         },
         mounted() {
             this.getArticleList();
+            this.getColumnList();
         }
     })
 </script>

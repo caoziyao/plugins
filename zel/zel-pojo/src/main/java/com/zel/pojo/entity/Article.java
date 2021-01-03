@@ -28,7 +28,7 @@ public class Article {
     private String articleUrl;
 
     @TableField(value = "column_id")
-    private Long columnsId;
+    private Integer columnsId;
 
     @TableField(value = "update_time")
     private Date updateTime;
