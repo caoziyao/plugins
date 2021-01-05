@@ -27,7 +27,7 @@ public class UserJobs {
 
     private static String baseUrl;
 
-    private ExecutorService executor = Executors.newFixedThreadPool(5);
+    private final static ExecutorService executor = Executors.newFixedThreadPool(5);
 
     static {
         InetAddress address = null;

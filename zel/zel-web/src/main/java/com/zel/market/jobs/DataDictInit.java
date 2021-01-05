@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * load-on-startup
@@ -22,6 +20,10 @@ import java.util.concurrent.TimeUnit;
 public class DataDictInit implements CommandLineRunner {
     private final static Logger log = LogManager.getLogger(DataDictInit.class);
 
+    public static final ExecutorService TASK_SERVICE = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+
+    public static final ThreadPoolExecutor  executor = new ThreadPoolExecutor(5, 5, 30, TimeUnit.SECONDS, new ArrayBlockingQueue<>(10) );
+
     @Autowired
     private MailTaskRunner mailTask;
 
@@ -32,7 +34,6 @@ public class DataDictInit implements CommandLineRunner {
     public void run(String... args) throws Exception {
         //log.info("CommandLineRunner开始" + mailTask);
 
-        ThreadPoolExecutor  executor = new ThreadPoolExecutor(5, 5, 30, TimeUnit.SECONDS, new ArrayBlockingQueue<>(10) );
         executor.allowCoreThreadTimeOut(true);
         monitorService.setExecutor(executor);
 

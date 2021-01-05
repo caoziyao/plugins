@@ -36,6 +36,8 @@ public class SSService {
 
     public final static String URL = "https://github.com/Alvin9999/new-pac/wiki/ss%E5%85%8D%E8%B4%B9%E8%B4%A6%E5%8F%B7";
 
+    public final static ExecutorService executor = Executors.newFixedThreadPool(5);
+
     private Document documentFromWeb() {
 
         Document document = null;
@@ -86,7 +88,6 @@ public class SSService {
     }
 
     public List<SSAccount> getAccountWithThreadRunnable(String to) {
-        ExecutorService executor = Executors.newFixedThreadPool(5);
         Document document = documentFromWeb();
         List<SSAccount> list = accountFromDocument(document);
         executor.submit(new Runnable() {
@@ -101,7 +102,7 @@ public class SSService {
     }
 
     public List<SSAccount> getAccountWithThreadCallable() {
-        ExecutorService executor = Executors.newFixedThreadPool(5);
+
         List<SSAccount> list = null;
         Future<List<SSAccount>> futureTask = executor.submit(new Callable<List<SSAccount>>() {
             @Override

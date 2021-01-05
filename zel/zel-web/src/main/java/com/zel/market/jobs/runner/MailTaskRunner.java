@@ -2,12 +2,11 @@ package com.zel.market.jobs.runner;
 
 import com.zel.market.dto.MailTaskDTO;
 import com.zel.market.service.mail.MailService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * @deprecated  该类已经过期，建议不使用
@@ -15,15 +14,19 @@ import java.util.concurrent.TimeUnit;
  */
 @Deprecated
 @Component
+@Slf4j
 public class MailTaskRunner implements Runnable {
     public static BlockingQueue<MailTaskDTO> queue = new LinkedBlockingQueue<>();
+
+    public static final ExecutorService TASK_SERVICE = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+
 
     @Autowired
     private MailService mailService;
 
     @Override
     public void run() {
-        System.out.println("start MailTask..." + mailService + " " +  Thread.currentThread().getName());
+        log.info("start MailTask..." + mailService + " " +  Thread.currentThread().getName());
         // this.mailService = (MailService) SpringBeanUtil.getBean(MailService.class);
 
         while (true) {
