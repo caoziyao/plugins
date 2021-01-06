@@ -12,7 +12,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RequestUtils {
+public class CookieUtil {
 
     public static void saveCookie(String key, String value, HttpServletRequest request
             , HttpServletResponse response) {

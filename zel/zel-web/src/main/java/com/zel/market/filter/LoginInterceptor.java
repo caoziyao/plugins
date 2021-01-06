@@ -1,7 +1,7 @@
 package com.zel.market.filter;
 
 import com.zel.commonutils.JsonHelper;
-import com.zel.commonutils.client.RequestUtils;
+import com.zel.commonutils.client.CookieUtil;
 import com.zel.commonutils.crypto.AESEncrypt;
 import com.zel.commonutils.redis.RedisUtils;
 import com.zel.pojo.entity.User;
@@ -44,7 +44,7 @@ public class LoginInterceptor implements AsyncHandlerInterceptor {
     private void setContext(HttpServletRequest request) throws Exception {
         AppContext appContext = new AppContext();
 
-        String token = RequestUtils.getCookie(request, Constants.SESSIONID);
+        String token = CookieUtil.getCookie(request, Constants.SESSIONID);
         if (StringUtils.isBlank(token)) {
             return;
         }
@@ -71,7 +71,7 @@ public class LoginInterceptor implements AsyncHandlerInterceptor {
 
         // 校验token
         // 从 session 或 header 获取 token
-        String token = RequestUtils.getCookie(request, Constants.SESSIONID);
+        String token = CookieUtil.getCookie(request, Constants.SESSIONID);
         if (StringUtils.isBlank(token)) {
             throw new AuthorizationException("请登录");
         }

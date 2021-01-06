@@ -1,5 +1,7 @@
 package com.zel.commonutils;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.function.Supplier;
 
 /**
@@ -17,7 +19,8 @@ import java.util.function.Supplier;
  * isAssignable 是子类和父类关系
  * state 会抛出IllegalStateException异常
  */
-public class Assert {
+@Slf4j
+public class AssertUtil {
 
     /**
      * 断言是否为真，如果为 {@code false} 抛出给定的异常<br>
@@ -76,5 +79,12 @@ public class Assert {
             throw new IllegalArgumentException(StrUtil.format(errorMsgTemplate, params));
         }
         return obj;
+    }
+
+    public static void assertEquals(boolean condition, String message) {
+        if (!condition) {
+            //  log.error(StrUtil.format("TEST ERROR!!! {}", message));
+            throw new IllegalArgumentException(StrUtil.format("TEST ERROR!!! {}", message));
+        }
     }
 }

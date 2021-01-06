@@ -1,7 +1,7 @@
 package com.zel.market.jobs;
 
 import com.zel.commonutils.DateUtil;
-import com.zel.commonutils.client.HttpRequest;
+import com.zel.commonutils.client.HttpUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -49,7 +49,7 @@ public class UserJobs {
             executor.submit(new Runnable() {
                 @Override
                 public void run() {
-                    HttpRequest.get(host + "/superlogin?num=" + finalI);
+                    HttpUtil.get(host + "/superlogin?num=" + finalI);
                 }
             });
         }

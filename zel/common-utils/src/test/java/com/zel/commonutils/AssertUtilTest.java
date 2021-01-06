@@ -4,17 +4,23 @@ package com.zel.commonutils;
 import junit.framework.TestCase;
 import org.junit.Test;
 
-public class AssertTest extends TestCase {
+public class AssertUtilTest extends TestCase {
 
     @Test
     public void testIsTrue() {
-        Assert.isTrue(false, () -> {
+        AssertUtil.isTrue(false, () -> {
             return new RuntimeException("dsdf");
         });
     }
 
     @Test
     public void testIsTrue2() {
-        Assert.isTrue(false, "throw {}", "abc");
+        AssertUtil.isTrue(false, "throw {}", "abc");
+    }
+
+
+    @Test
+    public  void test2() {
+        AssertUtil.assertEquals(false, "testee");
     }
 }

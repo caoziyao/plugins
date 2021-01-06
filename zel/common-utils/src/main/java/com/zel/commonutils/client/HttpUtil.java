@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;
@@ -13,19 +14,79 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-public class HttpRequest {
+public class HttpUtil {
     private Map<String, String> headerMap = new HashMap();
 
-    public HttpRequest() {
+    public HttpUtil() {
     }
 
-    public HttpRequest addHeader(String name, String value) {
+    public HttpUtil addHeader(String name, String value) {
         this.headerMap.put(name, value);
         return this;
     }
+
+
+//    public static String post(String url, Map<String, String> params) {
+//        List<NameValuePair> formParams = new ArrayList<>();
+//        Iterator<String> it = params.keySet().iterator();
+//        while (it.hasNext()) {
+//            String key = it.next();
+//            formParams.add(new BasicNameValuePair(key, params.get(key)));
+//        }
+//
+//        HttpPost httpPost = new HttpPost(url);
+//        CloseableHttpClient httpClient = HttpClients.createDefault();
+//        try {
+//            httpPost.setEntity(new UrlEncodedFormEntity(formParams, Constants.DEFAULT_CHARSET));
+//            CloseableHttpResponse response = httpClient.execute(httpPost);
+//            return EntityUtils.toString(response.getEntity(), Constants.DEFAULT_CHARSET);
+//        } catch (Exception e) {
+//            throw new BusinessException(EBaseResponseCode.C502, e);
+//        } finally {
+//            try {
+//                httpClient.close();
+//            } catch (IOException e) {
+//                log.error("httpClient close:", e);
+//            }
+//        }
+//    }
+//
+//    public static String get(String url, String charset) {
+//        return get(url, null, charset);
+//    }
+//
+//    public static String get(String url) {
+//        return get(url, null, Constants.DEFAULT_CHARSET);
+//    }
+//
+//    public static String get(String url, Header[] headers, String charset) {
+//        HttpGet httpGet = new HttpGet(url);
+//        RequestConfig requestConfig = RequestConfig.custom()
+//                .setConnectTimeout(50000)
+//                .setConnectionRequestTimeout(10000) //从connect Manager(连接池)获取Connection 超时时间，单位毫秒。
+//                .setSocketTimeout(50000).build();
+//        if (headers != null) {
+//            httpGet.setHeaders(headers);
+//        }
+//        httpGet.setConfig(requestConfig);
+//        CloseableHttpClient httpClient = HttpClients.createDefault();
+//        try {
+//            CloseableHttpResponse response = httpClient.execute(httpGet);
+//            return EntityUtils.toString(response.getEntity(), Constants.DEFAULT_CHARSET);
+//        } catch (Exception e) {
+//            throw new BusinessException(EBaseResponseCode.C502, e);
+//        } finally {
+//            try {
+//                httpClient.close();
+//            } catch (IOException e) {
+//                log.error("httpClient close:", e);
+//            }
+//        }
+//    }
 
     public static String get(String url) {
         String result = "";

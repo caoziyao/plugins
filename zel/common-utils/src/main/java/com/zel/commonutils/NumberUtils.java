@@ -3,9 +3,9 @@ package com.zel.commonutils;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class MathUtils {
+public class NumberUtils {
     public static void main(String[] args) {
-        String v = MathUtils.rate(1, 13);
+        String v = NumberUtils.rate(1, 13);
     }
 
 

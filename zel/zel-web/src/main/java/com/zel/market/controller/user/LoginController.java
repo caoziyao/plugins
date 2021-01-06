@@ -1,7 +1,7 @@
 package com.zel.market.controller.user;
 
 import com.zel.commonutils.JsonHelper;
-import com.zel.commonutils.client.RequestUtils;
+import com.zel.commonutils.client.CookieUtil;
 import com.zel.commonutils.crypto.AESEncrypt;
 import com.zel.commonutils.crypto.Md5Utils;
 import com.zel.commonutils.redis.RedisUtils;
@@ -74,7 +74,7 @@ public class LoginController {
         // 设置TOKEN
         redisUtils.set(ERedisKey.USER_ID.formatKey(user.getId().toString()), JsonHelper.write(user), TOKEN_TIMEOUT, TimeUnit.HOURS);
         // 保存到 cookie 或 header 里面
-        RequestUtils.saveCookie(Constants.SESSIONID, newToken, request, response);
+        CookieUtil.saveCookie(Constants.SESSIONID, newToken, request, response);
         // 设置在线用户
         userService.addOnlineUser(user.getId());
 
@@ -100,7 +100,7 @@ public class LoginController {
         // 设置TOKEN
         redisUtils.set(ERedisKey.USER_ID.formatKey(user.getId().toString()), JsonHelper.write(user), TOKEN_TIMEOUT, TimeUnit.HOURS);
         // 保存到 cookie 或 header 里面
-        RequestUtils.saveCookie(Constants.SESSIONID, newToken, request, response);
+        CookieUtil.saveCookie(Constants.SESSIONID, newToken, request, response);
         // 设置在线用户
         userService.addOnlineUser(user.getId());
 

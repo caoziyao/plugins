@@ -1,22 +1,13 @@
 package com.zel.market.jobs;
 
 import com.zel.commonutils.DateUtil;
-import com.zel.commonutils.client.HttpRequest;
 import com.zel.commonutils.redis.RedisUtils;
 import com.zel.market.config.Config;
-import com.zel.market.service.mail.MailService;
-import com.zel.market.service.ss.SSService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Date;
-import java.util.Random;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * Description: 清理工作
