@@ -2,6 +2,7 @@ package com.zel.market.controller;
 
 import com.google.common.util.concurrent.RateLimiter;
 import com.zel.market.common.Response;
+import com.zel.market.es.EsClient;
 import com.zel.market.service.mail.MailService;
 import com.zel.market.service.user.UserService;
 import com.zel.mq.patterndemo.helloworld.ProviderHelloWorld;
@@ -46,11 +47,14 @@ public class TestController {
     @RequestMapping(value = "/t", method = {RequestMethod.GET, RequestMethod.POST})
     public Response index(@RequestParam(required = false, defaultValue = "1") String statType) {
 
-        logger.trace("Trace 日志...");
-        logger.debug("Debug 日志...");
-        logger.info("Info 日志...");
-        logger.warn("Warn 日志...");
-        logger.error("Error 日志...");
+//        EsClient.getInstance().test();
+//        logger.trace("Trace 日志...");
+//        logger.debug("Debug 日志...");
+//        logger.info("Info 日志...");
+//        logger.warn("Warn 日志...");
+//        logger.error("Error 日志...");
+
+
 
         //providerHelloWorld.sendMessage();
 //        if ("2".equals(statType)) {

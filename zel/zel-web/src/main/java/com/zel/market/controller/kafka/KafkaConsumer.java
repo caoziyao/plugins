@@ -17,9 +17,11 @@ import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.config.KafkaListenerEndpointRegistry;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.List;
 
@@ -45,8 +47,16 @@ public class KafkaConsumer {
     @Autowired
     private KafkaTemplate<String, Object> kafkaTemplate;
 
+    @Resource
+    private KafkaListenerEndpointRegistry registry;
+
     @Autowired
     private MailService mailService;
+
+    /**
+     * 插入数据监听ID
+     */
+    private static final String LISTENER_ID_INSERT = "insert_taskdata_listener";
 
     /**
      * 使用 topicPartitions 指定 topic、parition、offset
@@ -100,7 +110,7 @@ public class KafkaConsumer {
         log.info("spider消费1：" + record.topic() + "-" + record.partition() + "-" + record.value());
     }
 
-    @KafkaListener(topics = {KafkaTopic.mail}, groupId = KafkaConsumerGroup.group1)
+    @KafkaListener(id = LISTENER_ID_INSERT, topics = {KafkaTopic.mail}, groupId = KafkaConsumerGroup.group1)
     public void onMail(ConsumerRecord<?, ?> record) {
         // 消费的哪个topic、partition的消息,打印出消息内容
 
@@ -113,5 +123,29 @@ public class KafkaConsumer {
 
         log.info("mail消费：" + record.topic() + "-" + record.partition() + "-" + task);
         mailService.sendSimpleMail(to, subject, content);
+    }
+
+    /**
+     * 开启消费者监听数据
+     */
+    public void start() {
+        System.out.println("开启订阅数据监听|start linster...");
+        try {
+            registry.getListenerContainer(LISTENER_ID_INSERT).start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 关闭消费者监听数据
+     */
+    public void stop() {
+        System.out.println("停止订阅数据监听|stop linster...");
+        try {
+            registry.getListenerContainer(LISTENER_ID_INSERT).stop();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
