@@ -2,7 +2,7 @@ package com.zel.market.controller;
 
 import com.google.common.util.concurrent.RateLimiter;
 import com.zel.market.common.Response;
-import com.zel.market.es.EsClient;
+//import com.zel.market.es.EsClient;
 import com.zel.market.service.mail.MailService;
 import com.zel.market.service.user.UserService;
 import com.zel.mq.patterndemo.helloworld.ProviderHelloWorld;

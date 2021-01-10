@@ -1,6 +1,5 @@
-package com.zel.market.controller.note;
+package com.zel.market.controller.enote;
 
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,6 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2020/11/4
  */
 @RestController
-@RequestMapping(value = "/note")
+@RequestMapping(value = "/enote")
 public class NoteController {
 }

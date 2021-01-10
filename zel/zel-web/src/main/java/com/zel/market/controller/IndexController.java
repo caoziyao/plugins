@@ -40,6 +40,11 @@ public class IndexController {
         return "article";
     }
 
+    @GetMapping(value = "/enote")
+    public String enote() {
+        return "enote";
+    }
+
     @GetMapping(value = "/login")
     public String login() {
         return "login";

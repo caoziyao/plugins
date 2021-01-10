@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>vue 1-2</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/enote.css">
+    <!-- element 引入样式 -->
+    <!--    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+    <link rel="stylesheet" href="libs/element-ui@2.14.1/index.css">
+    <style type="text/css">
+    </style>
+</head>
+<body>
+<div class="app">
+
+    <body>
+    <div class="container">
+
+        <div class="flex-container">
+            <div class="left">
+                <div class="gua-note-add">
+                    <a href="javascript:;">新建笔记</a>
+                </div>
+
+                <div class="">
+                    <a class="note-buy-vip" href="javascript:;">购买会员</a>
+                </div>
+                <div class="gua-account">
+                    <div class="gua-avater " >
+                        <svg t="1577685787837" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2581" width="32" height="32"><path d="M510.889713 63.97915c-247.665683 0-448.437335 200.782909-448.437335 448.443475 0 121.375371 48.304146 231.401254 126.631072 312.156486 18.578124 19.147082 38.836517 36.612872 60.557214 52.200896 73.579809 52.868091 163.742295 84.084047 261.249049 84.084047 98.371448 0 189.268668-31.758308 263.208681-85.451184 21.652136-15.745612 41.830711-33.367969 60.313667-52.635801 77.317946-80.58127 124.930337-189.871395 124.930337-310.35342C959.341375 264.763083 758.560512 63.97915 510.889713 63.97915zM510.889713 889.11187c-89.903589 0-172.48133-31.758308-237.311871-84.500533 46.02422-99.168604 135.642307-166.608575 238.436484-166.608575 102.363366 0 191.612039 66.915016 237.805104 165.381631C684.757622 856.916611 601.515756 889.11187 510.889713 889.11187zM512.014326 566.234205c-69.238944 0-125.566834-56.335053-125.566834-125.563764s56.32789-125.563764 125.566834-125.563764c69.235874 0 125.572974 56.335053 125.572974 125.563764S581.2502 566.234205 512.014326 566.234205zM802.998607 749.832733c-38.781258-70.543659-96.832396-125.897362-165.798117-156.656923 44.036959-36.19127 72.134901-91.053786 72.134901-152.506393 0-108.956527-88.355327-197.312878-197.321064-197.312878-108.96983 0-197.315948 88.355327-197.315948 197.312878 0 61.452607 28.097942 116.315122 72.128761 152.506393-69.508074 31.007201-127.965463 87.00661-166.764118 158.373007-53.612035-65.093531-85.862553-148.425448-85.862553-239.127216 0-207.719902 168.979576-376.690268 376.689245-376.690268 207.714785 0 376.701524 168.970366 376.701524 376.690268C887.591237 602.37124 855.816556 684.984796 802.998607 749.832733z" p-id="2582" fill="#ebc666"></path></svg>
+                    </div>
+                    <div class="gua-account-login-register hidden">
+                        <a href="javascript:;" class="gua-button-login">登录</a>
+                        <a href="javascript:;" class="gua-button-register">注册</a>
+                    </div>
+                </div>
+            </div>
+            <div class="middle">
+                <div class="note-header">
+                    <div class="note-header-title">笔记</div>
+
+                </div>
+                <div class="note-list"></div>
+            </div>
+            <div class="right">
+                <div id="id-note-time-wrapper">
+                    <div id="id-note-time">
+                        <div>
+                            <span>创建时间: </span><span id="id-span-created"></span>
+                        </div>
+                        <div>
+                            <span>更新时间: </span><span id="id-span-updated"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="gua-note-title">
+                    <span id="id-span-title">笔记</span>
+                    <div>
+                        <button class="gua-button gua-button-save">保存</button>
+                        <div id="id-file-upload">
+                            <input type="file" id="id-file-selector" multiple accept=".jpg, .jpeg, .png, .gif">
+                        </div>
+                    </div>
+                </div>
+                <div contenteditable class="gua-note-container">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </body>
+
+</div>
+
+</body>
+
+<!--vue-->
+<script src="libs/vue@2.6.10.js"></script>
+<!-- element 引入组件库 -->
+<script src="libs/element-ui@2.14.1/index.js"></script>
+<!--axios-->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+<script>
+    let app = new Vue({
+        // 既然 el 是选择器，那么 class 选择器也是可以的
+        el: '.app',
+        data: function () {
+            return {
+            }
+        },
+        methods: {
+
+        },
+        mounted() {
+        }
+    })
+</script>
+</html>
