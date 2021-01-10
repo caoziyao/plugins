@@ -31,9 +31,9 @@
     // 事件绑定(这里有一个要注意的，我这里用了bind方法，是为了将“mousedownEvent”方法内的this指向切换到Canvas)
     // screen.canvas.addEventListener('click', mousedownEvent.bind(this))
     screen.canvas.addEventListener('click', function (event) {
-      let x, y = [event.clientX, event.clientY]
+        let x, y = [event.clientX, event.clientY]
         log('evne3t', x, y)
-      // screen.drawRect(300, 300)
+        // screen.drawRect(300, 300)
     })
 </script>
 </html>

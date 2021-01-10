@@ -45,6 +45,12 @@ public class IndexController {
         return "enote";
     }
 
+    @GetMapping(value = "/canvas")
+    public String canvas() {
+        return "canvas";
+    }
+
+
     @GetMapping(value = "/login")
     public String login() {
         return "login";
