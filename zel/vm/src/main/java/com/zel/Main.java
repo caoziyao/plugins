@@ -24,8 +24,11 @@ public class Main {
 
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(new DirectiveListener(), tree);
+        
+        System.out.println(tree.toStringTree(parser));
 
         // print LISP-style tree
+        //打印规则数
         System.out.println(tree.toStringTree(parser));
     }
 
