@@ -170,8 +170,11 @@
 
     <!--编译管理 jdk版本和字符集编码-->
     <build>
+        <!--finalName: 在Build下重新指定最终打包报名, 如果这里不指定，则默认包名为：artifactId-version.jar-->
+        <!--<finalName>The-Test-Pro</finalName>-->
         <plugins>
             <plugin>
+                <!--maven-compiler-plugin 代码编译，配置包 将/lib下的包打包进来-->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
@@ -180,6 +183,7 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
