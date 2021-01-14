@@ -24,7 +24,7 @@ public class Main {
 
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(new DirectiveListener(), tree);
-        
+
         System.out.println(tree.toStringTree(parser));
 
         // print LISP-style tree
