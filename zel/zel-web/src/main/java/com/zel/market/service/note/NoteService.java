@@ -27,12 +27,24 @@ public class NoteService {
      * @return
      */
     public Note insert(Note note) {
-        noteMapper.insert(note);
+        if (note.getId() != null) {
+            noteMapper.updateById(note);
+        } else {
+            noteMapper.insert(note);
+        }
         return note;
     }
 
     public List<Note> all() {
         Map<String, Object> map = new HashMap<>();
+        List<Note> notes = noteMapper.selectByMap(map);
+        return notes;
+    }
+
+    public List<Note> find(String id) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+
         List<Note> notes = noteMapper.selectByMap(map);
         return notes;
     }

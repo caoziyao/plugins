@@ -26,9 +26,7 @@ public class NoteController {
     @PostMapping(value = "/add")
     public Response add(@RequestBody NoteReqVO body) {
 
-        Note note = new Note();
-        note.setTitle(body.getTitle());
-        note.setContent(body.getContent());
+        Note note = body.getNote();
         note.setCreateTime(new Date());
         note.setUpdateTime(new Date());
 
@@ -44,5 +42,18 @@ public class NoteController {
         NoteRspVO vo = new NoteRspVO();
         vo.setNotes(all);
         return Response.ok(vo);
+    }
+
+    @GetMapping(value = "/one/{id}")
+    public Response getNote(@PathVariable String id) {
+
+        List<Note> all = noteService.find(id);
+
+        Note note = null;
+        if (all != null && all.size() > 0) {
+            note =  all.get(0);
+        }
+
+        return Response.ok(note);
     }
 }

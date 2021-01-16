@@ -46,9 +46,9 @@
 
                 </div>
                 <div class="note-list">
-                    <div class="note-list-item active" :data-id="note.id" v-for="(note, i) in notes">
+                    <div class="note-list-item active" :data-id="note.id" v-for="(note, i) in notes" @click="oneNote(note.id)">
                         <!--            <div class="note-list-item-time">1 天前</div>-->
-                        <div class="note-list-item-summery">{{ note.content }}</div>
+                        <div class="note-list-item-summery">{{ note.title }}</div>
                         <span class="note-list-item-delete" style="display: none;">x</span>
                     </div>
 
@@ -82,12 +82,14 @@
         </div>
 
     </div>
+
     </body>
 
 </div>
 
 </body>
 
+<script src='js/common.js'></script>
 <!--vue-->
 <script src="libs/vue@2.6.10.js"></script>
 <!-- element 引入组件库 -->
@@ -104,9 +106,11 @@
             return {
                 createTime: new Date().getTime(),
                 updateTime: new Date().getTime(),
-                content: 'defaul',
-                title: '',
                 notes: [],
+                note: {
+                    content: '',
+                    title: '',
+                }
             }
         },
         methods: {
@@ -124,20 +128,33 @@
             editContent: function(event) {
                 let target = event.target;
                 let html = target.innerHTML
-                this.content = html
+                let title = target.innerText
+
+                this.note.title = title.replaceAll('\n', ' ')
+                this.note.content = html
+            },
+            openSuccess() {
+                this.$message({
+                    message: '保存成功',
+                    type: 'success'
+                });
             },
             saveNote: function () {
+                console.log('note', this.note)
                 axios.post("/enote/add", {
-                    "title": this.title,
-                    "content": this.content,
+                    "note": this.note,
                     "createTime": this.createTime,
                     "updateTime": this.updateTime,
                 }).then(response => {
                     let data = response.data.data;
                     let code = response.data.code
-                    console.log(response, code)
+                    console.log(data, code)
                     if (code === "0") {
-
+                        this.note.id = data.id
+                        console.log('save note', this.note)
+                        this.openSuccess()
+                    } else {
+                        this.$message.error('保存失败');
                     }
                 })
             },
@@ -150,6 +167,18 @@
                         this.notes = data.notes;
                         console.log('notes', this.notes)
 
+                    }
+                })
+            },
+            oneNote: function (id) {
+                console.log("note", id, this.note)
+                axios.get("/enote/one/" + id).then(response => {
+                    let data = response.data.data;
+                    let code = response.data.code
+                    console.log(response, code)
+                    if (code === "0") {
+                       this.note = data;
+                       _e('.gua-note-container').innerHTML = this.note.content
                     }
                 })
             }
