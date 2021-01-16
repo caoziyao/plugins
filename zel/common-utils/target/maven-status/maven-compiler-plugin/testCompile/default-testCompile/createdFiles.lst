@@ -1,4 +1,5 @@
 com/zel/commonutils/AssertUtilTest.class
+com/zel/commonutils/ImageUtilTest.class
 com/zel/commonutils/ConsoleTest.class
 com/zel/commonutils/ExceptionUtilTest.class
 com/zel/commonutils/StrUtilTest.class

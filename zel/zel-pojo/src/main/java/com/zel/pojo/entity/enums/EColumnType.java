@@ -1,4 +1,4 @@
-package com.zel.pojo.entity.eenum;
+package com.zel.pojo.entity.enums;
 
 /**
  * Description:

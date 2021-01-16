@@ -1,4 +1,4 @@
-package com.zel.market.service;
+package com.zel.market.service.article;
 
 import com.zel.pojo.entity.Article;
 import com.zel.dbmanager.mapper.ArticleMapper;

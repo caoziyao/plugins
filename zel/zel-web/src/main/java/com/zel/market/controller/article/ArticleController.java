@@ -8,7 +8,7 @@ import com.zel.market.controller.article.dto.ArticleListVO;
 import com.zel.pojo.entity.Article;
 import com.zel.market.common.Response;
 import com.zel.market.controller.article.dto.ArticleReqBody;
-import com.zel.market.service.ArticleService;
+import com.zel.market.service.article.ArticleService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -56,7 +56,7 @@ body {
 }
 
 .flex-container .middle {
-    width: 350px;
+    width: 30%;
     height: 100vh;
     overflow-y: scroll;
     border-right: 1px solid #ececec
