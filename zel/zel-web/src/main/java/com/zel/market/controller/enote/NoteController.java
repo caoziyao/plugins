@@ -1,12 +1,11 @@
 package com.zel.market.controller.enote;
 
 import com.zel.market.common.Response;
-import com.zel.market.service.note.NoteService;
+import com.zel.market.service.note.NoteServiceImpl;
 import com.zel.pojo.entity.Note;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,7 +20,7 @@ import java.util.List;
 public class NoteController {
 
     @Autowired
-    private NoteService noteService;
+    private NoteServiceImpl noteService;
 
     @PostMapping(value = "/add")
     public Response add(@RequestBody NoteReqVO body) {
