@@ -13,6 +13,8 @@ import java.util.function.Function;
 
 /**
  * Description:
+ *  https://www.cnblogs.com/l-y-h/p/12859477.html
+ *
  * Wrapper  条件构造抽象类
  * -- AbstractWrapper 查询条件封装，用于生成 sql 中的 where 语句。
  * -- QueryWrapper Entity 对象封装操作类，用于查询。
