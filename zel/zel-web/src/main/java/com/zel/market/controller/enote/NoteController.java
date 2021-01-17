@@ -37,7 +37,7 @@ public class NoteController {
         List<Note> all = noteService.all();
         NoteRspVO vo = new NoteRspVO();
         vo.setNotes(all);
-        System.out.println("new testr");
+        System.out.println("new ddd");
         return Response.ok(vo);
     }
 
