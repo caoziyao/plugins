@@ -8,8 +8,8 @@ steps:
       - mvn clean package   # 清洁打包 因为java项目需要编译后才能进行代码扫描
   - name: run
     image: java:openjdk-8
-		commands:
-			- pwd
+    commands:
+      - pwd
       - cd ./zel
       - sh run.sh
 
