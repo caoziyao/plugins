@@ -4,6 +4,7 @@ steps:
   - name: build
     image: maven:3-jdk-10
     commands:
+      - pwd
       - cd ./zel
       - mvn clean package   # 清洁打包 因为java项目需要编译后才能进行代码扫描
     volumes:
@@ -19,6 +20,3 @@ steps:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /home/ubuntu/docker/zel:./zel
-			
-
-
