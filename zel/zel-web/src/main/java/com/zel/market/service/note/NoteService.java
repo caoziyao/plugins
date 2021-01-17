@@ -6,6 +6,7 @@ import com.zel.pojo.entity.Note;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,10 +27,13 @@ public class NoteService {
     /**
      * @return
      */
-    public Note insert(Note note) {
+    public Note add(Note note) {
+        note.setUpdateTime(new Date());
+
         if (note.getId() != null) {
             noteMapper.updateById(note);
         } else {
+            note.setCreateTime(new Date());
             noteMapper.insert(note);
         }
         return note;

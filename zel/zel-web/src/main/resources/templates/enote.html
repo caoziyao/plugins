@@ -19,27 +19,27 @@
     <div class="container">
 
         <div class="flex-container">
-            <div class="left">
-                <div class="gua-note-add">
-                    <a href="javascript:;">新建笔记</a>
-                </div>
+<!--            <div class="left">-->
+<!--                <div class="gua-note-add">-->
+<!--                    <a href="javascript:;">新建笔记</a>-->
+<!--                </div>-->
 
-                <div class="">
-                    <a class="note-buy-vip" href="javascript:;">购买会员</a>
-                </div>
-                <div class="gua-account">
-                    <div class="gua-avater ">
-                        <svg t="1577685787837" class="icon" viewBox="0 0 1024 1024" version="1.1"
-                             xmlns="http://www.w3.org/2000/svg" p-id="2581" width="32" height="32">
+<!--                <div class="">-->
+<!--                    <a class="note-buy-vip" href="javascript:;">购买会员</a>-->
+<!--                </div>-->
+<!--                <div class="gua-account">-->
+<!--                    <div class="gua-avater ">-->
+<!--                        <svg t="1577685787837" class="icon" viewBox="0 0 1024 1024" version="1.1"-->
+<!--                             xmlns="http://www.w3.org/2000/svg" p-id="2581" width="32" height="32">-->
 
-                        </svg>
-                    </div>
-                    <div class="gua-account-login-register hidden">
-                        <a href="javascript:;" class="gua-button-login">登录</a>
-                        <a href="javascript:;" class="gua-button-register">注册</a>
-                    </div>
-                </div>
-            </div>
+<!--                        </svg>-->
+<!--                    </div>-->
+<!--                    <div class="gua-account-login-register hidden">-->
+<!--                        <a href="javascript:;" class="gua-button-login">登录</a>-->
+<!--                        <a href="javascript:;" class="gua-button-register">注册</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
             <div class="middle">
                 <div class="note-header">
                     <div class="note-header-title">笔记</div>
@@ -51,24 +51,23 @@
                         <div class="note-list-item-summery">{{ note.title }}</div>
                         <span class="note-list-item-delete" style="display: none;">x</span>
                     </div>
-
-
                 </div>
             </div>
             <div class="right">
                 <div id="id-note-time-wrapper">
                     <div id="id-note-time">
                         <div>
-                            <span>创建时间: </span><span id="id-span-created">{{ timestampToTime(createTime) }}</span>
+                            <span>创建时间: </span><span id="id-span-created">{{ this.note.createTime }}</span>
                         </div>
                         <div>
-                            <span>更新时间: </span><span id="id-span-updated">{{  timestampToTime(updateTime) }}</span>
+                            <span>更新时间: </span><span id="id-span-updated">{{  this.note.updateTime }}</span>
                         </div>
                     </div>
                 </div>
                 <div class="gua-note-title">
-                    <span id="id-span-title">笔记</span>
+<!--                    <span id="id-span-title">笔记</span>-->
                     <div>
+                        <button class="gua-button gua-button-save" @click="newNote">新建</button>
                         <button class="gua-button gua-button-save" @click="saveNote">保存</button>
 <!--                        <div id="id-file-upload">-->
 <!--                            <input type="file" id="id-file-selector" multiple accept=".jpg, .jpeg, .png, .gif">-->
@@ -104,27 +103,16 @@
         el: '.app',
         data: function () {
             return {
-                createTime: new Date().getTime(),
-                updateTime: new Date().getTime(),
                 notes: [],
                 note: {
                     content: '',
                     title: '',
+                    createTime: '',
+                    updateTime: '',
                 }
             }
         },
         methods: {
-            timestampToTime: function (timestamp) {
-                //时间戳为10位需*1000，时间戳为13位的话不需乘1000
-                var date = new Date(timestamp);
-                var Y = date.getFullYear() + '-';
-                var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-                var D = date.getDate() + ' ';
-                var h = date.getHours() + ':';
-                var m = date.getMinutes() + ':';
-                var s = date.getSeconds();
-                return Y + M + D + h + m + s;
-            },
             editContent: function(event) {
                 let target = event.target;
                 let html = target.innerHTML
@@ -139,20 +127,22 @@
                     type: 'success'
                 });
             },
+            newNote: function() {
+              this.note = {}
+              this.setContetHtml("")
+            },
             saveNote: function () {
-                console.log('note', this.note)
+                log('note', this.note)
                 axios.post("/enote/add", {
                     "note": this.note,
-                    "createTime": this.createTime,
-                    "updateTime": this.updateTime,
                 }).then(response => {
                     let data = response.data.data;
                     let code = response.data.code
-                    console.log(data, code)
+                    log(data, code)
                     if (code === "0") {
                         this.openSuccess()
-                        this.note.id = data.id
-                        console.log('save note', this.note)
+                        this.note = data
+                        log('save note', this.note)
                         this.allNote()
                     } else {
                         this.$message.error('保存失败');
@@ -163,28 +153,43 @@
                 axios.get("/enote/all").then(response => {
                     let data = response.data.data;
                     let code = response.data.code
-                    console.log(response, code)
+                    log(response, code)
                     if (code === "0") {
                         this.notes = data.notes;
-                        console.log('notes', this.notes)
+                        log('notes', this.notes)
                     }
                 })
             },
+            setContetHtml: function(content) {
+                _e('.gua-note-container').innerHTML = content
+            },
             oneNote: function (id) {
-                console.log("note", id, this.note)
+                log("note", id, this.note)
                 axios.get("/enote/one/" + id).then(response => {
                     let data = response.data.data;
                     let code = response.data.code
-                    console.log(response, code)
+                    log(response, code)
                     if (code === "0") {
                        this.note = data;
-                       _e('.gua-note-container').innerHTML = this.note.content
+                        this.setContetHtml(this.note.content)
                     }
                 })
+            },
+            shortCut: function () {
+            //js监听键盘ctrl+s快捷键保存
+                let self = this
+                document.addEventListener('keydown', function(e){
+                    if (e.key === 's' && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)){
+                        e.preventDefault();
+                        log('saved');
+                        self.saveNote()
+                    }
+                });
             }
         },
         mounted() {
             this.allNote()
+            this.shortCut();
         }
     })
 </script>

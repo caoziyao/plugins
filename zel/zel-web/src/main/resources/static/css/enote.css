@@ -150,8 +150,8 @@ body {
     height: calc(100vh - 30px - 35px - 20px - 10px);
     border: none;
     font-size: 16px;
-    padding-left: 32px;
-    padding-right: 130px
+    /*padding-left: 32px;*/
+    /*padding-right: 130px*/
 }
 
 .gua-button-save {

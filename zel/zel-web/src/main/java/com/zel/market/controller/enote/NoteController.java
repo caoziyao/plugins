@@ -27,10 +27,7 @@ public class NoteController {
     public Response add(@RequestBody NoteReqVO body) {
 
         Note note = body.getNote();
-        note.setCreateTime(new Date());
-        note.setUpdateTime(new Date());
-
-        noteService.insert(note);
+        noteService.add(note);
 
         return Response.ok(note);
     }

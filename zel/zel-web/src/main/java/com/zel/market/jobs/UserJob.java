@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
  * @since 2020/7/25
  */
 @Component
-public class UserJobs {
+public class UserJob {
 
     @Value("${server.port}")
     private int port;
