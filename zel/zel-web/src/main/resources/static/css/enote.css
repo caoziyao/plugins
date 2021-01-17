@@ -110,7 +110,8 @@ body {
     overflow: hidden;
     display: flex;
     justify-content: space-between;
-    position: relative
+    position: relative;
+    border-bottom: 1px solid #afafae;
 }
 
 .note-list-item + .note-list-item {
@@ -195,7 +196,7 @@ body {
     font-size: 30px;
     position: absolute;
     top: 0;
-    right: 10px
+    right: 10px;
 }
 
 #id-button-upload {

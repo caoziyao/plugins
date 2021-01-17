@@ -7,4 +7,11 @@
 
 <mapper namespace="com.zel.dbmanager.mapper.NoteMapper" >
 
+
+    <select id="findAll" resultType="com.zel.pojo.entity.Note">
+        SELECT * FROM tb_note t1
+        ORDER BY
+            t1.update_time DESC
+    </select>
+
 </mapper>

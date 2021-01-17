@@ -1,7 +1,6 @@
 package com.zel.market.service.note;
 
 import com.zel.dbmanager.mapper.NoteMapper;
-import com.zel.pojo.entity.Article;
 import com.zel.pojo.entity.Note;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,7 +40,8 @@ public class NoteService {
 
     public List<Note> all() {
         Map<String, Object> map = new HashMap<>();
-        List<Note> notes = noteMapper.selectByMap(map);
+        //List<Note> notes = noteMapper.selectByMap(map);
+        List<Note> notes = noteMapper.findAll(map);
         return notes;
     }
 
