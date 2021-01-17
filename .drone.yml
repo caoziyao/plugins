@@ -8,8 +8,8 @@ steps:
       - cd ./zel
       - mvn clean package   # 清洁打包 因为java项目需要编译后才能进行代码扫描
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /home/ubuntu/docker/maven/m2:/root/.m2
+      - name: cache
+        path: /home/ubuntu/docker/maven/m2
   - name: run
     image: java:openjdk-8
     commands:
@@ -17,6 +17,3 @@ steps:
       - cd ./zel
       - cp zel-web/target/web-0.0.1-SNAPSHOT.jar .
       - sh run.sh
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /home/ubuntu/docker/zel:./zel
