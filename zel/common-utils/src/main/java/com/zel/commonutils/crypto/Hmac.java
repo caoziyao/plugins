@@ -44,29 +44,6 @@ public class Hmac {
         return mac.doFinal(data);
     }
 
-
-
-    ///**
-    // * BASE64 加密
-    // * @param key 需要加密的字节数组
-    // * @return 字符串
-    // * @throws Exception
-    // */
-    //public static String encryptBASE64(byte[] key) throws Exception {
-    //    return (new BASE64Encoder()).encodeBuffer(key);
-    //}
-
-    ///**
-    // * BASE64 解密
-    // * @param key 需要解密的字符串
-    // * @return 字节数组
-    // * @throws Exception
-    // */
-    //public static byte[] decryptBASE64(String key) throws Exception {
-    //    return (new BASE64Decoder()).decodeBuffer(key);
-    //}
-
-
     public static void main(String[] args) throws Exception {
         String inputStr = "这是一个测试字符串aaabbbccc111222333";
         System.out.println("原始数据：" + inputStr);
