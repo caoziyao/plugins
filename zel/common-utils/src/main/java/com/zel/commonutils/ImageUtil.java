@@ -1,11 +1,9 @@
 package com.zel.commonutils;
 
+import com.zel.commonutils.crypto.Base64Util;
 import org.apache.commons.lang3.StringUtils;
-import sun.misc.BASE64Encoder;
-import org.apache.tomcat.util.codec.binary.Base64;
 
 import java.io.*;
-import java.nio.file.Path;
 import java.util.UUID;
 
 /**
@@ -43,7 +41,9 @@ public class ImageUtil {
         }
 
         //Base64解码
-        byte[] b = Base64.decodeBase64(imgStr);
+        byte[] b = Base64Util.decryptBASE64(imgStr);
+
+        //byte[] b = Base64.decodeBase64(imgStr);
         for (int i = 0; i < b.length; ++i) {
             //调整异常数据
             if (b[i] < 0) {
@@ -88,9 +88,14 @@ public class ImageUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // 对字节数组 Base64 编码 加密
-        BASE64Encoder base64Encoder = new BASE64Encoder();
-        // 返回 Base64 编码过的字节数组字符串
-        return base64Encoder.encode(data);
+        //java.util.Base64.Encoder encoder= java.util.Base64.getMimeEncoder();
+        //return encoder.encodeToString(data);
+
+        return Base64Util.encryptBASE64(data);
+
+        //// 对字节数组 Base64 编码 加密
+        //BASE64Encoder base64Encoder = new BASE64Encoder();
+        //// 返回 Base64 编码过的字节数组字符串
+        //return base64Encoder.encode(data);
     }
 }
