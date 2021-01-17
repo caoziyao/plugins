@@ -15,11 +15,5 @@ import lombok.Setter;
 @Setter
 public class NoteReqVO {
 
-    //private String title;
-    //private String content;
-
     private Note note;
-
-    //private long createTime;
-    //private long updateTime;
 }

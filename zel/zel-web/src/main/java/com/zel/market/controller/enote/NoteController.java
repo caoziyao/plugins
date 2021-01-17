@@ -34,10 +34,10 @@ public class NoteController {
 
     @GetMapping(value = "/all")
     public Response all() {
-
         List<Note> all = noteService.all();
         NoteRspVO vo = new NoteRspVO();
         vo.setNotes(all);
+        System.out.println("test");
         return Response.ok(vo);
     }
 
