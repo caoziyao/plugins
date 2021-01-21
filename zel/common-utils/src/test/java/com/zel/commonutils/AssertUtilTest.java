@@ -21,6 +21,6 @@ public class AssertUtilTest extends TestCase {
 
     @Test
     public  void test2() {
-        AssertUtil.assertEquals(false, "testee");
+        AssertUtil.equal(false, "testee");
     }
 }

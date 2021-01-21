@@ -29,65 +29,6 @@ public class HttpUtil {
         return this;
     }
 
-
-//    public static String post(String url, Map<String, String> params) {
-//        List<NameValuePair> formParams = new ArrayList<>();
-//        Iterator<String> it = params.keySet().iterator();
-//        while (it.hasNext()) {
-//            String key = it.next();
-//            formParams.add(new BasicNameValuePair(key, params.get(key)));
-//        }
-//
-//        HttpPost httpPost = new HttpPost(url);
-//        CloseableHttpClient httpClient = HttpClients.createDefault();
-//        try {
-//            httpPost.setEntity(new UrlEncodedFormEntity(formParams, Constants.DEFAULT_CHARSET));
-//            CloseableHttpResponse response = httpClient.execute(httpPost);
-//            return EntityUtils.toString(response.getEntity(), Constants.DEFAULT_CHARSET);
-//        } catch (Exception e) {
-//            throw new BusinessException(EBaseResponseCode.C502, e);
-//        } finally {
-//            try {
-//                httpClient.close();
-//            } catch (IOException e) {
-//                log.error("httpClient close:", e);
-//            }
-//        }
-//    }
-//
-//    public static String get(String url, String charset) {
-//        return get(url, null, charset);
-//    }
-//
-//    public static String get(String url) {
-//        return get(url, null, Constants.DEFAULT_CHARSET);
-//    }
-//
-//    public static String get(String url, Header[] headers, String charset) {
-//        HttpGet httpGet = new HttpGet(url);
-//        RequestConfig requestConfig = RequestConfig.custom()
-//                .setConnectTimeout(50000)
-//                .setConnectionRequestTimeout(10000) //从connect Manager(连接池)获取Connection 超时时间，单位毫秒。
-//                .setSocketTimeout(50000).build();
-//        if (headers != null) {
-//            httpGet.setHeaders(headers);
-//        }
-//        httpGet.setConfig(requestConfig);
-//        CloseableHttpClient httpClient = HttpClients.createDefault();
-//        try {
-//            CloseableHttpResponse response = httpClient.execute(httpGet);
-//            return EntityUtils.toString(response.getEntity(), Constants.DEFAULT_CHARSET);
-//        } catch (Exception e) {
-//            throw new BusinessException(EBaseResponseCode.C502, e);
-//        } finally {
-//            try {
-//                httpClient.close();
-//            } catch (IOException e) {
-//                log.error("httpClient close:", e);
-//            }
-//        }
-//    }
-
     public static String get(String url) {
         String result = "";
         CloseableHttpResponse response = null;

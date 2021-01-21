@@ -31,10 +31,7 @@ public enum EResponseCode {
     PASSWORD_NOT_EQUAL("10707", "密码不一致"),
     NO_MENU_AUTHORITY("10708", "没有菜单权限"),
     STAFF_STOP("10709", "账号已停用")
-
-
     ;
-
 
     private final String code;
     private final String msg;

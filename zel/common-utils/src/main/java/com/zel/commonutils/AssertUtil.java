@@ -81,7 +81,7 @@ public class AssertUtil {
         return obj;
     }
 
-    public static void assertEquals(boolean condition, String message) {
+    public static void equal(boolean condition, String message) {
         if (!condition) {
             //  log.error(StrUtil.format("TEST ERROR!!! {}", message));
             throw new IllegalArgumentException(StrUtil.format("TEST ERROR!!! {}", message));

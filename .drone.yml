@@ -6,7 +6,7 @@ steps:
     commands:
       - pwd
       - cd ./zel
-      - mvn clean package   # 清洁打包 因为java项目需要编译后才能进行代码扫描
+      - mvn clean package
     volumes:
       - name: cache
         path: /home/ubuntu/docker/maven/m2
