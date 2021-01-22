@@ -3,7 +3,7 @@ package com.zel.market.service.ss;
 import com.zel.commonutils.JsonHelper;
 import com.zel.pojo.entity.SSAccount;
 import com.zel.market.service.mail.MailService;
-import com.zel.market.utils.Loggers;
+import com.zel.market.common.SysLoggers;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -94,7 +94,7 @@ public class SSService {
             @Override
             public void run() {
                 mailService.sendHtmlMail(to, "ss 账号", JsonHelper.writeBeautiful(list));
-                Loggers.logic_error.info("发送邮件成功");
+                SysLoggers.mail_log.info("发送邮件成功");
             }
         });
         //executor.shutdown();

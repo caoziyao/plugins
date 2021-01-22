@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/test")
 public class TestController {
 
-    Logger logger = LoggerFactory.getLogger(getClass());
+//    Logger logger = LoggerFactory.getLogger(getClass());
+    Logger logger = LoggerFactory.getLogger("abc_log");
 
     @Autowired
     private MailService mailService;
@@ -47,6 +48,7 @@ public class TestController {
     @RequestMapping(value = "/t", method = {RequestMethod.GET, RequestMethod.POST})
     public Response index(@RequestParam(required = false, defaultValue = "1") String statType) {
 
+        logger.error("asss");
 //        EsClient.getInstance().test();
 //        logger.trace("Trace 日志...");
 //        logger.debug("Debug 日志...");
