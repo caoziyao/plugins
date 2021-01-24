@@ -1,6 +1,7 @@
 clean() {
   #清空之前的启动日志
   #echo "" > $./nohup.out
+  rm ./nohup.out
 }
 
 shop() {

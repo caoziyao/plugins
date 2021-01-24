@@ -8,12 +8,12 @@ steps:
       - pwd
       - mvn clean package
     volumes:
-      - name: cache
-        path: /home/ubuntu/docker/maven/m2
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/docker/maven/m2:/root/.m2
   - name: run
     image: java:openjdk-8
     commands:
       - pwd
       - cp zel-web/target/web-0.0.1-SNAPSHOT.jar .
-      - java -jar web-0.0.1-SNAPSHOT.jar --server.port=8899
+      - nohup java -jar web-0.0.1-SNAPSHOT.jar --server.port=9527 &
       #- sh run.sh
