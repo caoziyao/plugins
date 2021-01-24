@@ -1,7 +1,7 @@
 **/.idea
 **/log
 **/cache
-
+**/target
 # Compiled class file
 *.class
 
