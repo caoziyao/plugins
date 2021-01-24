@@ -1,0 +1,216 @@
+#id-message-container {
+    display: flex;
+    flex-wrap: wrap
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
+
+a {
+    color: inherit
+}
+
+a:visited {
+    color: inherit;
+    font-size: 14px
+}
+
+body {
+    color: #383838
+}
+
+.hidden {
+    display: none
+}
+
+.gua-button {
+    background: #f4ebd8;
+    border-radius: 3px;
+    outline: 0;
+    padding: 11px;
+    line-height: 22px;
+    user-select: none;
+    font-size: 12px;
+    color: #eac555;
+    font-weight: 500;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 1px solid #e1d9c8
+}
+
+.flex-container {
+    display: flex
+}
+
+.flex-container .left {
+    border-right: 1px solid #ececec;
+    background-color: #f8f8f8;
+    width: 73px;
+    height: 100vh;
+    padding: 12px 12px 24px 17px;
+    position: relative
+}
+
+.flex-container .middle {
+    width: 30%;
+    height: 100vh;
+    overflow-y: scroll;
+    border-right: 1px solid #ececec
+}
+
+.flex-container .right {
+    flex: 1;
+    height: 100vh;
+    padding: 30px 48px 0 48px;
+    overflow-y: scroll
+}
+
+.gua-note-add {
+    cursor: pointer;
+    margin-bottom: 20px
+}
+
+.gua-account {
+    border-top: 1px solid #e1e1e1;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 17px
+}
+
+.note-header {
+    padding: 24px 20px 0 24px;
+    letter-spacing: 1px;
+    font-size: 21px;
+    color: #878787;
+    font-weight: 300;
+    line-height: 26px;
+    border-bottom: 1px solid #ececec
+}
+
+.note-header-summery {
+    margin-top: 11px;
+    font-size: 16px
+}
+
+.note-list {
+    color: #878787;
+    font-weight: 300
+}
+
+.note-list-item {
+    padding: 10px 10px 10px 10px;
+    height: 120px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    /*display: flex;*/
+    /*border-bottom: 1px solid #afafae;*/
+}
+
+.note-list-item-time {
+    font-size: 14px;
+    bottom: 10px;
+    position: absolute;
+    left: 24px;
+}
+
+.note-list-item + .note-list-item {
+    border-top: 1px solid #ececec
+}
+
+.note-list-item.active {
+    /*background: #f5f5f5;*/
+    border-top: none
+}
+
+.note-list-item.active + .note-list-item {
+    /*border-top: none;*/
+    border-top: 1px solid #ececec;
+}
+
+/*.note-list-item-time {*/
+/*    font-size: 11px;*/
+/*    font-weight: 400*/
+/*}*/
+
+.gua-note-title {
+    color: #262626;
+    line-height: 35px;
+    font-size: 28px;
+    font-weight: 400;
+    margin-top: 38px;
+    padding-left: 30px;
+    display: flex;
+    justify-content: space-between
+}
+
+.gua-note-container {
+    margin-bottom: 10px;
+    outline: 0;
+    display: block;
+    width: 100%;
+    height: calc(100vh - 30px - 35px - 20px - 10px);
+    border: none;
+    font-size: 16px;
+    /*padding-left: 32px;*/
+    /*padding-right: 130px*/
+}
+
+.gua-button-save {
+    margin-right: 20px;
+    width: 100px
+}
+
+.note-list-item-summery {
+    pointer-events: none;
+    word-break: break-all;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    width: 280px
+}
+
+#id-note-time {
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    margin-bottom: 16px
+}
+
+#id-note-time-wrapper {
+    border-bottom: 1px solid #d9d9d9
+}
+
+#id-note-time span {
+    color: #8a8a8a;
+    font-size: 14px
+}
+
+#id-file-upload {
+    padding-left: 30px;
+    margin-bottom: -30px
+}
+
+.note-list-item-delete {
+    color: red;
+    display: none;
+    size: 100px;
+    font-size: 30px;
+    position: absolute;
+    top: 0;
+    right: 10px;
+}
+
+#id-button-upload {
+    color: #eac555;
+    cursor: pointer;
+    border: none;
+    background: 0 0;
+    outline: 0;
+    text-decoration: underline
+}

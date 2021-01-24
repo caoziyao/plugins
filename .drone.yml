@@ -1,11 +1,11 @@
 kind: pipeline
 name: default
 steps:
+  # 代码编译
   - name: build
     image: maven:3-jdk-10
     commands:
       - pwd
-      - cd ./zel
       - mvn clean package
     volumes:
       - name: cache
@@ -14,6 +14,6 @@ steps:
     image: java:openjdk-8
     commands:
       - pwd
-      - cd ./zel
       - cp zel-web/target/web-0.0.1-SNAPSHOT.jar .
-      - sh run.sh
+      - java -jar web-0.0.1-SNAPSHOT.jar --server.port=8899
+      #- sh run.sh
