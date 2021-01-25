@@ -43,6 +43,19 @@ public class FileUtils {
     }
 
     /**
+     * 创建文件目录，dest是文件
+     * @param dest
+     */
+    public static void checkAndCreateParentDir(File dest){
+        //判断目标文件所在的目录是否存在
+        if (!dest.getParentFile().exists()) {
+            //创建目录
+            dest.getParentFile().mkdirs();
+        }
+    }
+
+
+    /**
      * 判断文件是否存在，不存在则创建
      * @param file
      * @throws IOException

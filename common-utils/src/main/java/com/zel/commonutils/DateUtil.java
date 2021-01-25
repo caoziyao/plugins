@@ -70,6 +70,10 @@ public class DateUtil {
         return format.format(date);
     }
 
+    public static String format(Date date) {
+        return YMD_HMS.format(date);
+    }
+
     /**
      * 时间format
      */

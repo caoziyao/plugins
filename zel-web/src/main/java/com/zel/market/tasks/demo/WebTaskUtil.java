@@ -1,4 +1,4 @@
-package com.zel.market.task;
+package com.zel.market.tasks.demo;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -21,7 +21,7 @@ public enum WebTaskUtil {
         synchronized (web.getLock()) {
             List<Future<Integer>> resultList = new LinkedList<>();
             try {
-                for (Task sub : web.getTasks()) {
+                for (TaskDemo sub : web.getTasks()) {
                     // web.getThreads().execute(sub);
                     Future<Integer> futureTask = web.getThreads().submit(sub);
                     resultList.add(futureTask);

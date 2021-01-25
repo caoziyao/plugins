@@ -1,4 +1,4 @@
-package com.zel.market.task;
+package com.zel.market.tasks.demo;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -14,7 +14,7 @@ public class Test {
         List<Future<Integer>> resultList = new LinkedList<>();
         // Task task = new Task();
         for (int i = 0; i < 5; i++) {
-            Task task = new Task();
+            TaskDemo task = new TaskDemo();
             Future<Integer> futureTask  = executor.submit(task);
             resultList.add(futureTask);
         }

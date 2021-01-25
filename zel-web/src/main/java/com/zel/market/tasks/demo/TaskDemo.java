@@ -1,8 +1,8 @@
-package com.zel.market.task;
+package com.zel.market.tasks.demo;
 
 import java.util.concurrent.Callable;
 
-public class Task implements Callable<Integer> {
+public class TaskDemo implements Callable<Integer> {
     @Override
     public Integer call() throws Exception {
         System.out.println("子线程在进行计算");

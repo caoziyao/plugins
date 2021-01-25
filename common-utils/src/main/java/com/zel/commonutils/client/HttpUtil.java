@@ -1,13 +1,15 @@
 package com.zel.commonutils.client;
 
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -136,5 +138,54 @@ public class HttpUtil {
             }
         }
         return result;
+    }
+
+    public void download(String url, File destFile) throws Exception {
+        HttpClient httpClient = HttpConnectionManager.getHttpClient();
+//        httpClient.getParams().setIntParameter("http.socket.timeout", 200000);
+//        httpClient.getParams().setIntParameter("http.connection.timeout", 10000);
+        HttpGet method = new HttpGet(url);
+        InputStream is = null;
+        FileOutputStream fos = null;
+
+        try {
+            HttpResponse response = httpClient.execute(method);
+            HttpEntity entity = response.getEntity();
+            if (entity == null) {
+                throw new Exception("HttpRequest no response");
+            } else {
+                is = entity.getContent();
+                fos = new FileOutputStream(destFile);
+                byte[] buf = new byte[1024];
+                boolean var10 = true;
+
+                int len;
+                while((len = is.read(buf)) != -1) {
+                    fos.write(buf, 0, len);
+                }
+
+                EntityUtils.consume(entity);
+            }
+        } catch (Exception var21) {
+            method.abort();
+            throw var21;
+        } finally {
+            if (null != fos) {
+                try {
+                    fos.close();
+                } catch (Exception var20) {
+                }
+            }
+
+            if (null != is) {
+                try {
+                    is.close();
+                } catch (Exception var19) {
+                }
+            }
+
+            httpClient.getConnectionManager().closeExpiredConnections();
+            httpClient.getConnectionManager().closeIdleConnections(1L, TimeUnit.SECONDS);
+        }
     }
 }

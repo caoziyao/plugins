@@ -1,4 +1,4 @@
-package com.zel.market.task;
+package com.zel.market.tasks.demo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,10 +11,10 @@ public class TaskForWeb {
     private final Object lock = new Object(); //锁
     private Map<String, Object> params;//用于保存公用的参数信息
     private ExecutorService threads; //线程池链接
-    private List<Task> tasks; //任务
+    private List<TaskDemo> tasks; //任务
 
     public TaskForWeb(int size) {
-        this.tasks = new ArrayList<Task>(size);
+        this.tasks = new ArrayList<TaskDemo>(size);
         this.params = new HashMap<String, Object>();
         if (size > 1) {
             this.threads = Executors.newFixedThreadPool(getThreadNum(size));
@@ -24,7 +24,7 @@ public class TaskForWeb {
     }
 
     public void addTask() {
-        Task task = new Task();
+        TaskDemo task = new TaskDemo();
         this.getTasks().add(task);
     }
 
@@ -32,7 +32,7 @@ public class TaskForWeb {
         return threads;
     }
 
-    public List<Task> getTasks() {
+    public List<TaskDemo> getTasks() {
         return tasks;
     }
 
