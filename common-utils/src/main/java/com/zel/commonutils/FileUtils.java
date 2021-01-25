@@ -2,6 +2,8 @@ package com.zel.commonutils;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * Description:
@@ -52,6 +54,15 @@ public class FileUtils {
             //创建目录
             dest.getParentFile().mkdirs();
         }
+    }
+
+    public static String getFilePath(String suffix) {
+        String date = DateUtil.format(new Date(), DateUtil.YMD).replaceAll("-", "");
+        String filename = UUID.randomUUID().toString().replaceAll("-","") + suffix;
+        String dir = "./cache";
+        // 生成目录
+        String filePath = dir + File.separator + date + File.separator + filename;
+        return filePath;
     }
 
 
