@@ -13,21 +13,19 @@ import java.nio.file.Paths;
 public class ImageUtilTest extends TestCase {
 
     @Test
-    public void testImage() {
-        File file = new File("D:/photo.png");
-        Path path = Paths.get("D:/photo.png");
+    public void testImage() throws IOException {
+        File file = new File("D:/1.jpg");
+        Path path = Paths.get("D:/1.jpg");
 
-        String imageString = ImageUtil.getImageString(file);
-        System.out.println(imageString);
-//        try {
-//            BufferedImage image = ImageIO.read(file);
-//            System.out.println(image);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+//        String imageString = ImageUtil.getImageString(file);
+//        System.out.println(imageString);
 
-//        ImageUtil.generateImage(imageString, "D:/at/tt/newa.jpg");
-//        ImageUtil.generateImage(imageString);
+        ImageUtil.draw(file, 400, 400);
+
+//        String url = "url.jpg";
+//        int index = url.lastIndexOf(".");// 最后一个后缀点出现的下标
+//        String suffix = url.substring(index + 1, url.length()).toLowerCase();// 获取文件后缀名
+//        System.out.println(suffix);
     }
 
 }

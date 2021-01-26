@@ -62,7 +62,6 @@ class DownloadPicTaskCallableTest  {
         // 执行
         for (DownloadPicTaskRunnable runnable : runableList) {
             DownloadPicTaskRunnable.executor.execute(runnable);
-
         }
 
         try {

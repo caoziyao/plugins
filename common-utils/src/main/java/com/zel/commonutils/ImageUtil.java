@@ -3,6 +3,9 @@ package com.zel.commonutils;
 import com.zel.commonutils.crypto.Base64Util;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.UUID;
 
@@ -88,14 +91,21 @@ public class ImageUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //java.util.Base64.Encoder encoder= java.util.Base64.getMimeEncoder();
-        //return encoder.encodeToString(data);
-
         return Base64Util.encryptBASE64(data);
+    }
 
-        //// 对字节数组 Base64 编码 加密
-        //BASE64Encoder base64Encoder = new BASE64Encoder();
-        //// 返回 Base64 编码过的字节数组字符串
-        //return base64Encoder.encode(data);
+
+    public static void draw(File file, int width, int height) throws IOException {
+        Image src = javax.imageio.ImageIO.read(file);
+
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
+        Graphics2D graphics = image.createGraphics();
+        //绘制缩小后的图
+        graphics.drawImage(src, 0, 0, width, height, null);
+        graphics.dispose();
+
+        //将绘制好的图片写入到图片
+        ImageIO.write(image, "jpg", file);
     }
 }
