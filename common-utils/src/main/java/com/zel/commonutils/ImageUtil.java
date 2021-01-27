@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 /**
@@ -14,7 +15,11 @@ import java.util.UUID;
  */
 public class ImageUtil {
 
-//    private static final LoggerUtil logger = LogFactory.getLogger(Base64Util.class);
+    //  dpi
+    public static final BigDecimal baseDPI  = new BigDecimal(203);
+    // 1mm 转化为像素比例。保留3位小数
+    public static final BigDecimal rate = baseDPI.divide(new BigDecimal("25.4"),3, BigDecimal.ROUND_DOWN);
+
     private static final String DIR = "D:/at";;
     /**
      * 随机生成

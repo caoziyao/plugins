@@ -24,6 +24,7 @@
         <module>zel-mq</module>
         <module>zel-web</module>
         <module>zel-pojo</module>
+        <module>game</module>
 
     </modules>
 
