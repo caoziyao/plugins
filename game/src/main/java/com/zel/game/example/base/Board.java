@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 
+/**
+ * https://zetcode.com/javagames/
+ */
 public class Board extends JPanel {
 
     @Override
