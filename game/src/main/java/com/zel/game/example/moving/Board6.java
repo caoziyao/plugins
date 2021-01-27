@@ -55,6 +55,7 @@ public class Board6 extends JPanel implements ActionListener {
 
     /**
      * The actionPerformed() method is called every DELAY ms. We call the step() method.
+     *
      * @param e
      */
     @Override
@@ -67,8 +68,8 @@ public class Board6 extends JPanel implements ActionListener {
 
         spaceShip.move();
 
-        repaint(spaceShip.getX()-1, spaceShip.getY()-1,
-                spaceShip.getWidth()+2, spaceShip.getHeight()+2);
+        repaint(spaceShip.getX() - 1, spaceShip.getY() - 1,
+                spaceShip.getWidth() + 2, spaceShip.getHeight() + 2);
     }
 
     private class TAdapter extends KeyAdapter {
