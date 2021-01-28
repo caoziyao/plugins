@@ -9,8 +9,8 @@ import java.awt.*;
 public abstract class GlSceneBase extends JPanel
         implements GlScene {
 
-    protected final int B_WIDTH = 350;
-    protected final int B_HEIGHT = 350;
+    protected final int B_WIDTH = 400;
+    protected final int B_HEIGHT = 300;
     // todo 帧数
     protected final int DELAY = 25;
 

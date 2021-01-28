@@ -24,7 +24,7 @@ public class GlFlappySceneMain extends GlSceneBase {
     private void initBoard() {
         addKeyListener(new GlFlappySceneMain.TAdapter());
         setFocusable(true);
-        setBackground(Color.BLACK);
+        setBackground(Color.WHITE);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
         bird = new Bird();
     }
@@ -107,7 +107,7 @@ public class GlFlappySceneMain extends GlSceneBase {
 
     @Override
     public void run() {
-        Log.log("main run");
+        Log.log("flappy main run");
         long beforeTime, timeDiff, sleep;
 
         beforeTime = System.currentTimeMillis();

@@ -3,6 +3,7 @@ package com.zel.game.scene.flappy;
 import com.zel.commonutils.Log;
 import com.zel.game.GlApplication;
 import com.zel.game.scene.GlSceneBase;
+import com.zel.game.scene.tetris.GlTetrisSceneMain;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +23,7 @@ public class GlFlappySceneStart extends GlSceneBase {
     private void initBoard() {
         addKeyListener(new GlFlappySceneStart.TAdapter());
         setFocusable(true);
-        setBackground(Color.BLACK);
+        setBackground(Color.WHITE);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
     }
 
@@ -47,13 +48,42 @@ public class GlFlappySceneStart extends GlSceneBase {
 
     @Override
     public void draw(Graphics g) {
-//        g.drawImage(star, x, y, this);
+        g.drawString("按 f 开始 flappy 游戏", 20, 20);
+        g.drawString("按 t 开始 tetris 游戏", 20, 35);
         Toolkit.getDefaultToolkit().sync();
     }
 
     @Override
     public void update() {
 
+    }
+
+    private class TAdapter extends KeyAdapter {
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            updateEvent(e);
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            updateEvent(e);
+        }
+    }
+
+    public void updateEvent(KeyEvent e) {
+        int key = e.getKeyCode();
+        if (key == KeyEvent.VK_F) {
+            // 开始场景
+            Log.log("start");
+            this.application.addScene(new GlFlappySceneMain(this.application));
+            this.application.validate();
+        } else if  (key == KeyEvent.VK_T) {
+            // 开始场景
+            Log.log("start");
+            this.application.addScene(new GlTetrisSceneMain(this.application));
+            this.application.validate();
+        }
     }
 
     @Override
@@ -82,28 +112,6 @@ public class GlFlappySceneStart extends GlSceneBase {
                         JOptionPane.ERROR_MESSAGE);
             }
             beforeTime = System.currentTimeMillis();
-        }
-    }
-
-    private class TAdapter extends KeyAdapter {
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-            updateEvent(e);
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-            updateEvent(e);
-        }
-    }
-
-    public void updateEvent(KeyEvent e) {
-        int key = e.getKeyCode();
-        if (key == KeyEvent.VK_R) {
-            // 开始场景
-            Log.log("start");
-            this.application.addScene(new GlFlappySceneMain(this.application));
         }
     }
 }

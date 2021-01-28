@@ -1,6 +1,8 @@
 package com.zel.game;
 
+import com.zel.game.scene.flappy.GlFlappySceneMain;
 import com.zel.game.scene.flappy.GlFlappySceneStart;
+import com.zel.game.scene.tetris.GlTetrisSceneMain;
 
 import java.awt.EventQueue;
 import javax.swing.*;
@@ -18,8 +20,9 @@ public class GlApplication extends JFrame {
 
     private void initUI() {
 
-        addScene(new GlFlappySceneStart(this));
-
+        //addScene(new GlFlappySceneStart(this));
+        //addScene(new GlFlappySceneMain(this));
+        addScene(new GlTetrisSceneMain(this));
         setTitle("Moving sprite");
         setSize(400, 300);
 

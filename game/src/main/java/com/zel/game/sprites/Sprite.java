@@ -1,6 +1,5 @@
 package com.zel.game.sprites;
 
-import com.zel.game.common.GlImage;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,17 +9,13 @@ import java.awt.*;
 @Setter
 public class Sprite {
 
-    protected int x, y;
-    protected int w, h;
-    private String filePath = "./game/src/main/resources/img/sprites/redbird-upflap.png";
+    public int x, y;
+    public int w, h;
     protected Image image;
 
     public Sprite() {
         x = 0;
         y = 0;
-        this.image = GlImage.loadImage(filePath);
-        this.w = this.image.getWidth(null);
-        this.h = this.image.getHeight(null);
     }
 
     public void move(int x, int y) {
