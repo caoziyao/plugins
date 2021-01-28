@@ -16,4 +16,9 @@ public class Sprite {
         x = 0;
         y = 0;
     }
+
+    public void move(int x, int y) {
+        this.x += x;
+        this.y += y;
+    }
 }

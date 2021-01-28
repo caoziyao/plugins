@@ -1,28 +1,29 @@
-package com.zel.game.scene;
+package com.zel.game.scene.flappy;
 
-import com.zel.game.common.GlImage;
-import com.zel.game.sprites.Bird;
+import com.zel.commonutils.Log;
+import com.zel.game.GlApplication;
+import com.zel.game.scene.GlSceneBase;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class GlSceneMain extends GlSceneBase {
+public class GlFlappySceneStart extends GlSceneBase {
 
-    private Bird bird;
     private Thread animator;
+    private GlApplication application;
 
-    public GlSceneMain() {
+    public GlFlappySceneStart(GlApplication application) {
         initBoard();
+        this.application = application;
     }
 
     private void initBoard() {
-        addKeyListener(new GlSceneMain.TAdapter());
+        addKeyListener(new GlFlappySceneStart.TAdapter());
         setFocusable(true);
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
-        bird = new Bird();
     }
 
     /**
@@ -33,6 +34,7 @@ public class GlSceneMain extends GlSceneBase {
     @Override
     public void addNotify() {
         super.addNotify();
+
         animator = new Thread(this);
         animator.start();
     }
@@ -43,35 +45,21 @@ public class GlSceneMain extends GlSceneBase {
         draw(g);
     }
 
-    /**
-     * 重写父类中的抽象方法，实现计算 draw 功能
-     * @param g
-     */
     @Override
     public void draw(Graphics g) {
-
-        Image image = bird.getImage();
-        int x = bird.getX();
-        int y = bird.getY();
-
-        g.drawImage(image, x, y, this);
+//        g.drawImage(star, x, y, this);
         Toolkit.getDefaultToolkit().sync();
     }
 
     @Override
     public void update() {
 
-        bird.move(1, 1);
-        if (bird.getY() > B_HEIGHT) {
-           bird.moveTo(0, 0);
-        }
     }
 
     @Override
     public void run() {
-        System.out.println("main run");
-        long beforeTime, timeDiff, sleep;
 
+        long beforeTime, timeDiff, sleep;
         beforeTime = System.currentTimeMillis();
 
         while (true) {
@@ -97,7 +85,6 @@ public class GlSceneMain extends GlSceneBase {
         }
     }
 
-
     private class TAdapter extends KeyAdapter {
 
         @Override
@@ -113,21 +100,10 @@ public class GlSceneMain extends GlSceneBase {
 
     public void updateEvent(KeyEvent e) {
         int key = e.getKeyCode();
-        int speed = 5;
-        if (key == KeyEvent.VK_LEFT) {
-            bird.move(-speed, 0);
-        }
-
-        if (key == KeyEvent.VK_RIGHT) {
-            bird.move(speed, 0);
-        }
-
-        if (key == KeyEvent.VK_UP) {
-            bird.move(0, -speed);
-        }
-
-        if (key == KeyEvent.VK_DOWN) {
-            bird.move(0, speed);
+        if (key == KeyEvent.VK_R) {
+            // 开始场景
+            Log.log("start");
+            this.application.addScene(new GlFlappySceneMain(this.application));
         }
     }
 }

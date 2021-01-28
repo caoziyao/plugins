@@ -1,11 +1,9 @@
 package com.zel.game;
 
-
-import com.zel.game.scene.GlSceneBase;
-import com.zel.game.scene.GlSceneMain;
+import com.zel.game.scene.flappy.GlFlappySceneStart;
 
 import java.awt.EventQueue;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 /**
  * https://zetcode.com/javagames/
@@ -16,11 +14,11 @@ public class GlApplication extends JFrame {
         initUI();
     }
 
+    private JPanel scene;
+
     private void initUI() {
 
-        add(new GlSceneMain());
-//        remove();
-//        add(new GlSceneMain(), 1);
+        addScene(new GlFlappySceneStart(this));
 
         setTitle("Moving sprite");
         setSize(400, 300);
@@ -35,5 +33,14 @@ public class GlApplication extends JFrame {
             GlApplication ex = new GlApplication();
             ex.setVisible(true);
         });
+    }
+
+
+    public void addScene(JPanel scene) {
+        if (this.scene != null) {
+            remove(this.scene);
+        }
+        this.scene = scene;
+        add(scene);
     }
 }

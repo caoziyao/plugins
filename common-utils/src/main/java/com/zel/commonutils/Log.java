@@ -8,7 +8,7 @@ import static java.lang.System.out;
  * <p>
  * https://gitee.com/loolly/hutool/blob/v5-master/hutool-core/src/main/java/cn/hutool/core/lang/Console.java
  */
-public class Console {
+public class Log {
 
     private static final String TEMPLATE_VAR = "{}";
 
