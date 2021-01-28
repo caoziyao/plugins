@@ -1,6 +1,9 @@
 package com.zel.game;
 
 
+import com.zel.game.scene.GlSceneBase;
+import com.zel.game.scene.GlSceneMain;
+
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 
@@ -15,7 +18,7 @@ public class GlApplication extends JFrame {
 
     private void initUI() {
 
-        add(new GlScene());
+        add(new GlSceneMain());
 
         setTitle("Moving sprite");
         setSize(400, 300);

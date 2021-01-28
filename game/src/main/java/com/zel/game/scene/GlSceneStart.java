@@ -1,24 +1,18 @@
-package com.zel.game;
-
-import com.zel.game.example.move3.Board5;
+package com.zel.game.scene;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class GlScene extends JPanel
-        implements Runnable {
+public class GlSceneStart extends GlSceneBase {
 
-    private final int B_WIDTH = 350;
-    private final int B_HEIGHT = 350;
-    private final int DELAY = 25;
 
     private Image star;
     private Thread animator;
     private int x, y;
 
-    public GlScene() {
+    public GlSceneStart() {
         initBoard();
     }
 
@@ -28,7 +22,7 @@ public class GlScene extends JPanel
     }
 
     private void initBoard() {
-        addKeyListener(new GlScene.TAdapter());
+        addKeyListener(new GlSceneStart.TAdapter());
         setFocusable(true);
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
@@ -57,13 +51,15 @@ public class GlScene extends JPanel
         draw(g);
     }
 
-    private void draw(Graphics g) {
+    @Override
+    public void draw(Graphics g) {
 
         g.drawImage(star, x, y, this);
         Toolkit.getDefaultToolkit().sync();
     }
 
-    private void update() {
+    @Override
+    public void update() {
 
         x += 1;
         y += 1;
@@ -89,7 +85,6 @@ public class GlScene extends JPanel
 
             timeDiff = System.currentTimeMillis() - beforeTime;
             sleep = DELAY - timeDiff;
-//            System.out.println(sleep);
 
             if (sleep < 0) {
                 sleep = 2;
