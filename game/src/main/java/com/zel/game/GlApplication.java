@@ -19,6 +19,8 @@ public class GlApplication extends JFrame {
     private void initUI() {
 
         add(new GlSceneMain());
+//        remove();
+//        add(new GlSceneMain(), 1);
 
         setTitle("Moving sprite");
         setSize(400, 300);

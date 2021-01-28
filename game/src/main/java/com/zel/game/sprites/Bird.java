@@ -8,15 +8,12 @@ import java.awt.*;
 
 @Getter
 @Setter
-public class Bird {
+public class Bird extends Sprite{
 
-    private Image image;
-    private int x, y;
     private final String filePath = "./game/src/main/resources/img/sprites/redbird-upflap.png";
 
     public Bird() {
-        x = 0;
-        y = 0;
+        super();
         this.image = GlImage.loadImage(filePath);
     }
 

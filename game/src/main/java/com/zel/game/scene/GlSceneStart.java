@@ -9,10 +9,7 @@ import java.awt.event.KeyEvent;
 
 public class GlSceneStart extends GlSceneBase {
 
-
-    private Image star;
     private Thread animator;
-    private int x, y;
 
     public GlSceneStart() {
         initBoard();
@@ -23,10 +20,6 @@ public class GlSceneStart extends GlSceneBase {
         setFocusable(true);
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
-        star = GlImage.loadImage("./game/src/main/resources/img/sprites/redbird-upflap.png");
-
-        x = 0;
-        y = 0;
     }
 
     /**
@@ -50,22 +43,13 @@ public class GlSceneStart extends GlSceneBase {
 
     @Override
     public void draw(Graphics g) {
-
-        g.drawImage(star, x, y, this);
+//        g.drawImage(star, x, y, this);
         Toolkit.getDefaultToolkit().sync();
     }
 
     @Override
     public void update() {
 
-        x += 1;
-        y += 1;
-
-        if (y > B_HEIGHT) {
-
-            y = 0;
-            x = 0;
-        }
     }
 
     @Override
@@ -113,21 +97,9 @@ public class GlSceneStart extends GlSceneBase {
 
     public void updateEvent(KeyEvent e) {
         int key = e.getKeyCode();
-        int speed = 5;
-        if (key == KeyEvent.VK_LEFT) {
-            x -= speed;
-        }
-
-        if (key == KeyEvent.VK_RIGHT) {
-            x += speed;
-        }
-
-        if (key == KeyEvent.VK_UP) {
-            y -= speed;
-        }
-
-        if (key == KeyEvent.VK_DOWN) {
-            y += speed;
+        if (key == KeyEvent.VK_R) {
+            // 开始场景
+            System.out.println("start");
         }
     }
 }
