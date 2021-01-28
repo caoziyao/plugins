@@ -39,10 +39,10 @@ public class GlTetrisSceneMain extends GlSceneBase {
     @Override
     public void draw(Graphics g) {
 
-        for (Sprite sprite : this.tetrisList) {
-            Image image = sprite.getImage();
-            int x = sprite.getX();
-            int y = sprite.getY();
+        for (Tetris tetris : this.tetrisList) {
+            Image image = tetris.getImage();
+            int x = tetris.getX();
+            int y = tetris.getY();
             g.drawImage(image, x, y, this);
         }
 
@@ -51,8 +51,11 @@ public class GlTetrisSceneMain extends GlSceneBase {
 
     @Override
     public void update() {
-        for (Sprite sprite : this.tetrisList) {
-            sprite.move(0, 1);
+        for (Tetris t : this.tetrisList) {
+            t.move(0, 1);
+             if (t.collision(t)) {
+
+             }
         }
     }
 

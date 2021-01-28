@@ -44,8 +44,7 @@ public class Board4 extends JPanel {
         y = INITIAL_Y;
 
         timer = new Timer();
-        timer.scheduleAtFixedRate(new ScheduleTask(),
-                INITIAL_DELAY, PERIOD_INTERVAL);
+        timer.scheduleAtFixedRate(new ScheduleTask(), INITIAL_DELAY, PERIOD_INTERVAL);
     }
 
     @Override

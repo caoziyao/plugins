@@ -7,8 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class Board3 extends JPanel
-        implements ActionListener {
+public class Board3 extends JPanel {
 
     private final int B_WIDTH = 350;
     private final int B_HEIGHT = 350;
@@ -37,32 +36,8 @@ public class Board3 extends JPanel
         x = 0;
         y = 0;
 
-        timer = new Timer(DELAY, this);
+        timer = new Timer(DELAY, new GameCycle());
         timer.start();
-    }
-
-    /**
-     * Custom painting is done in the paintComponent() method. Note that we also call the paintComponent() method of its parent.
-     * The actual painting is delegated to the draw() method.
-     * @param g
-     */
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        draw(g);
-
-        Toolkit.getDefaultToolkit().sync();
-    }
-
-    /**
-     * Here we create a Swing Timer class and call its start() method. Every DELAY ms the timer will call the actionPerformed() method.
-     * In order to use the actionPerformed() method, we must implement the ActionListener interface.
-     * @param e
-     */
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        update();
-        repaint();
     }
 
     private void draw(Graphics g) {
@@ -109,6 +84,31 @@ public class Board3 extends JPanel
 
         if (key == KeyEvent.VK_DOWN) {
             y += speed;
+        }
+    }
+
+    /**
+     * Custom painting is done in the paintComponent() method. Note that we also call the paintComponent() method of its parent.
+     * The actual painting is delegated to the draw() method.
+     * @param g
+     */
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        draw(g);
+        Toolkit.getDefaultToolkit().sync();
+    }
+
+    private class GameCycle implements ActionListener {
+        /**
+         * Here we create a Swing Timer class and call its start() method. Every DELAY ms the timer will call the actionPerformed() method.
+         * In order to use the actionPerformed() method, we must implement the ActionListener interface.
+         * @param e
+         */
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            update();
+            repaint();
         }
     }
 }
