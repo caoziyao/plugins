@@ -15,7 +15,7 @@ public class GlApplication extends JFrame {
 
     private void initUI() {
 
-        //add(new GlScene());
+        add(new GlScene());
 
         setTitle("Moving sprite");
         setSize(400, 300);
@@ -26,7 +26,6 @@ public class GlApplication extends JFrame {
     }
 
     public static void main(String[] args) {
-
         EventQueue.invokeLater(() -> {
             GlApplication ex = new GlApplication();
             ex.setVisible(true);

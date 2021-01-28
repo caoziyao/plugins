@@ -1,7 +1,5 @@
 package com.zel.game.example.move3;
 
-import com.zel.game.example.move.Board3;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
