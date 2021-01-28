@@ -109,7 +109,7 @@ public class Tetris extends Sprite {
             Tetrominoe tetrominoe = Tetrominoe.valueOf(key);
             map.put(tetrominoe, mm);
         }
-        
+
         return map;
     }
 
