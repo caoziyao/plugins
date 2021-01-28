@@ -43,7 +43,7 @@ public class Board3 extends JPanel
 
     /**
      * Custom painting is done in the paintComponent() method. Note that we also call the paintComponent() method of its parent.
-     * The actual painting is delegated to the drawStar() method.
+     * The actual painting is delegated to the draw() method.
      * @param g
      */
     @Override

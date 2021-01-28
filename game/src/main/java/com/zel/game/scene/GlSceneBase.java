@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 /**
  * 并不是所有的类都是用来描绘对象的，如果一个类中没有包含足够的信息来描绘一个具体的对象，那么这样的类称为抽象类。
  */
-public abstract  class GlSceneBase extends JPanel
+public abstract class GlSceneBase extends JPanel
         implements GlScene {
 
     protected final int B_WIDTH = 350;
@@ -16,18 +16,17 @@ public abstract  class GlSceneBase extends JPanel
     // todo 帧数
     protected final int DELAY = 25;
 
-    @Override
-    public void run() {
-        System.out.println("base run");
-    }
-
+//    @Override
+//    public void run() {
+//        System.out.println("base run");
+//    }
 
     /**
      * 定义抽象方法，draw
      */
     @Override
-    public abstract  void draw(Graphics g);
+    public abstract void draw(Graphics g);
 
     @Override
-    public abstract  void update();
+    public abstract void update();
 }

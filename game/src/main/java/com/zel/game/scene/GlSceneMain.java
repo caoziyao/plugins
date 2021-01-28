@@ -1,5 +1,8 @@
 package com.zel.game.scene;
 
+import com.zel.game.common.GlImage;
+import com.zel.game.sprites.Bird;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -7,17 +10,11 @@ import java.awt.event.KeyEvent;
 
 public class GlSceneMain extends GlSceneBase {
 
-    private Image star;
+    private Bird bird;
     private Thread animator;
-    private int x, y;
 
     public GlSceneMain() {
         initBoard();
-    }
-
-    private void loadImage() {
-        ImageIcon ii = new ImageIcon("./game/src/main/resources/img/sprites/redbird-upflap.png");
-        star = ii.getImage();
     }
 
     private void initBoard() {
@@ -25,10 +22,7 @@ public class GlSceneMain extends GlSceneBase {
         setFocusable(true);
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
-        loadImage();
-
-        x = 0;
-        y = 0;
+        bird = new Bird();
     }
 
     /**
@@ -39,7 +33,6 @@ public class GlSceneMain extends GlSceneBase {
     @Override
     public void addNotify() {
         super.addNotify();
-
         animator = new Thread(this);
         animator.start();
     }
@@ -57,20 +50,20 @@ public class GlSceneMain extends GlSceneBase {
     @Override
     public void draw(Graphics g) {
 
-        g.drawImage(star, x, y, this);
+        Image image = bird.getImage();
+        int x = bird.getX();
+        int y = bird.getY();
+
+        g.drawImage(image, x, y, this);
         Toolkit.getDefaultToolkit().sync();
     }
 
     @Override
     public void update() {
 
-        x += 1;
-        y += 1;
-
-        if (y > B_HEIGHT) {
-
-            y = 0;
-            x = 0;
+        bird.move(1, 1);
+        if (bird.getY() > B_HEIGHT) {
+           bird.moveTo(0, 0);
         }
     }
 
@@ -122,19 +115,19 @@ public class GlSceneMain extends GlSceneBase {
         int key = e.getKeyCode();
         int speed = 5;
         if (key == KeyEvent.VK_LEFT) {
-            x -= speed;
+            bird.move(-speed, 0);
         }
 
         if (key == KeyEvent.VK_RIGHT) {
-            x += speed;
+            bird.move(speed, 0);
         }
 
         if (key == KeyEvent.VK_UP) {
-            y -= speed;
+            bird.move(0, -speed);
         }
 
         if (key == KeyEvent.VK_DOWN) {
-            y += speed;
+            bird.move(0, speed);
         }
     }
 }

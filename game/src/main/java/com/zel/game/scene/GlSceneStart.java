@@ -1,5 +1,7 @@
 package com.zel.game.scene;
 
+import com.zel.game.common.GlImage;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -16,17 +18,12 @@ public class GlSceneStart extends GlSceneBase {
         initBoard();
     }
 
-    private void loadImage() {
-        ImageIcon ii = new ImageIcon("./game/src/main/resources/img/sprites/redbird-upflap.png");
-        star = ii.getImage();
-    }
-
     private void initBoard() {
         addKeyListener(new GlSceneStart.TAdapter());
         setFocusable(true);
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
-        loadImage();
+        star = GlImage.loadImage("./game/src/main/resources/img/sprites/redbird-upflap.png");
 
         x = 0;
         y = 0;
