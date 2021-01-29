@@ -2,8 +2,8 @@ package com.zel.game.scene.tetris;
 
 import com.zel.commonutils.Log;
 import com.zel.game.GlApplication;
-import com.zel.game.example.move.Board3;
 import com.zel.game.scene.GlSceneBase;
+import com.zel.game.sprites.GlPoint;
 import com.zel.game.sprites.Tetris;
 
 import javax.swing.*;
@@ -12,6 +12,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 
 public class GlTetrisSceneMain extends GlSceneBase {
@@ -19,6 +22,8 @@ public class GlTetrisSceneMain extends GlSceneBase {
     private Tetris tetris;
     private Thread animator;
     private GlApplication application;
+    // 记录格子。true存在，false不存在
+    private boolean[][] boards;
 
     private Timer timer;
 
@@ -35,23 +40,46 @@ public class GlTetrisSceneMain extends GlSceneBase {
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
 
         this.tetris = new Tetris(Tetris.Tetrominoe.LineShape);
+        this.boards = new boolean[B_WIDTH / this.tetris.w][B_HEIGHT / this.tetris.h];
         //this.tetris = new Tetris(Tetris.Tetrominoe.SquareShape);
     }
 
     @Override
     public void draw(Graphics g) {
-
         tetris.draw(g);
-
         Toolkit.getDefaultToolkit().sync();
     }
 
     @Override
     public void update() {
-        if (tetris.y >= this.B_HEIGHT - tetris.h - 20) {
+        if (collision()) {
             tetris.y = this.B_HEIGHT - tetris.h - 20;
+            // get boards
+            setBoardStatus(this.tetris);
+            // new tetris
+            tetris = Tetris.randomTetris();
         } else {
-            //t.move(0, 1);
+            tetris.move(B_WIDTH / 2, 1);
+        }
+        // check down
+    }
+
+    /**
+     * collision tetris and this.boards
+     */
+    private boolean collision() {
+        if (tetris.y >= this.B_HEIGHT - tetris.h - 20) {
+            return true;
+        }
+        return false;
+    }
+
+    private  void setBoardStatus(Tetris tetris) {
+        List<GlPoint> shape = tetris.getShape();
+        for (GlPoint point : shape) {
+            int x = point.x;
+            int y = point.y;
+            this.boards[x][y] = true;
         }
     }
 

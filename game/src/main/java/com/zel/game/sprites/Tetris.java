@@ -24,11 +24,19 @@ public class Tetris extends Sprite {
     private Tetrominoe tetrominoe;
 
     /**
-     * seven Tetris shape names and the empty shape called NoShape.
+     * seven Tetris shape names and the empty shape called NoShape. NoShape,
      */
     public enum Tetrominoe {
-        NoShape, ZShape, SShape, LineShape,
-        TShape, SquareShape, LShape, MirroredLShape
+        ZShape, SShape, LineShape,
+        TShape, SquareShape, LShape, MirroredLShape;
+
+        public static int size() {
+            return Tetrominoe.values().length;
+        }
+
+        public static Tetrominoe valueOf(int index) {
+            return Tetrominoe.values()[index];
+        }
     }
 
     static {
@@ -58,6 +66,11 @@ public class Tetris extends Sprite {
         this.color = colors[0];
     }
 
+    public static Tetris randomTetris() {
+        int index = new Random().nextInt(Tetris.Tetrominoe.size());
+        return new Tetris(Tetris.Tetrominoe.valueOf(index));
+    }
+
     public void draw(Graphics g) {
 
         for (GlPoint point : shape) {
@@ -73,6 +86,8 @@ public class Tetris extends Sprite {
         }
         this.shape = shapeMap.get(this.tetrominoe).get(this.angle);
     }
+
+
 
     private static Map<Tetrominoe, Map<Integer, List<GlPoint>>> setShapeMap() {
         // t, angle, points
