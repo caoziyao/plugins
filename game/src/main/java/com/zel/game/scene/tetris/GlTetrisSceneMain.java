@@ -14,7 +14,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 
 public class GlTetrisSceneMain extends GlSceneBase {
@@ -24,6 +23,7 @@ public class GlTetrisSceneMain extends GlSceneBase {
     private GlApplication application;
     // 记录格子。true存在，false不存在
     private boolean[][] boards;
+    private int score = 0;
 
     private Timer timer;
 
@@ -53,7 +53,7 @@ public class GlTetrisSceneMain extends GlSceneBase {
     @Override
     public void update() {
         if (collision()) {
-            tetris.y = this.B_HEIGHT - tetris.h - 20;
+            //tetris.y = this.B_HEIGHT - tetris.h - 20;
             // get boards
             setBoardStatus(this.tetris);
             // new tetris
@@ -68,9 +68,22 @@ public class GlTetrisSceneMain extends GlSceneBase {
      * collision tetris and this.boards
      */
     private boolean collision() {
-        if (tetris.y >= this.B_HEIGHT - tetris.h - 20) {
-            return true;
+        int xw = B_WIDTH / this.tetris.w;
+        int xh = B_HEIGHT / this.tetris.h;
+        for (int i = 0; i < xw; i++) {
+            for (int j = 0; j < xh; j++) {
+                if (boards[i][j] == true) {
+                    Rectangle rectangle = new Rectangle(i, j, this.tetris.w, this.tetris.h);
+                    for (GlPoint point : this.tetris.getShape()) {
+                        Rectangle other = new Rectangle(point.x, point.y, this.tetris.w, this.tetris.h);
+                        if (rectangle.intersects(other)) {
+                           return true;
+                        }
+                    }
+                }
+            }
         }
+
         return false;
     }
 
@@ -80,6 +93,39 @@ public class GlTetrisSceneMain extends GlSceneBase {
             int x = point.x;
             int y = point.y;
             this.boards[x][y] = true;
+        }
+
+        // remark removeFullLines
+        int xw = B_WIDTH / this.tetris.w;
+        int xh = B_HEIGHT / this.tetris.h;
+        List<Integer> droppedLines = new ArrayList<>();
+        for (int j = 0; j < xh; j++) {
+            boolean isDropped = true;
+            for (int i = 0; i < xw; i++) {
+                if (boards[i][j] == false) {
+                    isDropped = false;
+                    break;
+                }
+            }
+            if (isDropped) {
+                droppedLines.add(j);
+            }
+        }
+
+        // removeFullLines
+        int numFullLines = 0;
+        for (int j = xh - 1; j >= 0; j--) {
+            if (droppedLines.contains(j)) {
+                numFullLines += 1;
+                score += numFullLines;
+                Log.log("add score", score);
+                continue;
+            } else {
+                for (int i = xw - 1; i >= 0; i--) {
+                    boards[i][j] = boards[i][j-numFullLines];
+                }
+                numFullLines = 0;
+            }
         }
     }
 
