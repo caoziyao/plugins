@@ -13,13 +13,13 @@ public class GlSquare extends Sprite {
 
     private Color color;
 
-    GlSquare(int width, int height) {
+    public GlSquare(int width, int height) {
         this.w = width;
         this.h = height;
         this.color = new Color(0, 0, 0);
     }
 
-    GlSquare(int width, int height, Color color) {
+    public GlSquare(int width, int height, Color color) {
         this.w = width;
         this.h = height;
         this.color = color;
