@@ -22,6 +22,8 @@ public class Tetris extends Sprite {
     private Color color;
     private int angle;
     private Tetrominoe tetrominoe;
+    public int lastX;
+    public int lastY;
 
     /**
      * seven Tetris shape names and the empty shape called NoShape. NoShape,
@@ -37,6 +39,13 @@ public class Tetris extends Sprite {
         public static Tetrominoe valueOf(int index) {
             return Tetrominoe.values()[index];
         }
+    }
+
+    public void move(int x, int y) {
+        this.x += x;
+        this.y += y;
+        this.lastX = this.shape.get(3).x * 20 + this.x;
+        this.lastY = this.shape.get(3).y * 20 + this.y;
     }
 
     static {

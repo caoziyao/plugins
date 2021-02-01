@@ -13,7 +13,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,47 +41,44 @@ public class GlTetrisSceneMain extends GlSceneBase {
         setBackground(Color.WHITE);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
 
-        this.tetris = new Tetris(Tetris.Tetrominoe.LineShape);
+        this.tetris = new Tetris(Tetris.Tetrominoe.MirroredLShape );
         this.boards = new boolean[B_WIDTH / boardWidth][B_HEIGHT / boardHeight];
         //this.tetris = new Tetris(Tetris.Tetrominoe.SquareShape);
 
-        this.boards[0][0] = true;
-        this.boards[2][4] = true;
+        //this.boards[0][0] = true;
+        //this.boards[2][4] = true;
 
         Log.log("boards", B_WIDTH / boardWidth, B_HEIGHT / boardHeight);
 
         //
-        this.tetris.x = 10;
-        this.tetris.y = 210;
+        //this.tetris.x = 10;
+        //this.tetris.y = 210;
 
-        setBoardStatus(this.tetris);
+        //setBoardStatus(this.tetris);
+
     }
 
     @Override
     public void draw(Graphics g) {
-        //tetris.draw(g);
+        tetris.draw(g);
         drawBoard(g);
         Toolkit.getDefaultToolkit().sync();
     }
 
     @Override
     public void update() {
-        //if (collision()) {
-        //    System.out.println("colooo");
-        //
-        //    setBoardStatus(this.tetris);
-        //
-        //    tetris = Tetris.randomTetris();
-        //}
-        //if (collision()) {
-        //    //tetris.y = this.B_HEIGHT - tetris.h - 20;
-        //    // get boards
-        //    setBoardStatus(this.tetris);
-        //    // new tetris
-        //    tetris = Tetris.randomTetris();
-        //} else {
-        //    tetris.move(B_WIDTH / 2, 1);
-        //}
+        //Log.log(this.tetris.x, this.tetris.y);
+        if (collision()) {
+            this.tetris.move(0, 0);
+            //System.out.println("colooo");
+            //
+            //Log.log("terrr", this.tetris.x, this.tetris.y);
+            setBoardStatus(this.tetris);
+            //
+            tetris = Tetris.randomTetris();
+        } else {
+            this.tetris.move(0, boardHeight);
+        }
         // check down
     }
 
@@ -90,17 +86,18 @@ public class GlTetrisSceneMain extends GlSceneBase {
      * collision tetris and this.boards
      */
     private boolean collision() {
-        int xw = B_WIDTH / this.tetris.w;
+        int xw = B_WIDTH / boardWidth;
         int xh = B_HEIGHT / boardHeight;
-        if (this.tetris.y >= B_HEIGHT - 40) {
+        //Log.log("lastY", this.tetris.lastY);
+        if (this.tetris.lastY >= B_HEIGHT - boardHeight) {
             return true;
         }
         for (int i = 0; i < xw; i++) {
             for (int j = 0; j < xh; j++) {
                 if (boards[i][j] == true) {
-                    Rectangle rectangle = new Rectangle(i, j, boardWidth, boardHeight);
+                    Rectangle rectangle = new Rectangle(i * boardWidth, j * boardHeight, boardWidth, boardHeight);
                     for (GlPoint point : this.tetris.getShape()) {
-                        Rectangle other = new Rectangle(point.x, point.y, boardWidth, boardHeight);
+                        Rectangle other = new Rectangle(point.x + this.tetris.x, point.y + this.tetris.y, boardWidth, boardHeight);
                         if (rectangle.intersects(other)) {
                            return true;
                         }
@@ -130,8 +127,8 @@ public class GlTetrisSceneMain extends GlSceneBase {
     private  void setBoardStatus(Tetris tetris) {
         List<GlPoint> shape = tetris.getShape();
         for (GlPoint point : shape) {
-            int x = point.x + tetris.x;
-            int y = point.y + tetris.y;
+            int x = point.x + tetris.x / boardWidth;
+            int y = point.y + tetris.y / boardHeight;
             Log.log("xx", x, y);
             this.boards[x][y] = true;
         }
@@ -218,7 +215,7 @@ public class GlTetrisSceneMain extends GlSceneBase {
 
     public void updateEvent(KeyEvent e) {
         int key = e.getKeyCode();
-        int speed = 5;
+        int speed = boardWidth;
         if (key == KeyEvent.VK_LEFT) {
             tetris.move(-speed, 0);
         }

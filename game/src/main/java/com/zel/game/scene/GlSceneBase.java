@@ -10,9 +10,9 @@ public abstract class GlSceneBase extends JPanel
         implements GlScene {
 
     protected final int B_WIDTH = 400;
-    protected final int B_HEIGHT = 300;
+    protected final int B_HEIGHT = 300 - 20;
     // todo 帧数
-    protected final int DELAY = 25;
+    protected final int DELAY = 50;
 
 //    @Override
 //    public void run() {
