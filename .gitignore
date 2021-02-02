@@ -5,6 +5,8 @@
 # Compiled class file
 *.class
 
+**/a
+
 # Log file
 *.log
 
