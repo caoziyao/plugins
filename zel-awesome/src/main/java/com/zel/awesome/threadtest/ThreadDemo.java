@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 public class ThreadDemo implements Runnable{
 
     public ExecutorService threads; //线程池链接
-    private Object lock  = new Object(); //锁;//锁
+    public Object lock  = new Object(); //锁;//锁
 
     ThreadDemo() {
         this.threads = Executors.newFixedThreadPool(5);
@@ -15,10 +15,12 @@ public class ThreadDemo implements Runnable{
     @Override
     public void run() {
 
-        synchronized(this.getLock()) {
+        synchronized(this.lock) {
             System.out.println("子线程获取锁");
 
-            for (int i = 0; i < 20; i++) {
+            int i = 0;
+            while (true) {
+                i += 1;
 
                 try {
                     Thread.sleep(1000);
@@ -26,9 +28,10 @@ public class ThreadDemo implements Runnable{
                     e.printStackTrace();
                 }
                 System.out.println("i:" + i);
-                if (i == 15) {
-                    this.lock.notifyAll();
+                if (i == 5) {
+                    this.lock.notify();
                     this.threads.shutdown();
+                    System.out.println("子线程 notify");
                     //return;
                 }
             }
@@ -36,28 +39,22 @@ public class ThreadDemo implements Runnable{
         }
     }
 
-    public void setLock(Object lock) {
-        this.lock = lock;
-    }
-
-    public Object getLock() {
-        return lock;
-    }
 
     public static void main(String[] args) {
 
         ThreadDemo t = new ThreadDemo();
-        // 子线程执行
-        t.threads.execute(t);
+
 
         // 获取 lock 的对象锁
-        synchronized(t.getLock()) {
+        synchronized(t.lock) {
             System.out.println("main获取锁");
+            // 子线程执行
+            t.threads.execute(t);
             try {
                 //10 * 1000 最多等待10s
                 //lock的对象锁释放，主线程进入等待状态
                 System.out.println("main进入阻塞状态！");
-                t.getLock().wait();
+                t.lock.wait();
                 System.out.println("main被唤醒！");
             } catch (InterruptedException e) {
                 e.printStackTrace();
