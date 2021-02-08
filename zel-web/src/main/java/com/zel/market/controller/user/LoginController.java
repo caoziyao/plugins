@@ -14,6 +14,8 @@ import com.zel.market.controller.user.dto.LoginReqDTO;
 import com.zel.market.exception.BusinessException;
 import com.zel.market.service.user.UserService;
 import io.swagger.annotations.Api;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
@@ -31,6 +33,8 @@ import java.util.concurrent.TimeUnit;
 @Api(description = "login")
 @RestController
 public class LoginController {
+
+    private Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @Value("${TOKEN_SALT}")
     private String TOKEN_KEY;
@@ -74,7 +78,7 @@ public class LoginController {
         // 设置TOKEN
         redisUtils.set(ERedisKey.USER_ID.formatKey(user.getId().toString()), JsonHelper.write(user), TOKEN_TIMEOUT, TimeUnit.HOURS);
         // 保存到 cookie 或 header 里面
-        CookieUtil.saveCookie(Constants.SESSIONID, newToken, request, response);
+        CookieUtil.saveCookie(Constants.SESSIONID, newToken, 24 * 3600, request, response);
         // 设置在线用户
         userService.addOnlineUser(user.getId());
 
@@ -100,7 +104,7 @@ public class LoginController {
         // 设置TOKEN
         redisUtils.set(ERedisKey.USER_ID.formatKey(user.getId().toString()), JsonHelper.write(user), TOKEN_TIMEOUT, TimeUnit.HOURS);
         // 保存到 cookie 或 header 里面
-        CookieUtil.saveCookie(Constants.SESSIONID, newToken, request, response);
+        CookieUtil.saveCookie(Constants.SESSIONID, newToken, 24 * 3600, request, response);
         // 设置在线用户
         userService.addOnlineUser(user.getId());
 

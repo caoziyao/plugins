@@ -1,4 +1,4 @@
-package com.zel.market.jobs.http;
+package com.zel.market.jobs.ss;
 
 import com.zel.commonutils.DateUtil;
 import com.zel.commonutils.FileUtils;

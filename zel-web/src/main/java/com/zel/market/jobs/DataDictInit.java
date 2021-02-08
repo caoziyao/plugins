@@ -1,7 +1,6 @@
 package com.zel.market.jobs;
 
-import com.zel.market.jobs.runner.MailTaskRunner;
-import com.zel.market.jobs.runner.ThreadPoolMonitorRunner;
+import com.zel.market.jobs.monitor.ThreadPoolMonitorRunner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +22,6 @@ public class DataDictInit implements CommandLineRunner {
     public static final ExecutorService TASK_SERVICE = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
     public static final ThreadPoolExecutor  executor = new ThreadPoolExecutor(5, 5, 30, TimeUnit.SECONDS, new ArrayBlockingQueue<>(10) );
-
-    @Autowired
-    private MailTaskRunner mailTask;
 
     @Autowired
     private ThreadPoolMonitorRunner monitorService;

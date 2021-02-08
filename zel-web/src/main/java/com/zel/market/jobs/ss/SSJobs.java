@@ -1,4 +1,4 @@
-package com.zel.market.jobs.http;
+package com.zel.market.jobs.ss;
 
 import com.zel.commonutils.DateUtil;
 import com.zel.commonutils.ExceptionUtil;
@@ -36,18 +36,14 @@ import java.util.concurrent.TimeUnit;
  * 2, 生成 md5 存在 redis，key 为 URL
  * 3，对比 redis 是否存在并且相等，相等则直接返回
  * 4，不相等则写入文件（备份），放到 kafka 消费
- *
- * @author csy
- * @version 1.0.0
- * @since 2021/1/2
  */
 @Component
-public class SSHtmlJobs {
+public class SSJobs {
 
     @Value("${PATH_CACHE}")
     private String PATH_CACHE;
 
-    private static final Logger log = LoggerFactory.getLogger(SSHtmlJobs.class);
+    private static final Logger log = LoggerFactory.getLogger(SSJobs.class);
 
     private static final long timeout = TimeUnit.MINUTES.toMillis(10);
 

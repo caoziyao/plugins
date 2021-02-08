@@ -1,4 +1,4 @@
-package com.zel.market.controller.kafka;
+package com.zel.market.kafka;
 
 import com.zel.commonutils.ExceptionUtil;
 import com.zel.commonutils.FileUtils;
@@ -122,6 +122,7 @@ public class KafkaConsumer {
         String subject = task.getSubject();
 
         log.info("mail消费：" + record.topic() + "-" + record.partition() + "-" + task);
+        // 发送邮件
         mailService.sendSimpleMail(to, subject, content);
     }
 

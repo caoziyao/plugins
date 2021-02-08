@@ -1,4 +1,4 @@
-package com.zel.market.controller.kafka;
+package com.zel.market.kafka;
 
 import com.zel.market.config.kafka.KafkaTopic;
 import org.springframework.beans.factory.annotation.Autowired;

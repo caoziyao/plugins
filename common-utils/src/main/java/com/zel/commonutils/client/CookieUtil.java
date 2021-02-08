@@ -14,7 +14,15 @@ import java.util.Map;
 
 public class CookieUtil {
 
-    public static void saveCookie(String key, String value, HttpServletRequest request
+    /**
+     *
+     * @param key
+     * @param value
+     * @param time 时间 s
+     * @param request
+     * @param response
+     */
+    public static void saveCookie(String key, String value, int time, HttpServletRequest request
             , HttpServletResponse response) {
         Map<String, Cookie> groupCookie = new HashMap<String, Cookie>();
         if (request.getCookies() != null) {
@@ -29,10 +37,17 @@ public class CookieUtil {
         }
         tokenC.setValue(value);
         tokenC.setPath("/");
-        tokenC.setMaxAge(24 * 3600);
+        // 时间 s
+        tokenC.setMaxAge(time);
         response.addCookie(tokenC);
     }
 
+    /**
+     *
+     * @param request
+     * @param name
+     * @return
+     */
     public static String getCookie(HttpServletRequest request, String name) {
         if (request.getCookies() == null) {
             return null;
@@ -46,6 +61,11 @@ public class CookieUtil {
         return null;
     }
 
+    /**
+     *
+     * @param request
+     * @return
+     */
     public static Map<String, String> getHeaders(HttpServletRequest request) {
         Map<String, String> map = new HashMap<>();
         Enumeration<String> e = request.getHeaderNames();
@@ -57,6 +77,11 @@ public class CookieUtil {
         return map;
     }
 
+    /**
+     *
+     * @param request
+     * @return
+     */
     public static String getBody(HttpServletRequest request) {
         BufferedReader br = null;
         String str, wholeStr = "";
@@ -81,6 +106,11 @@ public class CookieUtil {
         return sb.toString();
     }
 
+    /**
+     *
+     * @param request
+     * @return
+     */
     public static String getURL(HttpServletRequest request) {
         StringBuffer url = request.getRequestURL();
         String query = request.getQueryString();

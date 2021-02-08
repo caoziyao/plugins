@@ -1,4 +1,4 @@
-package com.zel.market.jobs;
+package com.zel.market.jobs.user;
 
 import com.zel.commonutils.DateUtil;
 import com.zel.commonutils.client.HttpUtil;

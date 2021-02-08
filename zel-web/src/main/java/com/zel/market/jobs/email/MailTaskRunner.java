@@ -1,4 +1,4 @@
-package com.zel.market.jobs.runner;
+package com.zel.market.jobs.email;
 
 import com.zel.market.dto.MailTaskDTO;
 import com.zel.market.service.mail.MailService;
