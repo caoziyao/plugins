@@ -1,5 +1,7 @@
 package com.zel.commonutils;
 
+import org.apache.commons.lang3.StringUtils;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -51,6 +53,16 @@ public class IpUtil {
             ip = "";
         }
         return ip.trim();
+    }
+
+    public static boolean checkIp(String ip){
+        if(StringUtils.isBlank(ip)){
+            return false;
+        }
+        if(ip.startsWith("127") || ip.startsWith("192.168") || ip.startsWith("172.21") || ip.startsWith("10")){
+            return true;
+        }
+        return false;
     }
 
 
