@@ -3,7 +3,7 @@ package com.zel.awesome.sync;
 /**
  * synchronized的三种应用方式
  * <p>
- * 1, 同步方法块，锁是括号里面的对象，对给定对象加锁，进入同步代码库前要获得给定对象的锁。
+ * 2, 同步方法块，锁是括号里面的对象/类，对给定对象加锁，进入同步代码库前要获得给定对象的锁。
  */
 public class SynchronizedTest2 implements Runnable {
     private volatile static int count = 0;
