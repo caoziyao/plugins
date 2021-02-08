@@ -25,6 +25,7 @@
         <module>zel-web</module>
         <module>zel-pojo</module>
         <module>game</module>
+        <module>zel-awesome</module>
 
     </modules>
 
