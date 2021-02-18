@@ -3,6 +3,9 @@ package com.zel.awesome.threadtest;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * thread 使用
+ */
 public class ThreadDemo implements Runnable{
 
     public ExecutorService threads; //线程池链接

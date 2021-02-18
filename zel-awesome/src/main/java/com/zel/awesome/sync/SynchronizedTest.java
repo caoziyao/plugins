@@ -1,5 +1,9 @@
 package com.zel.awesome.sync;
 
+
+/**
+ * synchronized的三种应用方式
+ */
 public class SynchronizedTest implements Runnable{
 
     //共享资源
