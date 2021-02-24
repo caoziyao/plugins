@@ -2,6 +2,7 @@ package com.zel.commonutils.client;
 
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -187,5 +188,24 @@ public class HttpUtil {
             httpClient.getConnectionManager().closeExpiredConnections();
             httpClient.getConnectionManager().closeIdleConnections(1L, TimeUnit.SECONDS);
         }
+    }
+
+    /*
+     * 执行ping操作,判断节点是否可用,及延时时间
+     */
+    public static String ping(String ip) throws IOException {
+        //执行ping命令
+        Process p = Runtime.getRuntime().exec("ping "+ ip);
+        //接受返回的数据
+        BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream(),"GBK"));
+        //BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8));
+        String line;
+        StringBuilder sb = new StringBuilder();
+        while((line=br.readLine())!=null) {
+            sb.append(line);
+            sb.append("\n");
+        }
+        //使用正则表达式ping结果
+        return sb.toString();
     }
 }
