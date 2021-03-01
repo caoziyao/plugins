@@ -14,6 +14,32 @@ import java.util.UUID;
  */
 public class FileUtils {
 
+    public static void test() throws IOException {
+        String fileName = "test.txt";
+        System.out.println("File.separator:" + File.separator);
+        File testFile = new File("D:" + File.separator + "filepath" + File.separator + "test" + File.separator + fileName);
+        File fileParent = testFile.getParentFile();//返回的是File类型,可以调用exsit()等方法
+        String fileParentPath = testFile.getParent();//返回的是String类型
+        System.out.println("fileParent:" + fileParent);
+        System.out.println("fileParentPath:" + fileParentPath);
+        if (!fileParent.exists()) {
+            fileParent.mkdirs();// 能创建多级目录
+        }
+        if (!testFile.exists()) {
+            testFile.createNewFile();//有路径才能创建文件
+        }
+
+        System.out.println(testFile);
+
+        String path = testFile.getPath();
+        String absolutePath = testFile.getAbsolutePath();//得到文件/文件夹的绝对路径
+        String getFileName = testFile.getName();//得到文件/文件夹的名字
+        System.out.println("path:" + path);
+        System.out.println("absolutePath:" + absolutePath);
+        System.out.println("getFileName:" + getFileName);
+
+    }
+
     public static void write(String filePath, String content) throws IOException {
         File file = new File(filePath);
         FileWriter fileWriter = new FileWriter(filePath);
@@ -79,7 +105,7 @@ public class FileUtils {
         path = path.substring(0, index);
         File filePath = new File(path);
         if (!filePath.exists()) {
-            filePath.mkdir();
+            filePath.mkdirs();
             flag = true;
         }
 
@@ -89,5 +115,15 @@ public class FileUtils {
             flag = true;
         }
         return flag;
+    }
+
+    /**
+     * 当前路径
+     * @return
+     * @throws IOException
+     */
+    public File currentPath() throws IOException {
+        File directory = new File(".");
+        return directory.getCanonicalFile();
     }
 }
