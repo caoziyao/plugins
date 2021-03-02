@@ -2,7 +2,9 @@ package com.zel.commonutils;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 
 public class Gif implements IGIF {
 
@@ -10,18 +12,24 @@ public class Gif implements IGIF {
     public void gif() throws IOException {
         System.out.println("dsfw 2");
 
-        //Date date = DateUtil.nightOf(new Date());
-        //System.out.println(date);
+        Date date = DateUtil.nightOf(new Date());
+        System.out.println(date);
 
-        //File file = new File("abc.txt");
-        //if (!file.exists()) {
-        //    file.createNewFile();
-        //}
-        //FileUtils.write(file.getPath(), "vvv");
+        File file = new File("abc.txt");
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        FileUtils.write(file.getPath(), "vvv");
     }
 
-    public static void main(String[] args) {
-        System.out.println("main gif");
+    public static void main(String[] args) throws IOException {
+        System.out.println("main asfwe");
         System.out.println(StringUtils.isBlank(null));;
+
+        File file = new File("abc.txt");
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        FileUtils.write(file.getPath(), "vvadfewrfwr sadfwe");
     }
 }

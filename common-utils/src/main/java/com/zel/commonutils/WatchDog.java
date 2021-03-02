@@ -1,7 +1,9 @@
 package com.zel.commonutils;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -14,39 +16,15 @@ import static java.nio.file.StandardWatchEventKinds.*;
 //javac -encoding UTF-8 XXX.java
 public class WatchDog {
 
-    //public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
-    //    MyClassLoader mcl = new MyClassLoader() ;
-    //    System.out.println(mcl.getParent());
-    //    Class<?> personClass = mcl.findClass("E:\\aa\\Gif.class");
-    //    Object person =  personClass.newInstance() ;
-    //
-    //    Method sayHelloMethod = personClass.getMethod("gif") ;
-    //    sayHelloMethod.invoke(person) ;
-    //}
 
     public static void test2() throws Exception {
-        //File file = new File("E:\\aa\\json.jar");
-        //URLClassLoader loader = new URLClassLoader(new URL[]{ file.toURI().toURL() });
-
-        //MyClassLoader mcl = new MyClassLoader();
-        //mcl.loadJar("E:\\aa\\json.jar");
-        //Class clazz = loader.loadClass("com.zel.commonutils.Gif");
         Class<?> clazz = Class.forName("com.zel.commonutils.Gif");
-
         Object person = clazz.newInstance();
-
         Method sayHelloMethod = clazz.getMethod("gif") ;
         sayHelloMethod.invoke(person) ;
-        //Gif driver = (Gif) clazz.newInstance();
-        //driver.gif();
     }
 
     public static void test3()  throws Exception {
-        //第二种
-        //URL url1 = new URL("file:E:\\aa\\json.jar");
-        //URLClassLoader myClassLoader1 = new URLClassLoader(new URL[] { url1 }, Thread.currentThread()
-        //        .getContextClassLoader());
-
         File file = new File("E:\\aa\\json.jar");
         URLClassLoader loader = new URLClassLoader(new URL[]{ file.toURI().toURL() });
 
@@ -60,27 +38,39 @@ public class WatchDog {
         MyClassLoader mcl = new MyClassLoader();
         System.out.println(mcl.getParent());
         Class<?> personClass = mcl.findClass("E:\\aa\\com\\zel\\commonutils\\Gif.class");
-        //Class<?> personClass = mcl.findClass("E:\\aa\\Gif.class");
-        //Class<?> personClass = mcl.findClass("E:\\aa\\json.jar");
         Object person = personClass.newInstance();
 
         Method sayHelloMethod = personClass.getMethod("gif") ;
         sayHelloMethod.invoke(person) ;
-        //Gif gif = (Gif)
+    }
+
+    /**@PARAM command指exe程序所在路径**/
+    public static String executeCmd(String command) throws IOException {
+        System.err.println("Execute command : " + command);
+        Runtime runtime = Runtime.getRuntime();
+        Process process = runtime.exec("cmd /c start " + command);
+        BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream(), "UTF-8"));
+        String line = null;
+        StringBuilder build = new StringBuilder();
+        while ((line = br.readLine()) != null) {
+            System.err.println(line);
+            build.append(line);
+        }
+        return build.toString();
     }
 
 
-    public static void pre() {
+    public static void pre() throws IOException {
         /**
-         * 1, 打成 .class 包到 target/classes 中
-         * 2，target/classes 打成 jar 包
-         * 3, 运行
+         * 1, mvn 打成 jar 包 D:\gua\maven3\bin\mvn package
+         * 2, 运行  java -jar common-utils-1.0-SNAPSHOT.jar
          */
-
-        //String root = "common-utils/src/main/java";
-        String shell1 = "javac ./common-utils/src/main/java/* -d common-utils/target/classes/";
-        String shell2 = "jar -cvfm gif.jar MANIFEST.MF  -C  target/classes/ .";
-        String shell3 = "java -jar gif.jar";
+        String shell1 = "D:\\gua\\maven3\\bin\\mvn package";
+        System.out.println(shell1);
+        executeCmd(shell1);
+        String shell2 = "java -jar E:\\working\\mycode\\plugins\\common-utils\\target\\common-utils-1.0-SNAPSHOT.jar";
+        System.out.println(shell2);
+        Runtime.getRuntime().exec(shell2);
     }
 
     public static void main(String[] args) throws IOException, InterruptedException, Exception {
@@ -123,39 +113,9 @@ public class WatchDog {
                     Path path = cast(event.context());
                     //构造完整路径
                     Path fullPath = Paths.get(root.toString(), path.toString());
-                    //System.out.println(path + "||| " + fullPath + "dff" + root);
+                    pre();
 
-                    //String shell = "javac E:\\working\\mycode\\plugins\\common-utils\\src\\main\\java\\com\\zel\\commonutils\\Gif.java -d E:\\working\\mycode\\plugins\\common-utils\\target\\classes";
-                    //String shell = "javac " + fullPath.toAbsolutePath();
-                    //String shell = "javac E:\\working\\mycode\\plugins\\common-utils\\src\\main\\java\\com\\zel\\commonutils\\Gif.java -d E:\\aa";
-                    //
-                    //System.out.println("shll " + shell);
-                    //Runtime.getRuntime().exec(shell);
-                    //String shell = "javac "
-                    //Gif gif = new Gif();
-                    //gif.gif(); E:\working\mycode\plugins\common-utils\target\classes
 
-                    //test();
-                    //test2();
-                test3();
-
-                    //ClassLoader classLoader = WatchDog.class.getClassLoader();
-
-                    //MyClassLoader myClassLoader = new MyClassLoader();
-                    //myClassLoader.ffff("");
-                    //try {
-                   //
-                   //    Class clz = Class.forName("com.zel.commonutils.Gif");
-                   //    Gif apple = (Gif)clz.newInstance();
-                   //    apple.gif();
-                   //
-                   //    //String shell2 = "e: && cd E:\\working\\mycode\\plugins\\common-utils\\target\\classes && java com.zel.commonutils.Gif";
-                   //    //System.out.println("shll " + shell2);
-                   //    //Runtime.getRuntime().exec(shell2);
-                   //} catch (Exception e) {
-                   //    e.printStackTrace();
-                   //}
-                //}
             }
 
             // 虽然是while()循环，但WatchKey和ByteBuffer一样，使用完要重置状态，才能继续用。
