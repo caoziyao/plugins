@@ -83,12 +83,13 @@ public class FileUtils {
     }
 
     public static String getFilePath(String suffix) {
-        String date = DateUtil.format(new Date(), DateUtil.YMD).replaceAll("-", "");
-        String filename = UUID.randomUUID().toString().replaceAll("-","") + suffix;
-        String dir = "./cache";
-        // 生成目录
-        String filePath = dir + File.separator + date + File.separator + filename;
-        return filePath;
+        //String date = DateUtil.format(new Date(), DateUtil.YMD).replaceAll("-", "");
+        //String filename = UUID.randomUUID().toString().replaceAll("-","") + suffix;
+        //String dir = "./cache";
+        //// 生成目录
+        //String filePath = dir + File.separator + date + File.separator + filename;
+        //return filePath;
+        return null;
     }
 
 
@@ -97,7 +98,7 @@ public class FileUtils {
      * @param file
      * @throws IOException
      */
-    public boolean createFile(File file) throws IOException{
+    public static boolean createFile(File file) throws IOException{
         boolean flag = false;
         // 创建文件夹
         String path = file.getAbsolutePath();
@@ -122,8 +123,27 @@ public class FileUtils {
      * @return
      * @throws IOException
      */
-    public File currentPath() throws IOException {
+    public static File currentPath() throws IOException {
         File directory = new File(".");
         return directory.getCanonicalFile();
+    }
+
+    /**
+     * 读取二进制文件
+     * @param filePath
+     * @return
+     * @throws FileNotFoundException
+     */
+    public static byte[] dataFrom(String filePath) throws IOException {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            throw new FileNotFoundException(StrUtil.format("file:{} not found", filePath));
+        }
+        Long filelength = file.length();
+        byte[] bytes = new byte[filelength.intValue()];
+        FileInputStream in = new FileInputStream(file);
+        in.read(bytes);
+        in.close();
+        return bytes;
     }
 }

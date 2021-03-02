@@ -48,7 +48,7 @@ public class GlTetrisSceneMain extends GlSceneBase {
         //this.boards[0][0] = true;
         //this.boards[2][4] = true;
 
-        Log.log("boards", B_WIDTH / boardWidth, B_HEIGHT / boardHeight);
+        //Log.log("boards", B_WIDTH / boardWidth, B_HEIGHT / boardHeight);
 
         //
         //this.tetris.x = 10;
@@ -129,7 +129,7 @@ public class GlTetrisSceneMain extends GlSceneBase {
         for (GlPoint point : shape) {
             int x = point.x + tetris.x / boardWidth;
             int y = point.y + tetris.y / boardHeight;
-            Log.log("xx", x, y);
+            //Log.log("xx", x, y);
             this.boards[x][y] = true;
         }
 
@@ -253,7 +253,7 @@ public class GlTetrisSceneMain extends GlSceneBase {
 
     @Override
     public void run() {
-        Log.log("main run");
+        //Log.log("main run");
         long beforeTime, timeDiff, sleep;
         beforeTime = System.currentTimeMillis();
 

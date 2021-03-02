@@ -7,6 +7,6 @@ public class TetrisTest extends TestCase {
 
     public void testGetAngle() {
         int size = Tetris.Tetrominoe.size();
-        Log.log("size", size);
+        //Log.log("size", size);
     }
 }

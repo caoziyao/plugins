@@ -1,4 +1,6 @@
-package com.zel.commonutils;
+package com.zel.commonutils.logutil;
+
+import com.zel.commonutils.StrUtil;
 
 import static java.lang.System.err;
 import static java.lang.System.out;
@@ -8,14 +10,34 @@ import static java.lang.System.out;
  * <p>
  * https://gitee.com/loolly/hutool/blob/v5-master/hutool-core/src/main/java/cn/hutool/core/lang/Console.java
  */
-public class Log {
+public class log {
 
     private static final String TEMPLATE_VAR = "{}";
 
+
+    //public log(Object... obj) {
+    //    log.log(obj);
+    //}
+
+    /**
+     * log byte[]
+     */
+    private static void logBytes(byte[] arr) {
+        StringBuilder buffer = new StringBuilder();
+        buffer.append('[');
+        for (int i = 0; i < arr.length; i++) {
+            buffer.append(arr[i]);
+            buffer.append(' ');
+        }
+        buffer.append(']');
+        out.println(buffer.toString());
+    }
+
     /**
      * 同 System.out.println()方法，打印控制台日志
+     * log(a, b, c)  ->  a b c
      */
-    public static void log(Object... obj) {
+    public static void i(Object... obj) {
         if (obj.length == 0) {
             out.println();
             return;
@@ -23,7 +45,7 @@ public class Log {
 
         String tmp = buildTemplateSplitBySpace(obj.length);
         String s = StrUtil.format(tmp, obj);
-
+        out.println(s);
 //        if ((obj[0] instanceof String) && (((String) obj[0]).contains(TEMPLATE_VAR))) {
 //            String first = (String) obj[0];
 //            //s = StrUtil.format(first, obj);
@@ -32,7 +54,6 @@ public class Log {
 //            s = StrUtil.format(tmp, obj);
 //        }
 
-        out.println(s);
     }
 
     /**

@@ -69,6 +69,7 @@ public class StrUtil {
     }
 
     /**
+     * 👍
      * 按顺序替换文本中的占位符
      *
      * StrUtil.format("hello {} {}", "abc", "ccc");
@@ -79,7 +80,6 @@ public class StrUtil {
      * @return 替换好的文本
      */
     public static final String format(String message, Object... args) {
-        // 🤔👍🍓🤔
         if (message == null || args == null || args.length <= 0) {
             return message;
         }

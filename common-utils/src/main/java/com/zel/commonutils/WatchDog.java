@@ -29,8 +29,8 @@ public class WatchDog {
         URLClassLoader loader = new URLClassLoader(new URL[]{ file.toURI().toURL() });
 
         Class<?> myClass1 = loader.loadClass("com.zel.commonutils.Gif");
-        IGIF action1 = (IGIF) myClass1.newInstance();
-        action1.gif();
+        //IGIF action1 = (IGIF) myClass1.newInstance();
+        //action1.gif();
 
     }
 

@@ -107,7 +107,7 @@ public class GlFlappySceneMain extends GlSceneBase {
 
     @Override
     public void run() {
-        Log.log("flappy main run");
+        //Log.log("flappy main run");
         long beforeTime, timeDiff, sleep;
 
         beforeTime = System.currentTimeMillis();

@@ -75,12 +75,12 @@ public class GlFlappySceneStart extends GlSceneBase {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_F) {
             // 开始场景
-            Log.log("start");
+            //Log.log("start");
             this.application.addScene(new GlFlappySceneMain(this.application));
             this.application.validate();
         } else if  (key == KeyEvent.VK_T) {
             // 开始场景
-            Log.log("start");
+            //Log.log("start");
             this.application.addScene(new GlTetrisSceneMain(this.application));
             this.application.validate();
         }

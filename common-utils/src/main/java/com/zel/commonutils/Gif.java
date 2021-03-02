@@ -1,35 +1,49 @@
 package com.zel.commonutils;
 
-import org.apache.commons.lang3.StringUtils;
+import com.zel.commonutils.bytes.ZByte;
+import com.zel.commonutils.gif.GifDTO;
+import com.zel.commonutils.logutil.log;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 
-public class Gif implements IGIF {
+public class Gif  {
 
-    @Override
+    /**
+     * 1, 解析 gif
+     * 2，构建 class
+     * 3, 画图
+     * 4, 画 gif
+     * @throws IOException
+     */
+
+    // [71 73 70 56 57 97 73 0 65 0 -10 0 0 4 4 3 20 10 7 28 27 24 40 40 39 55 51 42 55 55 55
     public void gif() throws IOException {
-        System.out.println("dsfw 2");
+        System.out.println("gif1");
+        GifDTO dto = new GifDTO();
 
-        Date date = DateUtil.nightOf(new Date());
-        System.out.println(date);
+        ZByte data = new ZByte(FileUtils.dataFrom("./doge.gif"));
+        //Log.logBytes(BytesUtil.cut(data, 0, 10));
 
-        File file = new File("abc.txt");
-        if (!file.exists()) {
-            file.createNewFile();
-        }
-        FileUtils.write(file.getPath(), "vvv");
+        dto.signature = data.cut(0, 3);
+        dto.version = data.cut(3, 6);
+
+
+        log.i(data.cut(6, 8));
+        log.i(data.cut(8, 10));
+        dto.width = data.cut(6, 8).toInt();
+        dto.height = data.cut(8, 10).toInt();
+
+        //# 2 字节宽度，2 字节高度  [73, 0] [65, 0]
+        //# 宽 73 高 65
+        //log(d[6:10], d[6], d[8])
+
+        log.i("dto", dto);
+
     }
 
     public static void main(String[] args) throws IOException {
-        System.out.println("main asfwe");
-        System.out.println(StringUtils.isBlank(null));;
-
-        File file = new File("abc.txt");
-        if (!file.exists()) {
-            file.createNewFile();
-        }
-        FileUtils.write(file.getPath(), "vvadfewrfwr sadfwe");
+        Gif gif = new Gif();
+        gif.gif();
     }
 }
+
