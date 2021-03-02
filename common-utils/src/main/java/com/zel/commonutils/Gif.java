@@ -26,16 +26,20 @@ public class Gif  {
 
         dto.signature = data.cut(0, 3);
         dto.version = data.cut(3, 6);
+        dto.parseLogicalScene(data.cut(6, 13));
 
+        int size = dto.gctSize;
+        //for i in range(13, size * 3 + 13, 3):
+        //r = d[i]
+        //g = d[i+1]
+        //b = d[i+2]
+        //color = [r, g, b]
+        //colorTable.append(color);
 
-        log.i(data.cut(6, 8));
-        log.i(data.cut(8, 10));
-        dto.width = data.cut(6, 8).toInt();
-        dto.height = data.cut(8, 10).toInt();
-
-        //# 2 字节宽度，2 字节高度  [73, 0] [65, 0]
-        //# 宽 73 高 65
-        //log(d[6:10], d[6], d[8])
+        for (int i = 13; i < size * 3 + 13; i += 3) {
+            ZByte color = data.cut(i, i + 3);
+            dto.globalColorTable.add(color);
+        }
 
         log.i("dto", dto);
 

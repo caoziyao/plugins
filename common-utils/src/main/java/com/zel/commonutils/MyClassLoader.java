@@ -9,23 +9,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class MyClassLoader extends ClassLoader{
+public class MyClassLoader extends ClassLoader {
 
     private static final String SUFFIX = ".class";
-
-    public String getClassPath(String className, String[] paths){
-        for(String path : paths){
-            if(className.contains(".")){
-                className = className.replaceAll(".", File.separator);
-            }
-            String classPath = path + className + SUFFIX;
-            File classFile = new File(classPath);
-            if(classFile.exists()){
-                return classPath;
-            }
-        }
-        return null;
-    }
 
     public MyClassLoader(ClassLoader parent) {
         super(parent);
@@ -35,6 +21,19 @@ public class MyClassLoader extends ClassLoader{
 
     }
 
+    public String getClassPath(String className, String[] paths) {
+        for (String path : paths) {
+            if (className.contains(".")) {
+                className = className.replaceAll(".", File.separator);
+            }
+            String classPath = path + className + SUFFIX;
+            File classFile = new File(classPath);
+            if (classFile.exists()) {
+                return classPath;
+            }
+        }
+        return null;
+    }
 
     public void loadJar(String jarPath) throws MalformedURLException {
         File jarFile = new File(jarPath); // 从URLClassLoader类中获取类所在文件夹的方法，jar也可以认为是一个文件夹
@@ -79,34 +78,34 @@ public class MyClassLoader extends ClassLoader{
 
     protected Class<?> findClass(String dir) throws ClassNotFoundException {
         File classFile = new File(dir);
-        if(!classFile.exists()){
-            throw new ClassNotFoundException(classFile.getPath() + " 不存在") ;
+        if (!classFile.exists()) {
+            throw new ClassNotFoundException(classFile.getPath() + " 不存在");
         }
-        ByteArrayOutputStream bos = new ByteArrayOutputStream() ;
-        ByteBuffer bf = ByteBuffer.allocate(1024) ;
-        FileInputStream fis = null ;
-        FileChannel fc = null ;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ByteBuffer bf = ByteBuffer.allocate(1024);
+        FileInputStream fis = null;
+        FileChannel fc = null;
         try {
-            fis = new FileInputStream(classFile) ;
-            fc = fis.getChannel() ;
-            while(fc.read(bf) > 0){
-                bf.flip() ;
-                bos.write(bf.array(),0 , bf.limit()) ;
-                bf.clear() ;
+            fis = new FileInputStream(classFile);
+            fc = fis.getChannel();
+            while (fc.read(bf) > 0) {
+                bf.flip();
+                bos.write(bf.array(), 0, bf.limit());
+                bf.clear();
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             try {
-                fis.close() ;
-                fc.close() ;
+                fis.close();
+                fc.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return defineClass(bos.toByteArray() , 0 , bos.toByteArray().length);
+        return defineClass(bos.toByteArray(), 0, bos.toByteArray().length);
     }
 
 
@@ -129,7 +128,7 @@ public class MyClassLoader extends ClassLoader{
         Object newInstance = classs.newInstance();
 
         //*通过如下方式也可以加载class文件  : 中间为true在加载时会初始化静态块  false不会
-        Class<?> thread = Class.forName ("com.zel.commonutils.Gif", false, urlClassLoader);
+        Class<?> thread = Class.forName("com.zel.commonutils.Gif", false, urlClassLoader);
         Object newInstancethread = thread.newInstance();
 
         //两者的区别：URLClassLoader可以加载任意路径的class文件, Class.forName和ClassLoader是只能加载classPath路径bin目录下的class文件
