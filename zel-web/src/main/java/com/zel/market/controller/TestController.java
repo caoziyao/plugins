@@ -37,19 +37,19 @@ public class TestController {
     @Autowired
     private RedisUtils redisUtils;
 
-    // 允许每秒最多10个任务
-    public static final RateLimiter rateLimiter = RateLimiter.create(10);
-
-    public String index2() {
-
-        // 请求尝试获取令牌，获取不到返回服务器繁忙
-        if (rateLimiter.tryAcquire()) {
-            // 正常逻辑
-        } else {
-            // error
-        }
-        return "";
-    }
+    //// 允许每秒最多10个任务
+    //public static final RateLimiter rateLimiter = RateLimiter.create(10);
+    //
+    //public String index2() {
+    //
+    //    // 请求尝试获取令牌，获取不到返回服务器繁忙
+    //    if (rateLimiter.tryAcquire()) {
+    //        // 正常逻辑
+    //    } else {
+    //        // error
+    //    }
+    //    return "";
+    //}
 
     @RequestMapping(value = "/t", method = {RequestMethod.GET, RequestMethod.POST})
     public Response index(@RequestParam(required = false, defaultValue = "1") String statType, HttpServletRequest request) {

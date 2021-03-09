@@ -1,17 +1,15 @@
 package com.zel.market.filter;
 
+import com.zel.commonutils.IpUtil;
 import com.zel.commonutils.client.CookieUtil;
-import com.zel.market.common.Response;
 import com.zel.market.common.enumcom.EResponseCode;
-import lombok.SneakyThrows;
+import com.zel.market.exception.BusinessException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Filter有如下几个用处。
@@ -19,38 +17,36 @@ import java.io.IOException;
  * filter -> interceptor -> ControllerAdvice -> aspect -> controller
  */
 @Component
-public class MyFilter implements Filter {
+public class MyFilter extends AbstractFilter {
 
-    Logger logger = LoggerFactory.getLogger(Filter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MyFilter.class);
 
-    //private static final Set<String> ALLOWED_PATHS = Collections.unmodifiableSet(new HashSet<>(
-    //        Arrays.asList("/login", "/superlogin", "/logout", "/swagger-ui.html", "/webjars", "/v2/api-docs", "/csrf")));
+    /**
+     * 1分钟内一个ip只能访问200次
+     */
+    private final RateLimiterUtils rateLimiterUtils = RateLimiterUtils.build("OpenApiV1Filter", 1L, TimeUnit.MINUTES, 200L);
 
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        logger.info("filter init");
+    protected void validate(HttpServletRequest request) {
+        String token = request.getParameter("token");
+        LOG.info("filter: {}", CookieUtil.getURL(request));
+        //if (StringUtils.isBlank(token)) {
+        //    LOG.info("the param appKey is blank");
+        //    throw new BusinessException("参数app_key非法");
+        //}
+
+
+        //物流查询接口限制
+        String ip = IpUtil.getIpAddr(request);
+        if ("/v1/open/api/routeQuery".equals(request.getRequestURI())) {
+            if (!rateLimiterUtils.tryAcquire(ip)) {
+                throw new BusinessException(EResponseCode.C40005);
+            }
+        }
     }
 
-
-    @SneakyThrows
-    @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-        HttpServletResponse response = (HttpServletResponse) servletResponse;
-        logger.info("filter: {}", CookieUtil.getURL(request));
-        //Loggers.interceptor_log.info("abccccccccccccc");
-        //执行
-        filterChain.doFilter(servletRequest, servletResponse);
-    }
-
-    @Override
-    public void destroy() {
-        System.out.println("filter destroy");
-    }
-
-    private void write(EResponseCode code, HttpServletResponse response) throws IOException {
-        Response rsp = new Response(code);
-        response.setHeader("Content-Type", "application/json;charset=UTF-8");
-        response.getWriter().write(rsp.toString());
-    }
+    //private void write(EResponseCode code, HttpServletResponse response) throws IOException {
+    //    Response rsp = new Response(code);
+    //    response.setHeader("Content-Type", "application/json;charset=UTF-8");
+    //    response.getWriter().write(rsp.toString());
+    //}
 }

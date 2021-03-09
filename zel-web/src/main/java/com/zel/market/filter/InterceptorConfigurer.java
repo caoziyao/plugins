@@ -1,6 +1,5 @@
-package com.zel.market.config;
+package com.zel.market.filter;
 
-import com.zel.market.filter.LoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -8,16 +7,20 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * Description:
+ * Spring 5.0后，WebMvcConfigurerAdapter被废弃，取代的方法有两种：
  *
- * @author csy
- * @version 1.0.0
- * @since 2020/12/22
+ * ①implements WebMvcConfigurer（官方推荐） 或者 extends WebMvcConfigurerAdapter
+ *
+ * ②extends WebMvcConfigurationSupport
  */
 @Configuration
 public class InterceptorConfigurer implements WebMvcConfigurer {
 
     @Autowired
     private LoginInterceptor httpInterceptor;
+
+    //private static final Set<String> ALLOWED_PATHS = Collections.unmodifiableSet(new HashSet<>(
+    //        Arrays.asList("/login", "/superlogin", "/logout", "/swagger-ui.html", "/webjars", "/v2/api-docs", "/csrf")));
 
     /**
      * addPathPatterns 添加拦截规则

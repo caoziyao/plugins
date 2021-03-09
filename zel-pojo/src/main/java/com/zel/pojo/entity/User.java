@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Description: 创建User表
@@ -14,6 +16,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
  */
 // @Builder 垃圾
 @TableName(value = "user")
+@Getter
+@Setter
 public class User {
 
     // TableId-数据库主键字段
@@ -28,6 +32,10 @@ public class User {
 
     @TableField(value = "age")
     private Integer age;
+
+    //@TableField(value = "status")
+    //1-禁用
+    private Integer status;
 
     public Long getId() {
         return id;

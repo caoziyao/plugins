@@ -20,6 +20,8 @@ import java.util.*;
 @Component
 public class RedisUtils extends com.zel.commonutils.redis.BaseRedisUtils {
 
+    //private static JedisCluster jc = null;
+
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
 

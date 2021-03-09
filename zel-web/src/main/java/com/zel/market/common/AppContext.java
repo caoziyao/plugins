@@ -11,4 +11,6 @@ import lombok.Setter;
 @Setter
 public class AppContext {
     private User user;
+
+    private long userId;
 }

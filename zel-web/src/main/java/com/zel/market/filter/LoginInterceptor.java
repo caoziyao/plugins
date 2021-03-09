@@ -1,9 +1,12 @@
 package com.zel.market.filter;
 
+import com.zel.commonutils.IpUtil;
 import com.zel.commonutils.JsonHelper;
 import com.zel.commonutils.client.CookieUtil;
 import com.zel.commonutils.crypto.AESEncrypt;
 import com.zel.commonutils.redis.RedisUtils;
+import com.zel.market.common.enumcom.EResponseCode;
+import com.zel.market.exception.BusinessException;
 import com.zel.pojo.entity.User;
 import com.zel.market.common.AppContext;
 import com.zel.market.common.Constants;
@@ -12,6 +15,8 @@ import com.zel.market.common.enumcom.ERedisKey;
 import com.zel.market.exception.AuthorizationException;
 import com.zel.market.service.user.UserService;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -25,12 +30,12 @@ import javax.servlet.http.HttpServletResponse;
  * Description:
  * 只能对controller请求进行拦截，对其他的一些比如直接访问静态资源的请求则没办法进行拦截处理
  *
- * @author csy
- * @version 1.0.0
- * @since 2020/12/22
+ *  filter -> interceptor -> ControllerAdvice -> aspect -> controller
  */
 @Component
 public class LoginInterceptor implements AsyncHandlerInterceptor {
+
+    private static final Logger LOG = LoggerFactory.getLogger(LoginInterceptor.class);
 
     @Value("${TOKEN_SALT}")
     private String TOKEN_KEY;
@@ -41,36 +46,35 @@ public class LoginInterceptor implements AsyncHandlerInterceptor {
     @Autowired
     private RedisUtils redisUtils;
 
-    private void setContext(HttpServletRequest request) throws Exception {
-        AppContext appContext = new AppContext();
-
-        String token = CookieUtil.getCookie(request, Constants.SESSIONID);
-        if (StringUtils.isBlank(token)) {
-            return;
-        }
-        String userId =  AESEncrypt.getInstance(TOKEN_KEY).decrypt(token).split("-")[0];
-        String userStr = (String) redisUtils.get(ERedisKey.USER_ID.formatKey(userId));
-        if (StringUtils.isBlank(userStr)) {
-            return;
-        }
-        User user = JsonHelper.read(userStr, User.class);
-        appContext.setUser(user);
-        Env.setContext(appContext);
-    }
+    //private void setContext(HttpServletRequest request) throws Exception {
+    //    AppContext appContext = new AppContext();
+    //
+    //    String token = CookieUtil.getCookie(request, Constants.SESSIONID);
+    //    if (StringUtils.isBlank(token)) {
+    //        return;
+    //    }
+    //    String userId =  AESEncrypt.getInstance(TOKEN_KEY).decrypt(token).split("-")[0];
+    //    String userStr = (String) redisUtils.get(ERedisKey.USER_ID.formatKey(userId));
+    //    if (StringUtils.isBlank(userStr)) {
+    //        return;
+    //    }
+    //    User user = JsonHelper.read(userStr, User.class);
+    //    appContext.setUser(user);
+    //    Env.setContext(appContext);
+    //}
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
+
+        String ip = IpUtil.getIpAddr(request);
         //System.out.println(">>>MyInterceptor1>>>>>>>在请求处理之前进行调用（Controller方法调用之前）");
         // set content
-//        System.out.println("interceptor:" + request.getRequestURI());
-//        String curl = RequestUtil.curl(request);
-//        System.out.println(curl);
+        //System.out.println("interceptor:" + request.getRequestURI());
+        //String curl = RequestUtil.curl(request);
+        //System.out.println(curl);
 
-        setContext(request);
-
-        // 校验token
-        // 从 session 或 header 获取 token
+        // 校验token, 从 session 或 header 获取 token
         String token = CookieUtil.getCookie(request, Constants.SESSIONID);
         if (StringUtils.isBlank(token)) {
             throw new AuthorizationException("请登录");
@@ -86,7 +90,21 @@ public class LoginInterceptor implements AsyncHandlerInterceptor {
             throw new AuthorizationException("解析 user 出错!");
         }
 
+        // 禁用
+        if (user.getStatus() == 1) {
+            LOG.info("the access is too frequent, userId={}", userId);
+            throw new BusinessException(EResponseCode.C40005);
+        }
+
+        // 设置在线
         userService.addOnlineUser(user.getId());
+
+        //设置应用上下文
+        AppContext context = new AppContext();
+        context.setUser(user);
+        context.setUserId(user.getId());
+        Env.setContext(context);
+        LOG.info("validate succeed and init context is ok, userId={}, token={}, ip={}", context.getUserId(), token, ip);
 
         // 只有返回true才会继续向下执行，返回false取消当前请求
         return true;
