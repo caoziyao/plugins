@@ -35,7 +35,7 @@ public class User {
 
     //@TableField(value = "status")
     //1-禁用
-    private Integer status;
+    private int status;
 
     public Long getId() {
         return id;

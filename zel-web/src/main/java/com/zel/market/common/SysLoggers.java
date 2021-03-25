@@ -7,4 +7,5 @@ public class SysLoggers {
 
     public static final Logger user_log = LoggerFactory.getLogger("user_log");
     public static final Logger mail_log = LoggerFactory.getLogger("mail_log");
+    public static final Logger order_log = LoggerFactory.getLogger("order_log");
 }

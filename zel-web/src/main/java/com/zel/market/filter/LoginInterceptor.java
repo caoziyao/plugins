@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Description:
@@ -68,19 +69,18 @@ public class LoginInterceptor implements AsyncHandlerInterceptor {
             throws Exception {
 
         String ip = IpUtil.getIpAddr(request);
-        //System.out.println(">>>MyInterceptor1>>>>>>>在请求处理之前进行调用（Controller方法调用之前）");
-        // set content
-        //System.out.println("interceptor:" + request.getRequestURI());
-        //String curl = RequestUtil.curl(request);
-        //System.out.println(curl);
 
-        // 校验token, 从 session 或 header 获取 token
+        // 获取token, 从 session 或 header 获取 token
         String token = CookieUtil.getCookie(request, Constants.SESSIONID);
+
+        // 获取会话参数. 从 redis 获取用户信息
+        HttpSession session = request.getSession();
+
         if (StringUtils.isBlank(token)) {
             throw new AuthorizationException("请登录");
         }
+
         String userId =  AESEncrypt.getInstance(TOKEN_KEY).decrypt(token).split("-")[0];
-        // 从 redis 获取用户信息
         String userStr = (String) redisUtils.get(ERedisKey.USER_ID.formatKey(userId));
         if (StringUtils.isBlank(userStr)) {
             throw new AuthorizationException("登录过期");

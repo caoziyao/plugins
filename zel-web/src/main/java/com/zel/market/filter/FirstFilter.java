@@ -17,9 +17,9 @@ import java.util.concurrent.TimeUnit;
  * filter -> interceptor -> ControllerAdvice -> aspect -> controller
  */
 @Component
-public class MyFilter extends AbstractFilter {
+public class FirstFilter extends AbstractFilter {
 
-    private static final Logger LOG = LoggerFactory.getLogger(MyFilter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FirstFilter.class);
 
     /**
      * 1分钟内一个ip只能访问200次
@@ -27,13 +27,7 @@ public class MyFilter extends AbstractFilter {
     private final RateLimiterUtils rateLimiterUtils = RateLimiterUtils.build("OpenApiV1Filter", 1L, TimeUnit.MINUTES, 200L);
 
     protected void validate(HttpServletRequest request) {
-        String token = request.getParameter("token");
         LOG.info("filter: {}", CookieUtil.getURL(request));
-        //if (StringUtils.isBlank(token)) {
-        //    LOG.info("the param appKey is blank");
-        //    throw new BusinessException("参数app_key非法");
-        //}
-
 
         //物流查询接口限制
         String ip = IpUtil.getIpAddr(request);
