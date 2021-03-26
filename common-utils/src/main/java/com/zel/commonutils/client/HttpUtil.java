@@ -32,6 +32,53 @@ public class HttpUtil {
         return this;
     }
 
+    public static String get(String url, Map<String, String> headerMap) {
+        String result = "";
+        CloseableHttpResponse response = null;
+
+        CloseableHttpClient httpClient = HttpConnectionManager.getHttpClient();
+        HttpGet httpGet = new HttpGet(url);
+        // 设置请求头信息，鉴权
+        headerMap.forEach((k, v) -> {
+            httpGet.setHeader(k, v);
+        });
+
+        // 设置配置请求参数
+        RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(35000)// 连接主机服务超时时间
+                .setConnectionRequestTimeout(35000)// 请求超时时间
+                .setSocketTimeout(60000)// 数据读取超时时间
+                .build();
+        // 为httpGet实例设置配置
+        httpGet.setConfig(requestConfig);
+        // 执行get请求得到返回对象
+        try {
+            response = httpClient.execute(httpGet);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // 通过返回对象获取返回数据
+        HttpEntity entity = response.getEntity();
+        // 通过EntityUtils中的toString方法将结果转换为字符串
+        try {
+            result = EntityUtils.toString(entity);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            // 关闭资源
+            try {
+                response.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                httpClient.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
     public static String get(String url) {
         String result = "";
         CloseableHttpResponse response = null;
@@ -39,7 +86,7 @@ public class HttpUtil {
         CloseableHttpClient httpClient = HttpConnectionManager.getHttpClient();
         HttpGet httpGet = new HttpGet(url);
         // 设置请求头信息，鉴权
-        httpGet.setHeader("Authorization", "Bearer da3efcbf-0845-4fe3-8aba-ee040be542c0");
+        //httpGet.setHeader("Authorization", "Bearer da3efcbf-0845-4fe3-8aba-ee040be542c0");
         // 设置配置请求参数
         RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(35000)// 连接主机服务超时时间
                 .setConnectionRequestTimeout(35000)// 请求超时时间

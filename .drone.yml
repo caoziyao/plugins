@@ -1,5 +1,6 @@
 kind: pipeline
 name: default
+type:
 steps:
   # 代码编译
   - name: build
