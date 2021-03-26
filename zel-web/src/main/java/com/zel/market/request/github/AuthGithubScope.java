@@ -1,6 +1,7 @@
-package com.zel.market.request;
+package com.zel.market.request.github;
 
 
+import com.zel.market.request.AuthScope;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

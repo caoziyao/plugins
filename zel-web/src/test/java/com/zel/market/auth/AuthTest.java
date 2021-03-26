@@ -2,10 +2,8 @@ package com.zel.market.auth;
 
 //import com.zel.commonutils.crypto.UuidUtils;
 import com.zel.market.BaseTest;
-import com.zel.market.common.Response;
-import com.zel.market.dto.AuthCallback;
 import com.zel.market.dto.AuthConfig;
-import com.zel.market.request.AuthGiteeRequest;
+import com.zel.market.request.gitee.AuthGiteeRequest;
 import com.zel.market.request.AuthRequest;
 import org.junit.jupiter.api.Test;
 

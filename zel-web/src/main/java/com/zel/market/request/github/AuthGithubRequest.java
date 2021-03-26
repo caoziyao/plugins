@@ -1,4 +1,4 @@
-package com.zel.market.request;
+package com.zel.market.request.github;
 
 /**
  * Description:
@@ -9,12 +9,14 @@ package com.zel.market.request;
  */
 
 //import com.sun.deploy.net.HttpUtils;
+import com.zel.commonutils.JsonHelper;
 import com.zel.commonutils.client.GlobalAuthUtils;
 import com.zel.commonutils.client.HttpUtil;
 import com.zel.commonutils.client.UrlBuilder;
 import com.zel.market.common.SysLoggers;
 import com.zel.market.dto.*;
-import org.json.JSONObject;
+import com.zel.market.request.AuthDefaultRequest;
+import com.zel.market.request.AuthScopeUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -73,7 +75,7 @@ public class AuthGithubRequest extends AuthDefaultRequest {
         String response =  HttpUtil.get(UrlBuilder.fromBaseUrl(source.userInfo()).build(), header);
         //JSONObject object = JSONObject.parseObject(response);
 
-        SysLoggers.user_log.info("github|getUserInfo|{}", response);
+        SysLoggers.user_log.info("github|getUserInfo|{}", JsonHelper.write(authToken));
         //JSONObject object = new JSONObject(userInfo);
         //this.checkResponse(object);
         return AuthUser.builder().source(response).build();
