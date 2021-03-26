@@ -61,7 +61,7 @@ public class AuthGiteeRequest extends AuthDefaultRequest {
         //this.checkResponse(object);
         //return AuthUser.builder().source(userInfo).build();
         return AuthUser.builder()
-                .rawUserInfo(new JSONObject(userInfo))
+                .rawUserInfo(user)
                 .uuid(String.valueOf(user.getId()))
                 .username(user.getLogin())
                 .avatar(user.getAvatarUrl())

@@ -69,6 +69,6 @@ public class AuthUser implements Serializable {
     /**
      * 第三方平台返回的原始用户信息
      */
-    private JSONObject rawUserInfo;
+    private Object rawUserInfo;
 
 }
