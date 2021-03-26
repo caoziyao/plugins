@@ -33,5 +33,6 @@ public class InterceptorConfigurer implements WebMvcConfigurer {
         // registry.addInterceptor(httpInterceptor).addPathPatterns("/*");
         registry.addInterceptor(httpInterceptor).addPathPatterns("/*/*");
         registry.addInterceptor(httpInterceptor).excludePathPatterns("/login", "/superlogin");
+        registry.addInterceptor(httpInterceptor).excludePathPatterns("/oauth/*");
     }
 }

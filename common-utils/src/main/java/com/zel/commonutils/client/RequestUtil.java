@@ -9,6 +9,7 @@ import java.util.Map;
 
 public class RequestUtil {
 
+
     public static String getString(HttpServletRequest request, String key, String nullMsg) {
         String sVal = request.getParameter(key);
         if (StringUtils.isEmpty(sVal)) {

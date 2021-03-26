@@ -1,4 +1,4 @@
-package com.zel.market.service.user.login;
+package com.zel.market.service.login;
 
 import com.zel.market.controller.user.dto.LoginVO;
 import com.zel.market.exception.BusinessException;

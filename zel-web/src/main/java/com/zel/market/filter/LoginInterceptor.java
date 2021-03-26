@@ -1,6 +1,5 @@
 package com.zel.market.filter;
 
-import com.zel.commonutils.IpUtil;
 import com.zel.commonutils.JsonHelper;
 import com.zel.commonutils.client.CookieUtil;
 import com.zel.commonutils.client.RequestUtil;
@@ -13,7 +12,7 @@ import com.zel.market.common.AppContext;
 import com.zel.market.common.Constants;
 import com.zel.market.common.Env;
 import com.zel.market.common.enumcom.ERedisKey;
-import com.zel.market.exception.AuthorizationException;
+import com.zel.market.exception.AuthException;
 import com.zel.market.service.user.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -78,17 +77,17 @@ public class LoginInterceptor implements AsyncHandlerInterceptor {
         HttpSession session = request.getSession();
 
         if (StringUtils.isBlank(token)) {
-            throw new AuthorizationException("请登录");
+            throw new AuthException("请登录");
         }
 
         String userId =  AESEncrypt.getInstance(TOKEN_KEY).decrypt(token).split("-")[0];
         String userStr = (String) redisUtils.get(ERedisKey.USER_ID.formatKey(userId));
         if (StringUtils.isBlank(userStr)) {
-            throw new AuthorizationException("登录过期");
+            throw new AuthException("登录过期");
         }
         User user = JsonHelper.read(userStr, User.class);
         if (user == null) {
-            throw new AuthorizationException("解析 user 出错!");
+            throw new AuthException("解析 user 出错!");
         }
 
         // 禁用

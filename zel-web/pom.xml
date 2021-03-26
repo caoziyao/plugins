@@ -31,10 +31,12 @@
         <dependency>
             <groupId>com.zel</groupId>
             <artifactId>common-utils</artifactId>
+<!--            <version>${project.version}</version>-->
         </dependency>
         <dependency>
             <groupId>com.zel</groupId>
             <artifactId>pojo</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>

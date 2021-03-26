@@ -1,4 +1,4 @@
-package com.zel.market.service.user.login.db;
+package com.zel.market.service.login.db;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

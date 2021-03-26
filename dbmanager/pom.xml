@@ -23,6 +23,7 @@
         <dependency>
             <groupId>com.zel</groupId>
             <artifactId>pojo</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <!--mybatis-plus-->
         <!--        <dependency>-->

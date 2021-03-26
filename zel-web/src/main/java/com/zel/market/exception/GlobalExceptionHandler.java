@@ -10,7 +10,6 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,9 +27,9 @@ public class GlobalExceptionHandler {
     /**
      * 权限校验失败 如果请求为ajax返回json，普通请求跳转页面
      */
-    @ExceptionHandler(AuthorizationException.class)
+    @ExceptionHandler(AuthException.class)
     @ResponseBody
-    public Response handleAuthorizationException(HttpServletRequest request, HttpServletResponse response, AuthorizationException e) throws IOException {
+    public Response handleAuthorizationException(HttpServletRequest request, HttpServletResponse response, AuthException e) throws IOException {
         logger.error(e.getMessage());
         Response r = Response.error(EResponseCode.C403);
         r.setMessage(e.getMessage());

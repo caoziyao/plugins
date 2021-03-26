@@ -6,6 +6,10 @@ import com.zel.commonutils.client.RequestUtil;
 import com.zel.commonutils.crypto.AESEncrypt;
 import com.zel.commonutils.crypto.Md5Utils;
 import com.zel.commonutils.redis.RedisUtils;
+import com.zel.market.dto.AuthCallback;
+import com.zel.market.dto.AuthConfig;
+import com.zel.market.request.AuthGiteeRequest;
+import com.zel.market.request.AuthRequest;
 import com.zel.pojo.entity.User;
 import com.zel.market.common.Constants;
 import com.zel.market.common.Response;
@@ -15,6 +19,8 @@ import com.zel.market.controller.user.dto.LoginVO;
 import com.zel.market.exception.BusinessException;
 import com.zel.market.service.user.UserService;
 import io.swagger.annotations.Api;
+import jdk.nashorn.internal.objects.annotations.Getter;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +33,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -104,8 +112,7 @@ public class LoginController {
 
 
     @GetMapping("/superlogin")
-    public Response superlogin(HttpServletRequest request
-            , HttpServletResponse response) throws Exception {
+    public Response superlogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String username = "abc";
         String password = "1234";
         User user = getDefaultUser();
@@ -126,5 +133,52 @@ public class LoginController {
         userService.addOnlineUser(user.getId());
 
         return Response.ok(user);
+    }
+
+    //@GetMapping("/oauth/authorize")
+    //public Response authorize(HttpServletRequest request, HttpServletResponse response) {
+    //    AuthRequest authRequest = new AuthGiteeRequest(AuthConfig.builder()
+    //            .clientId("84d83337608e2a2242dd55cdb52bc1bad7f7d393594c5f6d76816655d6d1c585")
+    //            .clientSecret("ea876309d0f3f4baab9e5f70b937cef75d9c3eb1d87271c1568ffb8a84965a76")
+    //            .redirectUri("http://49.234.12.16:8899/oauth/token")
+    //            .build());
+    //
+    //    String code = request.getParameter("code");
+    //    String state = request.getParameter("state");
+    //    AuthCallback callback = AuthCallback.builder()
+    //            .code(code)
+    //            .state(state)
+    //            .build();
+    //    return authRequest.login(callback);
+    //}
+
+    @GetMapping("/oauth/login")
+    public Response oauthToken(HttpServletRequest request, HttpServletResponse response) {
+
+        // https://gitee.com/oauth/authorize?client_id=84d83337608e2a2242dd55cdb52bc1bad7f7d393594c5f6d76816655d6d1c585&redirect_uri=http://49.234.12.16:8899/oauth/token&response_type=code
+        AuthRequest authRequest = new AuthGiteeRequest(AuthConfig.builder()
+                .clientId("84d83337608e2a2242dd55cdb52bc1bad7f7d393594c5f6d76816655d6d1c585")
+                .clientSecret("ea876309d0f3f4baab9e5f70b937cef75d9c3eb1d87271c1568ffb8a84965a76")
+                .redirectUri("http://49.234.12.16:8899/oauth/login")
+                .build());
+
+        String code = request.getParameter("code");
+        if (StringUtils.isNotBlank(code)) {
+            String state = request.getParameter("state");
+            AuthCallback callback = AuthCallback.builder()
+                    .code(code)
+                    .state(state)
+                    .build();
+            return authRequest.login(callback);
+        } else {
+            String state = request.getParameter("state");
+            Map<String, String> map = new HashMap();
+            map.put("uri", request.getRequestURI());
+            map.put("url", request.getRequestURL().toString());
+            map.put("access_token", request.getParameter("access_token"));
+            Response ok = Response.ok(map);
+            return ok;
+        }
+
     }
 }

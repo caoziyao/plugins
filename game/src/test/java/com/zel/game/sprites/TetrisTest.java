@@ -1,6 +1,6 @@
 package com.zel.game.sprites;
 
-import com.zel.commonutils.Log;
+//import com.zel.commonutils.Log;
 import junit.framework.TestCase;
 
 public class TetrisTest extends TestCase {

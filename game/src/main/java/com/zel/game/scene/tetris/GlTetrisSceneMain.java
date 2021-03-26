@@ -1,6 +1,6 @@
 package com.zel.game.scene.tetris;
 
-import com.zel.commonutils.Log;
+//import com.zel.commonutils.Log;
 import com.zel.game.GlApplication;
 import com.zel.game.scene.GlSceneBase;
 import com.zel.game.sprites.GlPoint;

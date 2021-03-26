@@ -1,11 +1,11 @@
-package com.zel.market.service.user.login.impl;
+package com.zel.market.service.login.impl;
 
 import com.zel.commonutils.redis.RedisUtils;
 import com.zel.dbmanager.mapper.UserMapper;
 import com.zel.market.common.enumcom.EResponseCode;
 import com.zel.market.controller.user.dto.LoginVO;
 import com.zel.market.exception.BusinessException;
-import com.zel.market.service.user.login.LoginService;
+import com.zel.market.service.login.LoginService;
 import com.zel.pojo.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
