@@ -1,6 +1,7 @@
 package com.zel.market.request;
 
 import com.zel.commonutils.client.UrlBuilder;
+import com.zel.market.common.SysLoggers;
 import com.zel.market.dto.*;
 import org.json.JSONObject;
 
@@ -50,22 +51,25 @@ public class AuthGiteeRequest extends AuthDefaultRequest {
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
         String userInfo = doGetUserInfo(authToken);
-        JSONObject object = new JSONObject(userInfo);
+
+        SysLoggers.user_log.info("user|getUserInfo|{}", userInfo);
+        //JSONObject object = new JSONObject(userInfo);
         //this.checkResponse(object);
-        return AuthUser.builder()
-                .rawUserInfo(object)
-                .uuid(object.getString("id"))
-                .username(object.getString("login"))
-                .avatar(object.getString("avatar_url"))
-                .blog(object.getString("blog"))
-                .nickname(object.getString("name"))
-                .company(object.getString("company"))
-                .location(object.getString("address"))
-                .email(object.getString("email"))
-                .remark(object.getString("bio"))
-                //.gender(AuthUserGender.UNKNOWN)
-                .token(authToken)
-                .source(source.toString())
-                .build();
+        return AuthUser.builder().source(userInfo).build();
+        //return AuthUser.builder()
+        //        .rawUserInfo(object)
+        //        .uuid(object.getString("id"))
+        //        .username(object.getString("login"))
+        //        .avatar(object.getString("avatar_url"))
+        //        .blog(object.getString("blog"))
+        //        .nickname(object.getString("name"))
+        //        .company(object.getString("company"))
+        //        .location(object.getString("address"))
+        //        .email(object.getString("email"))
+        //        .remark(object.getString("bio"))
+        //        //.gender(AuthUserGender.UNKNOWN)
+        //        .token(authToken)
+        //        .source(source.toString())
+        //        .build();
     }
 }
