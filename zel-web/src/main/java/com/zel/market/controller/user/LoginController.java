@@ -20,7 +20,6 @@ import com.zel.market.controller.user.dto.LoginVO;
 import com.zel.market.exception.BusinessException;
 import com.zel.market.service.user.UserService;
 import io.swagger.annotations.Api;
-import jdk.nashorn.internal.objects.annotations.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
