@@ -296,6 +296,7 @@ public class BaseRedisUtils {
         }
     }
 
+
     /**
      * 实现命令 : SET key value [EX 秒|PX 毫秒] [NX|XX]
      * 添加一个 String 类型的键值对，
@@ -308,29 +309,31 @@ public class BaseRedisUtils {
      * @param timeUnit   生存时间的单位
      * @param keyIfExist true 表示 xx,key 存在时才添加. false 表示 nx，key 不存在时才添加
      */
-    public boolean set(String key, Object value, Long ttl, TimeUnit timeUnit, boolean keyIfExist) {
+    public boolean setnx(String key, Object value, Long ttl, TimeUnit timeUnit) {
         Boolean result = false;
 
-        if ((ttl == null || timeUnit == null)  && keyIfExist) {
-            // SET key value XX
-            // 键不存在，设置失败。并返回 0
-            // 键已经存在，设置成功。并返回1
-            result = redisTemplate.opsForValue().setIfPresent(key, value);
-        }
+        //keyIfExist = false;
 
-        if (ttl != null && timeUnit != null  && keyIfExist) {
-            // SET key value [EX 秒|PX 毫秒] XX
-            result = redisTemplate.opsForValue().setIfPresent(key, value, ttl, timeUnit);
-        }
+        //if ((ttl == null || timeUnit == null)  && keyIfExist) {
+        //    // SET key value XX
+        //    // 键不存在，设置失败。并返回 0
+        //    // 键已经存在，设置成功。并返回1
+        //    result = redisTemplate.opsForValue().setIfPresent(key, value);
+        //}
 
-        if ((ttl == null || timeUnit == null) && (!keyIfExist)) {
+        //if (ttl != null && timeUnit != null  && keyIfExist) {
+        //    // SET key value [EX 秒|PX 毫秒] XX
+        //    result = redisTemplate.opsForValue().setIfPresent(key, value, ttl, timeUnit);
+        //}
+
+        if ((ttl == null || timeUnit == null) ) {
             // SET key value NX
             // 键不存在，设置成功。并返回1
             // 键已经存在，设置失败。并返回0
             result = redisTemplate.opsForValue().setIfAbsent(key, value);
         }
 
-        if (ttl != null && timeUnit != null  && (!keyIfExist)) {
+        if (ttl != null && timeUnit != null ) {
             // SET key value [EX 秒|PX 毫秒] NX
             result = redisTemplate.opsForValue().setIfAbsent(key, value, ttl, timeUnit);
 
@@ -341,6 +344,52 @@ public class BaseRedisUtils {
         }
         return result;
     }
+
+    /**
+     * 实现命令 : SET key value [EX 秒|PX 毫秒] [NX|XX]
+     * 添加一个 String 类型的键值对，
+     * ttl、timeUnit 不为 null 时设置生存时间
+     * keyIfExist 不为 null 时，设置 NX 或 XX 模式
+     *
+     * @param key
+     * @param value
+     * @param ttl        生存时间
+     * @param timeUnit   生存时间的单位
+     * @param keyIfExist true 表示 xx,key 存在时才添加. false 表示 nx，key 不存在时才添加
+     */
+    //public boolean set(String key, Object value, Long ttl, TimeUnit timeUnit, boolean keyIfExist) {
+    //    Boolean result = false;
+    //
+    //    if ((ttl == null || timeUnit == null)  && keyIfExist) {
+    //        // SET key value XX
+    //        // 键不存在，设置失败。并返回 0
+    //        // 键已经存在，设置成功。并返回1
+    //        result = redisTemplate.opsForValue().setIfPresent(key, value);
+    //    }
+    //
+    //    if (ttl != null && timeUnit != null  && keyIfExist) {
+    //        // SET key value [EX 秒|PX 毫秒] XX
+    //        result = redisTemplate.opsForValue().setIfPresent(key, value, ttl, timeUnit);
+    //    }
+    //
+    //    if ((ttl == null || timeUnit == null) && (!keyIfExist)) {
+    //        // SET key value NX
+    //        // 键不存在，设置成功。并返回1
+    //        // 键已经存在，设置失败。并返回0
+    //        result = redisTemplate.opsForValue().setIfAbsent(key, value);
+    //    }
+    //
+    //    if (ttl != null && timeUnit != null  && (!keyIfExist)) {
+    //        // SET key value [EX 秒|PX 毫秒] NX
+    //        result = redisTemplate.opsForValue().setIfAbsent(key, value, ttl, timeUnit);
+    //
+    //    }
+    //
+    //    if (result == null) {
+    //        return false;
+    //    }
+    //    return result;
+    //}
 
 
     /**

@@ -24,9 +24,9 @@ class RedisUtilsTest extends BaseTest {
     public void testRedisUtils() {
         String key = "test-abc";
         redisUtils.del(key);
-        boolean r1 = redisUtils.set(key, "ddd", 30l, TimeUnit.SECONDS, false);
+        boolean r1 = redisUtils.setnx(key, "ddd", 30l, TimeUnit.SECONDS);
         Assert.assertEquals(r1, true);
-        boolean r2 = redisUtils.set(key, "ddd", 30l, TimeUnit.SECONDS, true);
+        boolean r2 = redisUtils.setnx(key, "ddd", 30l, TimeUnit.SECONDS);
         Assert.assertEquals(r2, true);
         redisUtils.del("key");
     }

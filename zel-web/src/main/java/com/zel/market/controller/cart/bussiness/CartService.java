@@ -4,6 +4,8 @@ import com.zel.market.controller.cart.dto.CartDetail;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class CartService {
 
@@ -24,5 +26,10 @@ public class CartService {
     public void add(CartDetail cartDetail) {
         //
         //cartDao.mergeInsert(cartDetail);
+    }
+
+    @Transactional
+    public void removeGoods(long userId, List<Long> goodIds) {
+        //cartDao.deleteGoods(userId, goodIds);
     }
 }

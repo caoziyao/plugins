@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Description:
@@ -18,12 +19,12 @@ import java.util.*;
  * @since 2020/6/22
  */
 @Component
-public class RedisUtils extends com.zel.commonutils.redis.BaseRedisUtils {
+public class RedisUtils extends BaseRedisUtils {
 
     //private static JedisCluster jc = null;
 
     @Resource
-    private RedisTemplate<String, Object> redisTemplate;
+    public RedisTemplate<String, Object> redisTemplate;
 
 
     /**************************************************** key 相关操作 *************************************************/
@@ -55,6 +56,7 @@ public class RedisUtils extends com.zel.commonutils.redis.BaseRedisUtils {
         }
         return result;
     }
+
 
     /**
      * 实现命令：DEL key1 [key2 ...]
