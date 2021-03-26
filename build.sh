@@ -1,4 +1,4 @@
-git pull
+#git pull
 
 mvn clean package
 
