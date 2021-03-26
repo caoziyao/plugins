@@ -3,6 +3,7 @@ package com.zel.market.filter;
 import com.zel.commonutils.IpUtil;
 import com.zel.commonutils.JsonHelper;
 import com.zel.commonutils.client.CookieUtil;
+import com.zel.commonutils.client.RequestUtil;
 import com.zel.commonutils.crypto.AESEncrypt;
 import com.zel.commonutils.redis.RedisUtils;
 import com.zel.market.common.enumcom.EResponseCode;
@@ -68,7 +69,7 @@ public class LoginInterceptor implements AsyncHandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
 
-        String ip = IpUtil.getIpAddr(request);
+        String ip = RequestUtil.getIpAddr(request);
 
         // 获取token, 从 session 或 header 获取 token
         String token = CookieUtil.getCookie(request, Constants.SESSIONID);

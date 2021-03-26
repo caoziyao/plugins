@@ -21,39 +21,39 @@ public class IpUtil {
     private static int LIMIT = 10000;
     private static ExecutorService service = Executors.newFixedThreadPool(1);
 
-    /**
-     * @info:通过request 获得用户的真实的Ip
-     * @param request
-     * @return String
-     */
-    public static String getIpAddr(HttpServletRequest request) {
-        String ip = request.getHeader("x-forwarded-for");
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
-        }
-
-        if (ip != null && ip.length() != 0) {
-            if (ip.indexOf(",") >= 0) {
-                String[] array = ip.split(",");
-                for (int i = 0; i < array.length; i++) {
-                    if (array[i] != null && !("unknown".equalsIgnoreCase(array[i]))) {
-                        ip = array[i];
-                        break;
-                    }
-                }
-            }
-        }
-        if (ip == null) {
-            ip = "";
-        }
-        return ip.trim();
-    }
+    ///**
+    // * @info:通过request 获得用户的真实的Ip
+    // * @param request
+    // * @return String
+    // */
+    //public static String getIpAddr(HttpServletRequest request) {
+    //    String ip = request.getHeader("x-forwarded-for");
+    //    if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+    //        ip = request.getHeader("Proxy-Client-IP");
+    //    }
+    //    if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+    //        ip = request.getHeader("WL-Proxy-Client-IP");
+    //    }
+    //    if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+    //        ip = request.getRemoteAddr();
+    //    }
+    //
+    //    if (ip != null && ip.length() != 0) {
+    //        if (ip.indexOf(",") >= 0) {
+    //            String[] array = ip.split(",");
+    //            for (int i = 0; i < array.length; i++) {
+    //                if (array[i] != null && !("unknown".equalsIgnoreCase(array[i]))) {
+    //                    ip = array[i];
+    //                    break;
+    //                }
+    //            }
+    //        }
+    //    }
+    //    if (ip == null) {
+    //        ip = "";
+    //    }
+    //    return ip.trim();
+    //}
 
     public static boolean checkIp(String ip){
         if(StringUtils.isBlank(ip)){

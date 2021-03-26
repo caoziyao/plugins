@@ -2,6 +2,7 @@ package com.zel.market.controller.user;
 
 import com.zel.commonutils.JsonHelper;
 import com.zel.commonutils.client.CookieUtil;
+import com.zel.commonutils.client.RequestUtil;
 import com.zel.commonutils.crypto.AESEncrypt;
 import com.zel.commonutils.crypto.Md5Utils;
 import com.zel.commonutils.redis.RedisUtils;
@@ -10,7 +11,7 @@ import com.zel.market.common.Constants;
 import com.zel.market.common.Response;
 import com.zel.market.common.enumcom.ERedisKey;
 import com.zel.market.common.enumcom.EResponseCode;
-import com.zel.market.controller.user.dto.LoginReqDTO;
+import com.zel.market.controller.user.dto.LoginVO;
 import com.zel.market.exception.BusinessException;
 import com.zel.market.service.user.UserService;
 import io.swagger.annotations.Api;
@@ -58,8 +59,24 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public Response index(@Validated @RequestBody LoginReqDTO body,
+    public Response index(@Validated @RequestBody LoginVO body,
                           HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        String ipAddr = RequestUtil.getIpAddr(request);
+        String userAgent = request.getHeader("User-Agent");
+        String device = RequestUtil.getClientType(request.getHeader("User-Agent"));
+        body.setIpAddr(ipAddr);
+        body.setUserGgent(userAgent);
+        body.setDevice(device);
+
+        // 防止重复提交
+        String limitKey = "redis:user:key" + body.getName();
+        if (redisUtils.isRepeatSubmit(limitKey, 2)) {
+            throw new BusinessException("您操作过于频繁,请稍候再试");
+        }
+
+        // todo 参数校验
+
         String username = body.getUsername();
         String password = body.getPassword();
         User user = userService.getUserByName(username);

@@ -2,6 +2,7 @@ package com.zel.market.filter;
 
 import com.zel.commonutils.IpUtil;
 import com.zel.commonutils.client.CookieUtil;
+import com.zel.commonutils.client.RequestUtil;
 import com.zel.market.common.enumcom.EResponseCode;
 import com.zel.market.exception.BusinessException;
 import org.slf4j.Logger;
@@ -30,7 +31,7 @@ public class FirstFilter extends AbstractFilter {
         LOG.info("filter: {}", CookieUtil.getURL(request));
 
         //物流查询接口限制
-        String ip = IpUtil.getIpAddr(request);
+        String ip = RequestUtil.getIpAddr(request);
         if ("/v1/open/api/routeQuery".equals(request.getRequestURI())) {
             if (!rateLimiterUtils.tryAcquire(ip)) {
                 throw new BusinessException(EResponseCode.C40005);

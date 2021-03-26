@@ -9,13 +9,10 @@ import com.zel.market.controller.cart.bussiness.GoodActivityService;
 import com.zel.market.controller.cart.bussiness.GoodService;
 import com.zel.market.controller.cart.bussiness.ShopUtil;
 import com.zel.market.controller.cart.dto.*;
-import com.zel.market.controller.user.dto.LoginReqDTO;
 import com.zel.market.exception.BusinessException;
 import com.zel.pojo.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;

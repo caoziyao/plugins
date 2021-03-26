@@ -1,5 +1,6 @@
 package com.zel.commonutils.redis;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisZSetCommands;
 import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.serializer.RedisSerializer;
@@ -25,6 +26,21 @@ public class RedisUtils extends BaseRedisUtils {
 
     @Resource
     public RedisTemplate<String, Object> redisTemplate;
+
+
+    /**
+     * 防止重复提交
+     * @param limitKey
+     * @param expires
+     * @return
+     */
+    public boolean isRepeatSubmit(String limitKey, int expires){
+        Long count = redisTemplate.boundValueOps(limitKey).increment(1);
+        if(count == 1L) {
+            redisTemplate.boundValueOps(limitKey).expire(expires, TimeUnit.SECONDS);
+        }
+        return count > 1L;
+    }
 
 
     /**************************************************** key 相关操作 *************************************************/

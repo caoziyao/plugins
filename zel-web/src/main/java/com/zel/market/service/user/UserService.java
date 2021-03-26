@@ -2,6 +2,7 @@ package com.zel.market.service.user;
 
 import com.zel.commonutils.DateUtil;
 import com.zel.commonutils.redis.RedisUtils;
+import com.zel.market.service.user.login.db.UserThird;
 import com.zel.pojo.entity.User;
 import com.zel.dbmanager.mapper.UserMapper;
 import com.zel.market.config.Config;
@@ -28,6 +29,16 @@ public class UserService {
 
     @Autowired
     private RedisUtils redisUtils;
+
+    /**
+     * 第三方登录
+     * @param thirdUser
+     * @return
+     */
+    public int insert(UserThird thirdUser) {
+        //return thirdUserMapper.insert(thirdUser);
+        return 0;
+    }
 
     /**
      * 在线用户
@@ -99,15 +110,15 @@ public class UserService {
         return null;
     }
 
-    /**
-     * 校验登录
-     *
-     * @param username
-     * @param password
-     */
-    public User login(String username, String password) {
-        return userMapper.findByUsernameAndPassword(username, password);
-    }
+    ///**
+    // * 校验登录
+    // *
+    // * @param username
+    // * @param password
+    // */
+    //public User login(String username, String password) {
+    //    return userMapper.findByUsernameAndPassword(username, password);
+    //}
 
     public User findById(String id) {
         if (StringUtils.isEmpty(id)) {
@@ -115,6 +126,19 @@ public class UserService {
         }
         return userMapper.findById(id);
     }
+
+    /**
+     * 第三方登录
+     * @param id
+     * @return
+     */
+    public User findByOpenId(String id) {
+        if (StringUtils.isEmpty(id)) {
+            return null;
+        }
+        return userMapper.findById(id);
+    }
+
 
     //@Transactional
     public int updateUser(String id, String username) {

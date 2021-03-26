@@ -3,6 +3,7 @@ package com.zel.market.controller;
 import com.google.common.util.concurrent.RateLimiter;
 import com.zel.commonutils.IpUtil;
 import com.zel.commonutils.JsonHelper;
+import com.zel.commonutils.client.RequestUtil;
 import com.zel.commonutils.redis.RedisUtils;
 import com.zel.market.common.Response;
 //import com.zel.market.es.EsClient;
@@ -54,7 +55,7 @@ public class TestController {
     @RequestMapping(value = "/t", method = {RequestMethod.GET, RequestMethod.POST})
     public Response index(@RequestParam(required = false, defaultValue = "1") String statType, HttpServletRequest request) {
 
-        String ipAddr = IpUtil.getIpAddr(request);
+        String ipAddr = RequestUtil.getIpAddr(request);
 
 
         String key = "abctest";
