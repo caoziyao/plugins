@@ -61,9 +61,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = NullPointerException.class)
     @ResponseBody
     public Response exceptionHandler(HttpServletRequest req, NullPointerException e) {
-        logger.error("发生空指针异常！原因是:", e);
-        Response r = Response.error("发生空指针异常！");
-        r.setDebugMessage(e.toString());
+        logger.error("发生空指针异常！原因是: {}", ExceptionUtil.stacktraceToOneLineString(e));
+        Response r = Response.error("空指针异常！");
+        r.setDebugMessage(ExceptionUtil.stacktraceToOneLineString(e));
         return r;
     }
 
@@ -99,7 +99,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public Response exceptionHandler(HttpServletRequest req, Exception e) {
-        logger.error("系统错误！原因是:", e);
+        logger.error("系统错误！原因是: {}", ExceptionUtil.stacktraceToOneLineString(e));
         Response r = Response.error("系统错误！");
         r.setDebugMessage(ExceptionUtil.getStackTrace(e));
         return r;
