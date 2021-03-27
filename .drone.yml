@@ -3,6 +3,7 @@ name: default
 type:
 steps:
   - name: run
+    image: appleboy/drone-ssh
     commands:
       - sh build.sh
 
