@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -39,6 +40,17 @@ public class Spider implements Runnable {
     private ReentrantLock newUrlLock = new ReentrantLock();
 
     private Condition newUrlCondition = newUrlLock.newCondition();
+
+    protected final static int STAT_INIT = 0;
+
+    protected final static int STAT_RUNNING = 1;
+
+    protected final static int STAT_STOPPED = 2;
+
+    /**
+     * 手动控制 crawler 状态
+     */
+    protected AtomicInteger stat = new AtomicInteger(STAT_INIT);
 
     /**
      * 下载线程
@@ -98,19 +110,40 @@ public class Spider implements Runnable {
         runAsync();
     }
 
+    /**
+     * Get running status by spider.
+     *
+     * @return running status
+     * @see Status
+     * @since 0.4.1
+     */
+    public int getStatus() {
+        int i = stat.get();
+        return i;
+    }
+
+    /**
+     * compareAndSet锁，停止 crawler
+     */
     public void stop() {
-        System.out.println("stop");
+        if (stat.compareAndSet(STAT_RUNNING, STAT_STOPPED)) {
+            System.out.println("stop success");
+        } else {
+            System.out.println("stop faile");
+        }
     }
 
     @Override
     public void run() {
+        // 设置运行状态
+        stat.compareAndSet(stat.get(), STAT_RUNNING);
 
         System.out.println("Spider {} run!" + UuidUtils.getUUID());
         // 解析网页
         pageThreadPool.execute(new Runnable() {
             @Override
             public void run() {
-                while (!Thread.currentThread().isInterrupted()) {
+                while (!Thread.currentThread().isInterrupted() && stat.get() == STAT_RUNNING) {
                     processFile();
                     //onDownloadSuccess(request, page);
                     waitNewUrl(1, TimeUnit.MINUTES);
@@ -120,9 +153,8 @@ public class Spider implements Runnable {
         });
 
         // 下载网页
-        while (!Thread.currentThread().isInterrupted()) {
-            Date start = new Date();
-
+        while (!Thread.currentThread().isInterrupted() && stat.get() == STAT_RUNNING) {
+            System.out.println("now: " + new Date());
             final CrawRequest request = scheduler.poll();
             if (request == null) {
                 waitNewUrl();
@@ -136,6 +168,9 @@ public class Spider implements Runnable {
                 });
             }
         }
+
+        System.out.println("end!");
+        stat.set(STAT_STOPPED);
     }
 
     /**

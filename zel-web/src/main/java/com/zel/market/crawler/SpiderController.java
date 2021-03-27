@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 /**
  * Description:
  *
@@ -24,21 +26,36 @@ public class SpiderController {
     @Autowired
     private SpiderEngineProcess spiderEngineProcess;
 
+    private Spider spider;
 
-    @GetMapping("/run")
-    public Response spider() {
+    public SpiderController() {
 
-        Spider spider = new Spider("http://www.baidu.com", new DoubanFilmProcessor())
-                .addPipeline(new Pipeline() {
+        DoubanFilmProcessor doubanFilmProcessor = new DoubanFilmProcessor();
+        spider = new Spider("http://www.baidu.com", doubanFilmProcessor);
+        spider.addPipeline(new Pipeline() {
                     @Override
                     public void process(ResultItems resultItems) {
                         System.out.println("resp " + resultItems);
                     }
                 });
+    }
+
+    @GetMapping("/stop")
+    public Response stop() {
+        spider.stop();
+        int status = spider.getStatus();
+        return Response.ok(status);
+    }
+
+    @GetMapping("/run")
+    public Response spider() {
+
         spider.start();
+
+        int status = spider.getStatus();
         // 运行任务
         //spiderEngineProcess.takeThread();
         //spiderEngineProcess.submitNewsJob();
-        return Response.ok();
+        return Response.ok(status);
     }
 }
