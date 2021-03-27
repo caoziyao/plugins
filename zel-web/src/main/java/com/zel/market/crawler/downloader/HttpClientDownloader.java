@@ -1,5 +1,6 @@
 package com.zel.market.crawler.downloader;
 
+import com.zel.commonutils.FileUtils;
 import com.zel.commonutils.client.HttpUtil;
 import com.zel.market.crawler.CrawRequest;
 import com.zel.market.crawler.pageprocessor.Page;
@@ -7,6 +8,9 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Description:
@@ -46,8 +50,19 @@ public class HttpClientDownloader extends AbstractDownloader {
         //CloseableHttpResponse httpResponse = httpClient.execute(request.getUrl());
         String s = HttpUtil.get(request.getUrl());
 
+        String url = request.getUrl();
+
+        String filename = url.substring(url.lastIndexOf("/")) + ".html";
+        try {
+             FileUtils.write("./cache/crawler/" + filename, s);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Page page = new Page();
         page.setData(s);
+
+        page.setFilePath(filename);
         return page;
     }
 }

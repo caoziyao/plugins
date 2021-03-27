@@ -15,5 +15,8 @@ import lombok.Setter;
 public class Page {
 
     private String data;
+
+    private String filePath;
+
     private ResultItems resultItems;
 }

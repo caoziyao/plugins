@@ -77,6 +77,9 @@ public class Spider implements Runnable {
 
         downloader = new HttpClientDownloader();
         this.pageProcessor = pageProcessor;
+
+        File file1 = new File("./cache/crawler/test.md");
+        FileUtils.checkAndCreateParentDir(file1);
     }
 
     public Spider addPipeline(Pipeline pipeline) {
@@ -111,6 +114,7 @@ public class Spider implements Runnable {
                     Date start = new Date();
                     // 读取文件
                     try {
+
                         Files.walk(Paths.get("./cache/crawler")).forEach((path -> {
                             File file = path.toFile();
                             if (file.isDirectory()) {

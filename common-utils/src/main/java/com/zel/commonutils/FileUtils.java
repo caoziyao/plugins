@@ -47,7 +47,7 @@ public class FileUtils {
      */
     public static String caselsh(String filename) {
         // String fileName=file.getName();
-        return filename.substring(0,filename.lastIndexOf("."));
+        return filename.substring(0, filename.lastIndexOf("."));
     }
 
     /**
@@ -60,12 +60,20 @@ public class FileUtils {
         return  filename.substring(filename.lastIndexOf("."), filename.length());
     }
 
-    public static void write(String filePath, String content) throws IOException {
+    public static File write(String filePath, String content) throws IOException {
         File file = new File(filePath);
+
+        // 创建目录
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+
         FileWriter fileWriter = new FileWriter(filePath);
         BufferedWriter writer = new BufferedWriter(fileWriter);
         writer.write(content);
         writer.close();
+
+        return file;
     }
 
     public static String readLine(String filePath) throws IOException {
