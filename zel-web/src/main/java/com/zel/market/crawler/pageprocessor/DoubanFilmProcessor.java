@@ -1,4 +1,4 @@
-package com.zel.market.crawler.pipeline;
+package com.zel.market.crawler.pageprocessor;
 
 import com.zel.commonutils.FileUtils;
 import com.zel.market.crawler.downloader.FirefoxDriverRequest;
@@ -21,13 +21,13 @@ import java.io.IOException;
  * @since 2021/3/27
  */
 @Component
-public class DoubanFilmSpider {
+public class DoubanFilmProcessor implements PageProcessor{
 
     public static final String DOUBAN_BASE_URL = "https://movie.douban.com";
     protected FirefoxDriverRequest firefoxDriverRequest = new FirefoxDriverRequest();
 
 
-    public DoubanFilmSpider() {
+    public DoubanFilmProcessor() {
         //this.url = url;
         //firefoxDriverRequest.init(false);
     }
@@ -84,5 +84,33 @@ public class DoubanFilmSpider {
         }
 
         return "";
+    }
+
+    @Override
+    public void process(Page page) {
+        Document document = Jsoup.parse(page.getData());
+
+        Elements detail = document.getElementsByClass("detail");
+        if (detail.size() == 0) {
+            System.out.println("无法解析");
+            page.setResultItems(new ResultItems());
+            return;
+        }
+
+        for (Element d : detail) {
+            Elements title = d.getElementsByClass("title");
+            Elements links = title.select("a[href]");
+            for (Element link : links) {
+                String href = link.attr("href");
+                String name = link.text();
+                System.out.println(href + ":" + name);
+                //if (name.trim().replace(" ", "").equals(filmName.replace(" ", ""))) {
+
+                    System.out.println("href: " + href);
+                    System.out.println(href);
+                    //return href;
+                //}
+            }
+        }
     }
 }

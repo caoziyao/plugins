@@ -1,4 +1,4 @@
-package com.zel.market.crawler.pipeline;
+package com.zel.market.crawler.pageprocessor;
 
 import com.zel.market.common.SysLoggers;
 import com.zel.market.crawler.dto.NewsDTO;
@@ -16,7 +16,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * @since 2021/3/27
  */
 @Service
-public class NewsServiceSpider {
+public class NewsServiceProcessor {
 
     private static LinkedBlockingQueue<List<NewsDTO>> newsQueue;
 
@@ -30,7 +30,7 @@ public class NewsServiceSpider {
 
         // put()方法向队列中生产数据，当队列满时，线程阻塞
         // take()方法从队列中消费数据，当队列为空是，线程阻塞
-        //List<NewsDTO> newsList = newsQueue.take();
+        List<NewsDTO> newsList = newsQueue.take();
         //if (CollectionUtils.isEmpty(newsList)) {
         //    return;
         //}
