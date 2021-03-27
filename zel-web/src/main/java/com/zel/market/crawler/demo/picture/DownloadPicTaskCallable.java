@@ -1,4 +1,4 @@
-package com.zel.market.crawler.picture;
+package com.zel.market.crawler.demo.picture;
 
 import com.zel.commonutils.ExceptionUtil;
 import com.zel.commonutils.FileUtils;
@@ -10,29 +10,34 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class DownloadPicTaskRunnable implements Runnable{
 
+/**
+ * 批量下载图片任务
+ */
+public class DownloadPicTaskCallable implements Callable<DownloadPicTask> {
 
-    public static final Logger log = LoggerFactory.getLogger(DownloadPicTaskRunnable.class);
+    public static final Logger log = LoggerFactory.getLogger(DownloadPicTaskCallable.class);
 
     public static final ExecutorService executor = Executors.newFixedThreadPool(8);
 
     private DownloadPicTask task;
 
-    DownloadPicTaskRunnable(DownloadPicTask task) {
+    public DownloadPicTaskCallable(DownloadPicTask task) {
         this.task = task;
     }
 
+
     @Override
-    public void run() {
-        if (task == null) {
-            return ;
+    public DownloadPicTask call() throws Exception {
+        if (this.task == null) {
+            return null;
         }
 
-        String url = task.getUrl();
+        String url = this.task.getUrl();
 
         String filePath = "";
         if (StringUtils.isNotBlank(url)) {
@@ -49,16 +54,12 @@ public class DownloadPicTaskRunnable implements Runnable{
 
             try {
                 new HttpUtil().download(url, saveFile);
-                task.setFilePath(filePath);
+                this.task.setFilePath(filePath);
             } catch (Exception e) {
                 e.printStackTrace();
                 log.error("下载图片失败|url={}, e={}", url, ExceptionUtil.stacktraceToOneLineString(e));
             }
         }
-
-//        synchronized (this) {
-//            this.notify();
-//        }
+        return this.task;
     }
-
 }

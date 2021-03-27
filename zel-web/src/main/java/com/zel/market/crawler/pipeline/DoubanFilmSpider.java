@@ -1,15 +1,13 @@
-package com.zel.market.crawler.parse;
+package com.zel.market.crawler.pipeline;
 
 import com.zel.commonutils.FileUtils;
-import com.zel.commonutils.client.HttpUtil;
-import com.zel.market.crawler.request.FirefoxDriverRequest;
-import com.zel.market.crawler.request.SipderStringRequest;
+import com.zel.market.crawler.downloader.FirefoxDriverRequest;
+import com.zel.market.crawler.downloader.SipderStringRequest;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
-import org.openqa.selenium.WebElement;
 //import org.openqa.selenium.support.ui.ExpectedConditions;
 //import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -54,7 +52,7 @@ public class DoubanFilmSpider {
         //    //WebElement yodaBox = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("detail")));
         //    //html = firefoxDriverRequest.getHtml(url);
         //}
-        
+
         //System.out.println("html: " + html);
 
         try {

@@ -1,4 +1,4 @@
-package com.zel.market.crawler.picture;
+package com.zel.market.crawler.demo.picture;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package com.zel.market.crawler.request;
+package com.zel.market.crawler.downloader;
 
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;

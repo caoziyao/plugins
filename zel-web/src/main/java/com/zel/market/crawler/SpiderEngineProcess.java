@@ -1,8 +1,8 @@
 package com.zel.market.crawler;
 
 import com.zel.market.crawler.dto.HotSiteEnum;
-import com.zel.market.crawler.parse.DoubanFilmSpider;
-import com.zel.market.crawler.parse.NewsServiceSpider;
+import com.zel.market.crawler.pipeline.DoubanFilmSpider;
+import com.zel.market.crawler.pipeline.NewsServiceSpider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;

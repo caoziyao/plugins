@@ -1,4 +1,4 @@
-package com.zel.market.crawler.parse;
+package com.zel.market.crawler.pipeline;
 
 import com.zel.market.common.SysLoggers;
 import com.zel.market.crawler.dto.NewsDTO;

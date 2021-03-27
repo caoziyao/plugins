@@ -1,4 +1,4 @@
-package com.zel.market.crawler.request;
+package com.zel.market.crawler.downloader;
 
 import com.zel.commonutils.client.HttpConnectionManager;
 import org.apache.http.HttpEntity;
