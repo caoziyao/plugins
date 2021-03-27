@@ -1,8 +1,8 @@
 package com.zel.market.crawler;
 
 import com.zel.market.crawler.dto.HotSiteEnum;
-import com.zel.market.crawler.parse.ZhiHuHotParser;
-import com.zel.market.crawler.service.NewsService;
+import com.zel.market.crawler.parse.DoubanFilmSpider;
+import com.zel.market.crawler.parse.NewsServiceSpider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
@@ -21,10 +21,10 @@ public class SpiderEngineProcess {
     private ThreadPoolTaskExecutor taskExecutor;
 
     @Autowired
-    private NewsService newsService;
+    private NewsServiceSpider newsService;
 
     @Autowired
-    private ZhiHuHotParser zhiHuHotParser;
+    private DoubanFilmSpider zhiHuHotParser;
 
     public Thread threadNewService() {
         Thread takeThread = new Thread(new Runnable() {

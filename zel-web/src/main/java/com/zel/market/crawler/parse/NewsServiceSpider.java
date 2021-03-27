@@ -1,4 +1,4 @@
-package com.zel.market.crawler.service;
+package com.zel.market.crawler.parse;
 
 import com.zel.market.common.SysLoggers;
 import com.zel.market.crawler.dto.NewsDTO;
@@ -16,7 +16,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * @since 2021/3/27
  */
 @Service
-public class NewsService {
+public class NewsServiceSpider {
 
     private static LinkedBlockingQueue<List<NewsDTO>> newsQueue;
 

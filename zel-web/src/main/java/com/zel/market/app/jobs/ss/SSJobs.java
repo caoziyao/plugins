@@ -40,8 +40,8 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class SSJobs {
 
-    @Value("${PATH_CACHE}")
-    private String PATH_CACHE;
+    //@Value("${PATH_CACHE}")
+    //private String PATH_CACHE;
 
     private static final Logger log = LoggerFactory.getLogger(SSJobs.class);
 
@@ -92,7 +92,7 @@ public class SSJobs {
 
         if (!md5.equals(cacheMd5)) {
             redisUtils.hSet(key, URL, md5);
-            write(PATH_CACHE + "/ss.html", content);
+            write("./cache/ss.html", content);
             // 3，通知 kafka
             SpiderJobsDTO dto = new SpiderJobsDTO();
             dto.setCreateTime(new Date());
