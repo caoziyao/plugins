@@ -7,9 +7,6 @@ import java.io.Serializable;
 
 /**
  * 授权所需的token
- *
- * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @since 1.8
  */
 @Getter
 @Setter

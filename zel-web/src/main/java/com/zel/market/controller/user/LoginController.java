@@ -159,6 +159,7 @@ public class LoginController {
                 .clientId("84d83337608e2a2242dd55cdb52bc1bad7f7d393594c5f6d76816655d6d1c585")
                 .clientSecret("ea876309d0f3f4baab9e5f70b937cef75d9c3eb1d87271c1568ffb8a84965a76")
                 .redirectUri("http://49.234.12.16:8899/oauth/gitee/callback")
+                .ignoreCheckState(false)
                 .build());
         String state = UuidUtils.getUUID();
         String urlgitee = gitee.authorize(state);
@@ -167,6 +168,7 @@ public class LoginController {
                 .clientId("020767fdb79a8fa6f46c")
                 .clientSecret("fb8d4324e7a5b3eceac59ca567dbb691c91dad0c")
                 .redirectUri("http://49.234.12.16:8899/oauth/github/callback")
+                .ignoreCheckState(false)
                 .build());
 
         String urlgithub = github.authorize(state);

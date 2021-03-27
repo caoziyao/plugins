@@ -9,6 +9,7 @@ import com.zel.market.dto.*;
 import com.zel.market.exception.AuthException;
 import com.zel.market.request.AuthDefaultRequest;
 import com.zel.market.request.AuthScopeUtils;
+import com.zel.market.request.AuthStateCache;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import java.util.Map;
@@ -28,7 +29,9 @@ public class AuthQQRequest extends AuthDefaultRequest {
         super(config, AuthDefaultSource.QQ);
     }
 
-
+    public AuthQQRequest(AuthConfig config, AuthStateCache authStateCache) {
+        super(config, AuthDefaultSource.QQ, authStateCache);
+    }
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {

@@ -6,6 +6,7 @@ import com.zel.market.common.SysLoggers;
 import com.zel.market.dto.*;
 import com.zel.market.request.AuthDefaultRequest;
 import com.zel.market.request.AuthScopeUtils;
+import com.zel.market.request.AuthStateCache;
 import org.json.JSONObject;
 
 /**
@@ -18,11 +19,9 @@ public class AuthGiteeRequest extends AuthDefaultRequest {
         super(config, AuthDefaultSource.GITEE);
     }
 
-
-    //@Override
-    //protected AuthToken getAccessToken(AuthCallback authCallback) {
-    //    return null;
-    //}
+    public AuthGiteeRequest(AuthConfig config, AuthStateCache authStateCache) {
+        super(config, AuthDefaultSource.GITEE, authStateCache);
+    }
 
     /**
      * 返回带{@code state}参数的授权url，授权回调时会带上这个{@code state}

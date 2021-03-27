@@ -8,7 +8,9 @@ import com.zel.commonutils.client.UrlUtil;
 import com.zel.commonutils.crypto.UuidUtils;
 import com.zel.market.common.Response;
 import com.zel.market.common.SysLoggers;
+import com.zel.market.common.enumcom.EResponseCode;
 import com.zel.market.dto.*;
+import com.zel.market.exception.AuthException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
@@ -16,17 +18,40 @@ import java.util.List;
 
 /**
  * 默认的request处理类
- *
  */
 public abstract class AuthDefaultRequest implements AuthRequest {
     protected AuthConfig config;
     protected AuthSource source;
+    protected AuthStateCache authStateCache;
 
     public AuthDefaultRequest(AuthConfig config, AuthSource source) {
         this.config = config;
         this.source = source;
 
         // 校验配置合法性
+    }
+
+    public AuthDefaultRequest(AuthConfig config, AuthSource source, AuthStateCache authStateCache) {
+        this.config = config;
+        this.source = source;
+        this.authStateCache = authStateCache;
+        // 校验配置合法性
+    }
+
+    /**
+     * 校验回调传回的{@code state}，为空或者不存在
+     * <p>
+     * {@code state}不存在的情况只有两种：
+     * 1. {@code state}已使用，被正常清除
+     * 2. {@code state}为前端伪造，本身就不存在
+     *
+     * @param state {@code state}一定不为空
+     */
+    public void checkState(String state) {
+
+        if (StringUtils.isBlank(state) || !authStateCache.containsKey(state)) {
+            throw new AuthException(EResponseCode.ILLEGAL_STATUS);
+        }
     }
 
     /**
@@ -100,7 +125,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      * @return Response
      */
     protected String doPostAuthorizationCode(String code) {
-        return  HttpUtil.post(accessTokenUrl(code), new HashMap<>());
+        return HttpUtil.post(accessTokenUrl(code), new HashMap<>());
     }
 
     /**
@@ -110,9 +135,11 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      * @return 返回不为null的state
      */
     protected String getRealState(String state) {
-        if (StringUtils.isEmpty(state)) {
+        if (StringUtils.isBlank(state)) {
             state = UuidUtils.getUUID();
         }
+        // 缓存state
+        authStateCache.cache(state, state);
         return state;
     }
 
@@ -186,17 +213,24 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      */
     @Override
     public Response login(AuthCallback authCallback) {
-        try {
-            //AuthChecker.checkCode(source, authCallback);
-            String code = authCallback.getCode();
 
-            AuthToken authToken = this.getAccessToken(authCallback);
-            AuthUser user = this.getUserInfo(authToken);
-            return Response.ok(user);
-        } catch (Exception e) {
-            SysLoggers.user_log.error("Failed to login with oauth authorization.", e);
-            return Response.error("Failed to login with oauth authorization. e=" + ExceptionUtil.stacktraceToOneLineString(e));
+        if (!config.isIgnoreCheckState()) {
+            // 校验 checkState, 防止 csrf 攻击
+            checkState(authCallback.getState());
         }
+        //AuthChecker.checkCode(source, authCallback);
+        //String code = authCallback.getCode();
+
+        AuthToken authToken = this.getAccessToken(authCallback);
+        AuthUser user = this.getUserInfo(authToken);
+        return Response.ok(user);
+
+        //try {
+        //
+        //} catch (Exception e) {
+        //    SysLoggers.user_log.error("Failed to login with oauth authorization.", e);
+        //    return Response.error("Failed to login with oauth authorization. e=" + ExceptionUtil.stacktraceToOneLineString(e));
+        //}
     }
 
     /**
