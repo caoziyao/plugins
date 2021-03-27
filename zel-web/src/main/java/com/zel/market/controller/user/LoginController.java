@@ -5,6 +5,7 @@ import com.zel.commonutils.client.CookieUtil;
 import com.zel.commonutils.client.RequestUtil;
 import com.zel.commonutils.crypto.AESEncrypt;
 import com.zel.commonutils.crypto.Md5Utils;
+import com.zel.commonutils.crypto.UuidUtils;
 import com.zel.commonutils.redis.RedisUtils;
 import com.zel.market.dto.AuthCallback;
 import com.zel.market.dto.AuthConfig;
@@ -159,7 +160,8 @@ public class LoginController {
                 .clientSecret("ea876309d0f3f4baab9e5f70b937cef75d9c3eb1d87271c1568ffb8a84965a76")
                 .redirectUri("http://49.234.12.16:8899/oauth/gitee/callback")
                 .build());
-        String urlgitee = gitee.authorize("random_state");
+        String state = UuidUtils.getUUID();
+        String urlgitee = gitee.authorize(state);
 
         AuthRequest github = new AuthGithubRequest(AuthConfig.builder()
                 .clientId("020767fdb79a8fa6f46c")
@@ -167,7 +169,7 @@ public class LoginController {
                 .redirectUri("http://49.234.12.16:8899/oauth/github/callback")
                 .build());
 
-        String urlgithub = github.authorize("random_state");
+        String urlgithub = github.authorize(state);
 
         Map<String, String> map = new HashMap();
         map.put("gitee", urlgitee);
@@ -187,22 +189,12 @@ public class LoginController {
                 .build());
 
         String code = request.getParameter("code");
-        if (StringUtils.isNotBlank(code)) {
-            String state = request.getParameter("state");
-            AuthCallback callback = AuthCallback.builder()
-                    .code(code)
-                    .state(state)
-                    .build();
-            return github.login(callback);
-        } else {
-            String state = request.getParameter("state");
-            Map<String, String> map = new HashMap();
-            map.put("uri", request.getRequestURI());
-            map.put("url", request.getRequestURL().toString());
-            map.put("access_token", request.getParameter("access_token"));
-            Response ok = Response.ok(map);
-            return ok;
-        }
+        String state = request.getParameter("state");
+        AuthCallback callback = AuthCallback.builder()
+                .code(code)
+                .state(state)
+                .build();
+        return github.login(callback);
 
     }
 
@@ -217,22 +209,11 @@ public class LoginController {
                 .build());
 
         String code = request.getParameter("code");
-        if (StringUtils.isNotBlank(code)) {
-            String state = request.getParameter("state");
-            AuthCallback callback = AuthCallback.builder()
-                    .code(code)
-                    .state(state)
-                    .build();
-            return authRequest.login(callback);
-        } else {
-            String state = request.getParameter("state");
-            Map<String, String> map = new HashMap();
-            map.put("uri", request.getRequestURI());
-            map.put("url", request.getRequestURL().toString());
-            map.put("access_token", request.getParameter("access_token"));
-            Response ok = Response.ok(map);
-            return ok;
-        }
-
+        String state = request.getParameter("state");
+        AuthCallback callback = AuthCallback.builder()
+                .code(code)
+                .state(state)
+                .build();
+        return authRequest.login(callback);
     }
 }

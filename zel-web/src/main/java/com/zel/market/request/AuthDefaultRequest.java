@@ -29,6 +29,32 @@ public abstract class AuthDefaultRequest implements AuthRequest {
         // 校验配置合法性
     }
 
+    /**
+     * 返回获取accessToken的url
+     *
+     * @param refreshToken refreshToken
+     * @return 返回获取accessToken的url
+     */
+    protected String refreshTokenUrl(String refreshToken) {
+        return UrlBuilder.fromBaseUrl(source.refresh())
+                .queryParam("client_id", config.getClientId())
+                .queryParam("client_secret", config.getClientSecret())
+                .queryParam("refresh_token", refreshToken)
+                .queryParam("grant_type", "refresh_token")
+                .queryParam("redirect_uri", config.getRedirectUri())
+                .build();
+    }
+
+    /**
+     * 通用的 authorizationCode 协议
+     *
+     * @param code code码
+     * @return Response
+     */
+    protected String doGetAuthorizationCode(String code) {
+        return HttpUtil.get(accessTokenUrl(code));
+    }
+
 
     /**
      * 返回获取accessToken的url

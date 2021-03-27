@@ -71,4 +71,9 @@ public class AuthUser implements Serializable {
      */
     private Object rawUserInfo;
 
+    /**
+     * openid
+     */
+    private String openId;
+
 }

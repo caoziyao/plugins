@@ -34,11 +34,6 @@ public class AuthGithubRequest extends AuthDefaultRequest {
     }
 
 
-    //@Override
-    //protected AuthToken getAccessToken(AuthCallback authCallback) {
-    //    return null;
-    //}
-
     /**
      * 返回带{@code state}参数的授权url，授权回调时会带上这个{@code state}
      *
