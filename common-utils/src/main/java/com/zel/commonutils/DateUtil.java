@@ -29,6 +29,7 @@ public class DateUtil {
 
     public static final SimpleDateFormat YMD_HMS_2 = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
 
+    public static final SimpleDateFormat YMD_HMS_3 = new SimpleDateFormat("MM-dd_HH:mm");
     /**
      * 当天0点
      * @param date

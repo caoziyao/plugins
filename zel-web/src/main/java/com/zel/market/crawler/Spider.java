@@ -1,5 +1,7 @@
 package com.zel.market.crawler;
 
+import com.zel.commonutils.DateUtil;
+import com.zel.commonutils.FileUtils;
 import com.zel.commonutils.StrUtil;
 import com.zel.commonutils.crypto.UuidUtils;
 import com.zel.market.crawler.downloader.Downloader;
@@ -11,6 +13,11 @@ import com.zel.market.crawler.scheduler.QueueScheduler;
 import com.zel.market.crawler.scheduler.Scheduler;
 import com.zel.market.crawler.thread.CountableThreadPool;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,8 +40,15 @@ public class Spider implements Runnable {
 
     private Condition newUrlCondition = newUrlLock.newCondition();
 
-    // 任务执行线程
-    protected CountableThreadPool threadPool;
+    /**
+     * 下载线程
+     */
+    protected CountableThreadPool downloadThreadPool;
+
+    /**
+     * 解析网页线程
+     */
+    protected CountableThreadPool pageThreadPool;
 
     /**
      * 下载器，用于下载网页
@@ -55,10 +69,12 @@ public class Spider implements Runnable {
     private int emptySleepTime = 10 * 1000;
 
     public Spider(String url, PageProcessor pageProcessor) {
-        CrawRequest request = CrawRequest.builder().url("http://www.baidu.com").build();
+        CrawRequest request = CrawRequest.builder().url(url).build();
         scheduler.push(request);
 
-        threadPool = new CountableThreadPool(5);
+        downloadThreadPool = new CountableThreadPool(5);
+        pageThreadPool = new CountableThreadPool(5);
+
         downloader = new HttpClientDownloader();
         this.pageProcessor = pageProcessor;
     }
@@ -87,17 +103,54 @@ public class Spider implements Runnable {
     public void run() {
 
         System.out.println("Spider {} run!" + UuidUtils.getUUID());
+        // 解析网页
+        pageThreadPool.execute(new Runnable() {
+            @Override
+            public void run() {
+                while (!Thread.currentThread().isInterrupted()) {
+                    Date start = new Date();
+                    // 读取文件
+                    try {
+                        Files.walk(Paths.get("./cache/crawler")).forEach((path -> {
+                            File file = path.toFile();
+                            if (file.isDirectory()) {
+                                // return起到的作用和continue是相同的
+                                return;
+                            }
+
+                            String fileName = file.getName();
+                            String filePath = path.toAbsolutePath().toString();
+
+                            boolean unread = fileName.contains("_readed_");
+                            if (!unread) {
+                                onParse(filePath);
+
+                                String format = DateUtil.format(new Date(), DateUtil.YMD_HMS_3);
+                                String newName = FileUtils.caselsh(fileName) + "_readed_" + format  + FileUtils.subffix(fileName);
+
+                                FileUtils.rename(filePath, newName);
+                            }
+                        }));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    //onDownloadSuccess(request, page);
+                    waitNewUrl(1, TimeUnit.MINUTES);
+                }
+
+            }
+        });
+
+        // 下载网页
         while (!Thread.currentThread().isInterrupted()) {
             Date start = new Date();
-
-            System.out.println(StrUtil.format("Spider {} started! {}", UuidUtils.getUUID(),  start));
 
             final CrawRequest request = scheduler.poll();
             if (request == null) {
                 waitNewUrl();
             } else {
                 // 线程执行
-                threadPool.execute(new Runnable() {
+                downloadThreadPool.execute(new Runnable() {
                     @Override
                     public void run() {
                         processRequest(request);
@@ -105,8 +158,6 @@ public class Spider implements Runnable {
                 });
             }
         }
-
-        System.out.println("Spider  end!" + new Date());
     }
 
     /**
@@ -114,12 +165,8 @@ public class Spider implements Runnable {
      * @param request
      */
     private void processRequest(CrawRequest request) {
-
         Page page = downloader.download(request);
-
         System.out.println(page);
-
-        onDownloadSuccess(request, page);
     }
 
     /**
@@ -127,7 +174,15 @@ public class Spider implements Runnable {
      * @param request
      * @param page
      */
-    private void onDownloadSuccess(CrawRequest request, Page page) {
+    private void onParse(String path) {
+        Page page = new Page();
+        try {
+            String data = FileUtils.read(path);
+            page.setData(data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         pageProcessor.process(page);
         for (Pipeline pipeline : pipelines) {
             pipeline.process(page.getResultItems());
@@ -178,6 +233,21 @@ public class Spider implements Runnable {
             //    return;
             //}
             newUrlCondition.await(emptySleepTime, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            System.out.println("waitNewUrl - interrupted, error e=" + e);
+        } finally {
+            newUrlLock.unlock();
+        }
+    }
+
+    private void waitNewUrl(long time, TimeUnit unit) {
+        newUrlLock.lock();
+        try {
+            //double check
+            //if (threadPool.getThreadAlive() == 0) {
+            //    return;
+            //}
+            newUrlCondition.await(time, unit);
         } catch (InterruptedException e) {
             System.out.println("waitNewUrl - interrupted, error e=" + e);
         } finally {

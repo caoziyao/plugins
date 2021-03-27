@@ -40,6 +40,26 @@ public class FileUtils {
 
     }
 
+    /**
+     * 文件名
+     * @param filename
+     * @return
+     */
+    public static String caselsh(String filename) {
+        // String fileName=file.getName();
+        return filename.substring(0,filename.lastIndexOf("."));
+    }
+
+    /**
+     * 文件名后缀
+     * @param filename
+     * @return
+     */
+    public static String subffix(String filename) {
+        // String fileName=file.getName();
+        return  filename.substring(filename.lastIndexOf("."), filename.length());
+    }
+
     public static void write(String filePath, String content) throws IOException {
         File file = new File(filePath);
         FileWriter fileWriter = new FileWriter(filePath);
@@ -59,6 +79,12 @@ public class FileUtils {
         return buffer.toString();
     }
 
+    /**
+     * 读取文件
+     * @param filePath
+     * @return
+     * @throws IOException
+     */
     public static String read(String filePath) throws IOException {
         File file = new File(filePath);
         Long filelength = file.length();
@@ -68,6 +94,21 @@ public class FileUtils {
         in.read(filecontent);
         in.close();
         return new String(filecontent);
+    }
+
+    /**
+     * 重命名
+     * @param newname
+     * @return
+     */
+    public static boolean rename(String oldPath, String newname) {
+        File file = new File(oldPath);
+
+        String newPath = file.getAbsolutePath().replace(file.getName(), newname);
+        File newFile = new File(newPath);
+
+        System.out.println("重命名: " + newPath);
+        return file.renameTo(newFile);
     }
 
     /**
