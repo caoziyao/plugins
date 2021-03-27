@@ -9,6 +9,7 @@ import com.zel.commonutils.crypto.UuidUtils;
 import com.zel.commonutils.redis.RedisUtils;
 import com.zel.market.dto.AuthCallback;
 import com.zel.market.dto.AuthConfig;
+import com.zel.market.request.AuthDefaultStateCache;
 import com.zel.market.request.gitee.AuthGiteeRequest;
 import com.zel.market.request.github.AuthGithubRequest;
 import com.zel.market.request.AuthRequest;
@@ -57,6 +58,9 @@ public class LoginController {
 
     @Autowired
     private RedisUtils redisUtils;
+
+    @Autowired
+    protected AuthDefaultStateCache authStateCache;
 
     private User getDefaultUser() {
         User user = new User();
@@ -160,7 +164,7 @@ public class LoginController {
                 .clientSecret("ea876309d0f3f4baab9e5f70b937cef75d9c3eb1d87271c1568ffb8a84965a76")
                 .redirectUri("http://49.234.12.16:8899/oauth/gitee/callback")
                 .ignoreCheckState(false)
-                .build());
+                .build(), authStateCache);
         String state = UuidUtils.getUUID();
         String urlgitee = gitee.authorize(state);
 
@@ -169,7 +173,7 @@ public class LoginController {
                 .clientSecret("fb8d4324e7a5b3eceac59ca567dbb691c91dad0c")
                 .redirectUri("http://49.234.12.16:8899/oauth/github/callback")
                 .ignoreCheckState(false)
-                .build());
+                .build(), authStateCache);
 
         String urlgithub = github.authorize(state);
 
@@ -188,7 +192,7 @@ public class LoginController {
                 .clientId("020767fdb79a8fa6f46c")
                 .clientSecret("fb8d4324e7a5b3eceac59ca567dbb691c91dad0c")
                 .redirectUri("http://49.234.12.16:8899/oauth/github/callback")
-                .build());
+                .build(), authStateCache);
 
         String code = request.getParameter("code");
         String state = request.getParameter("state");
@@ -208,7 +212,7 @@ public class LoginController {
                 .clientId("84d83337608e2a2242dd55cdb52bc1bad7f7d393594c5f6d76816655d6d1c585")
                 .clientSecret("ea876309d0f3f4baab9e5f70b937cef75d9c3eb1d87271c1568ffb8a84965a76")
                 .redirectUri("http://49.234.12.16:8899/oauth/gitee/callback")
-                .build());
+                .build(), authStateCache);
 
         String code = request.getParameter("code");
         String state = request.getParameter("state");
