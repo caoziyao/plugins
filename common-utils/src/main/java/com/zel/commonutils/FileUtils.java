@@ -115,7 +115,7 @@ public class FileUtils {
         String newPath = file.getAbsolutePath().replace(file.getName(), newname);
         File newFile = new File(newPath);
 
-        System.out.println("重命名: " + newPath);
+        System.out.println(oldPath + "-> 重命名: " + newPath);
         return file.renameTo(newFile);
     }
 
