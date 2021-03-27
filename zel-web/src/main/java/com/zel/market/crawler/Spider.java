@@ -111,33 +111,7 @@ public class Spider implements Runnable {
             @Override
             public void run() {
                 while (!Thread.currentThread().isInterrupted()) {
-                    Date start = new Date();
-                    // 读取文件
-                    try {
-
-                        Files.walk(Paths.get("./cache/crawler")).forEach((path -> {
-                            File file = path.toFile();
-                            if (file.isDirectory()) {
-                                // return起到的作用和continue是相同的
-                                return;
-                            }
-
-                            String fileName = file.getName();
-                            String filePath = path.toAbsolutePath().toString();
-
-                            boolean unread = fileName.contains("_readed_");
-                            if (!unread) {
-                                onParse(filePath);
-
-                                String format = DateUtil.format(new Date(), DateUtil.YMD_HMS_3);
-                                String newName = FileUtils.caselsh(fileName) + "_readed_" + format  + FileUtils.subffix(fileName);
-
-                                FileUtils.rename(filePath, newName);
-                            }
-                        }));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    processFile();
                     //onDownloadSuccess(request, page);
                     waitNewUrl(1, TimeUnit.MINUTES);
                 }
@@ -171,6 +145,37 @@ public class Spider implements Runnable {
     private void processRequest(CrawRequest request) {
         Page page = downloader.download(request);
         System.out.println(page);
+    }
+
+    /**
+     * 处理下载文件
+     */
+    private void processFile() {
+        // 读取文件
+        try {
+            Files.walk(Paths.get("./cache/crawler")).forEach((path -> {
+                File file = path.toFile();
+                if (file.isDirectory()) {
+                    // return起到的作用和continue是相同的
+                    return;
+                }
+
+                String fileName = file.getName();
+                String filePath = path.toAbsolutePath().toString();
+
+                boolean unread = fileName.contains("_readed_");
+                if (!unread) {
+                    onParse(filePath);
+
+                    String format = DateUtil.format(new Date(), DateUtil.YMD_HMS_3);
+                    String newName = FileUtils.caselsh(fileName) + "_readed_" + format  + FileUtils.subffix(fileName);
+
+                    FileUtils.rename(filePath, newName);
+                }
+            }));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
