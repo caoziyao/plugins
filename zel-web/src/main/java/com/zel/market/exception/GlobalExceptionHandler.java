@@ -61,7 +61,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = NullPointerException.class)
     @ResponseBody
     public Response exceptionHandler(HttpServletRequest req, NullPointerException e) {
-        logger.error("发生空指针异常！原因是: {}", ExceptionUtil.stacktraceToOneLineString(e));
+        logger.error("发生空指针异常！e= {}", ExceptionUtil.stacktraceToOneLineString(e));
         Response r = Response.error("空指针异常！");
         r.setDebugMessage(ExceptionUtil.stacktraceToOneLineString(e));
         return r;

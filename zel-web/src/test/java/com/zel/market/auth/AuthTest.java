@@ -3,9 +3,9 @@ package com.zel.market.auth;
 //import com.zel.commonutils.crypto.UuidUtils;
 import com.zel.market.BaseTest;
 import com.zel.market.dto.AuthConfig;
-import com.zel.market.request.AuthDefaultStateCache;
-import com.zel.market.request.gitee.AuthGiteeRequest;
-import com.zel.market.request.AuthRequest;
+import com.zel.market.app.request.AuthDefaultStateCache;
+import com.zel.market.app.request.gitee.AuthGiteeRequest;
+import com.zel.market.app.request.AuthRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
