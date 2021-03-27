@@ -16,7 +16,7 @@ public interface AuthStateCache {
      * @param key   缓存key
      * @param value 缓存内容
      */
-    void cache(String key, String value);
+    //void cache(String key, String value);
 
     /**
      * 存入缓存

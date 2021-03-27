@@ -138,8 +138,8 @@ public abstract class AuthDefaultRequest implements AuthRequest {
         if (StringUtils.isBlank(state)) {
             state = UuidUtils.getUUID();
         }
-        // 缓存state
-        authStateCache.cache(state, state);
+        // 缓存state 指定缓存过期时间（毫秒）
+        authStateCache.cache(state, state, 20 * 1000);
         return state;
     }
 

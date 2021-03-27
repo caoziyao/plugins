@@ -31,10 +31,10 @@ public class AuthDefaultStateCache implements AuthStateCache {
      * @param key   缓存key
      * @param value 缓存内容
      */
-    @Override
-    public void cache(String key, String value) {
-        authCache.set(key, value);
-    }
+    //@Override
+    //public void cache(String key, String value) {
+    //    authCache.set(key, value);
+    //}
 
     /**
      * 存入缓存
