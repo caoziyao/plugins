@@ -1,11 +1,14 @@
 package com.zel.market.app.controller;
 
+import com.google.common.util.concurrent.RateLimiter;
+import com.zel.commonutils.JsonHelper;
 import com.zel.commonutils.client.RequestUtil;
 import com.zel.commonutils.redis.RedisUtils;
 import com.zel.market.common.Response;
 //import com.zel.market.es.EsClient;
 import com.zel.market.app.service.mail.MailService;
 import com.zel.market.app.service.user.UserService;
+import com.zel.market.common.enumcom.EResponseCode;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,24 +34,19 @@ public class TestController {
     @Autowired
     private RedisUtils redisUtils;
 
-    //// 允许每秒最多10个任务
-    //public static final RateLimiter rateLimiter = RateLimiter.create(10);
-    //
-    //public String index2() {
-    //
-    //    // 请求尝试获取令牌，获取不到返回服务器繁忙
-    //    if (rateLimiter.tryAcquire()) {
-    //        // 正常逻辑
-    //    } else {
-    //        // error
-    //    }
-    //    return "";
-    //}
+    // 允许每秒最多400个任务
+    public static final RateLimiter rateLimiter = RateLimiter.create(Math.max(4, Runtime.getRuntime().availableProcessors()) * 100);
 
-    @RequestMapping(value = "/t", method = {RequestMethod.GET, RequestMethod.POST})
+
+    @RequestMapping(value = "/test", method = {RequestMethod.GET, RequestMethod.POST})
     public Response index(@RequestParam(required = false, defaultValue = "1") String statType, HttpServletRequest request) {
 
         String ipAddr = RequestUtil.getIpAddr(request);
+
+        //请求尝试获取令牌，获取不到返回服务器繁忙
+        if (!rateLimiter.tryAcquire()) {
+            return Response.ok("系统繁忙，请稍后再试！");
+        }
 
 
         String key = "abctest";

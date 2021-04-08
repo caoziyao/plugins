@@ -5,8 +5,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.catalina.User;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 public class JsonHelper {
 
@@ -85,6 +88,12 @@ public class JsonHelper {
     }
 
     public static void main(String[] args) {
-
+        String s = "";
+        // map
+        Map<String, User> read = JsonHelper.read(s, new TypeReference<Map<String, User>>() {
+        });
+        // list
+        List<User> read1 = JsonHelper.read(s, new TypeReference<List<User>>() {
+        });
     }
 }

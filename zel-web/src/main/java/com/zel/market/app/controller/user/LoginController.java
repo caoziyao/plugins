@@ -1,5 +1,6 @@
 package com.zel.market.app.controller.user;
 
+import com.google.common.util.concurrent.RateLimiter;
 import com.zel.commonutils.JsonHelper;
 import com.zel.commonutils.client.CookieUtil;
 import com.zel.commonutils.client.RequestUtil;
@@ -43,6 +44,9 @@ import java.util.concurrent.TimeUnit;
 @Api(description = "login")
 @RestController
 public class LoginController {
+
+    // 允许每秒最多400个任务
+    public static final RateLimiter rateLimiter = RateLimiter.create(Math.max(4, Runtime.getRuntime().availableProcessors()) * 100);
 
     private Logger logger = LoggerFactory.getLogger(LoginController.class);
 
