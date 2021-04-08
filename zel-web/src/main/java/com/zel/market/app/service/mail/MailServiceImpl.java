@@ -1,7 +1,7 @@
 package com.zel.market.app.service.mail;
 
 import com.zel.market.dto.MailTaskDTO;
-import com.zel.market.app.jobs.email.MailTaskRunner;
+import com.zel.market.jobs.email.MailTaskRunner;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

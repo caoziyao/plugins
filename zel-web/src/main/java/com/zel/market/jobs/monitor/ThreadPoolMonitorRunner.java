@@ -1,4 +1,4 @@
-package com.zel.market.app.jobs.monitor;
+package com.zel.market.jobs.monitor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

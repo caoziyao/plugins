@@ -17,10 +17,6 @@ public class Constants {
     public static final String URL_HISTORY = "http://www.todayonhistory.com/index.php?c=index&a=json_event&page=%s&pagesize=1&month=%s&day=%s";
     public static final String URL_TECH_NODE_P1 = "https://cn.technode.com";
     public static final String URL_TECH_NODE_P2 = "https://cn.technode.com/?upage=2";
-    public static final String URL_QUBI8_P1 = "https://www.qubi8.com/wp-admin/admin-ajax.php?action=wpcom_load_kuaixun&page=1";
-    public static final String URL_QUBI8_P2 = "https://www.qubi8.com/wp-admin/admin-ajax.php?action=wpcom_load_kuaixun&page=1";
-    public static final String URL_QUBI8_P3 = "https://www.qubi8.com/wp-admin/admin-ajax.php?action=wpcom_load_kuaixun&page=1";
-    public static final String URL_WALIAN = "https://www.walian.cn/live";
     public static final String URL_BTC = "https://www.8btc.com/flash";
     public static final String URL_ITJuZi = "https://www.itjuzi.com/api/newsletter";
     public static final String URL_HE_XUN = "http://tech.hexun.com/highlightsa";

@@ -1,6 +1,6 @@
-package com.zel.market.app.jobs;
+package com.zel.market.jobs;
 
-import com.zel.market.app.jobs.monitor.ThreadPoolMonitorRunner;
+import com.zel.market.jobs.monitor.ThreadPoolMonitorRunner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

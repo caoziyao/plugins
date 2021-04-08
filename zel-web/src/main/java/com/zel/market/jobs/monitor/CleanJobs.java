@@ -1,4 +1,4 @@
-package com.zel.market.app.jobs.monitor;
+package com.zel.market.jobs.monitor;
 
 import com.zel.commonutils.DateUtil;
 import com.zel.commonutils.redis.RedisUtils;

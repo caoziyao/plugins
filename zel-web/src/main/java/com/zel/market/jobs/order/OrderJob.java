@@ -1,4 +1,4 @@
-package com.zel.market.app.jobs.order;
+package com.zel.market.jobs.order;
 
 import com.zel.commonutils.redis.RedisUtils;
 import com.zel.market.common.enumcom.EResponseCode;

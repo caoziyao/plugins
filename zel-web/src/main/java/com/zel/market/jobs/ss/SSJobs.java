@@ -1,4 +1,4 @@
-package com.zel.market.app.jobs.ss;
+package com.zel.market.jobs.ss;
 
 import com.zel.commonutils.DateUtil;
 import com.zel.commonutils.ExceptionUtil;
@@ -18,7 +18,6 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -40,12 +39,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class SSJobs {
 
-    //@Value("${PATH_CACHE}")
-    //private String PATH_CACHE;
-
     private static final Logger log = LoggerFactory.getLogger(SSJobs.class);
-
-    private static final long timeout = TimeUnit.MINUTES.toMillis(10);
 
     private ConcurrentHashMap<String, String> mapURL = new ConcurrentHashMap<>();
 
@@ -55,18 +49,24 @@ public class SSJobs {
     private RedisUtils redisUtils;
 
     @Autowired
-    private SSService ssService;
-
-    @Autowired
-    private MailService mailService;
-
-    @Autowired
     private KafkaTemplate<String, Object> kafkaTemplate;
 
-    // long s = TimeUnit.MINUTES.toMinutes(10);
     @Async
     @Scheduled(fixedRate = 10 * DateUtil.MINUTE * DateUtil.MILLISECOND)
     public void reportCurrentTime() {
+
+        //String value = JedisUtil.getJedisCluster().set("ActivityTradeInJob", "1", "nx", "ex", 1800);
+        //// 未获取到锁，直接返回
+        //if(!"OK".equalsIgnoreCase(value)){
+        //    return;
+        //}
+        Boolean hasKey = redisUtils.setnx("SSJobs", "1", 180L, TimeUnit.SECONDS);
+        // 未获取到锁，直接返回
+        if(!hasKey){
+            System.out.println("SSJobs 获锁失败 " + new Date());
+            return;
+        }
+
         if (!Config.ENABLE_SS_ACCOUNT_REQUEST) {
             return;
         }
