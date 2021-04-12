@@ -9,9 +9,9 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 <!-- todo jooq -->
-    <artifactId>dbmanager</artifactId>
+    <artifactId>zel-mysql</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>dbmanager</name>
+    <name>zel-mysql</name>
     <description>project for DB</description>
 
     <properties>

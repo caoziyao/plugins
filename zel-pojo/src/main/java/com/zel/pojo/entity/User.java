@@ -38,8 +38,8 @@ public class User {
     @TableField(value = "age")
     private Integer age;
 
-    //@TableField(value = "status")
-    //1-禁用
+    // 1-黑名单
+    @TableField(value = "status")
     private int status;
 
     @TableField(value = "update_time", fill = FieldFill.INSERT)
@@ -48,6 +48,9 @@ public class User {
     // FieldFill自动填充
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     private Date createTime;
+
+    @Version   //乐观锁Version注解
+    private Integer version;
 
     @Override
     public String toString() {

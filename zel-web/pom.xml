@@ -41,7 +41,7 @@
 
         <dependency>
             <groupId>com.zel</groupId>
-            <artifactId>dbmanager</artifactId>
+            <artifactId>zel-mysql</artifactId>
             <scope>compile</scope>
         </dependency>
         <dependency>

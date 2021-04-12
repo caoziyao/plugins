@@ -20,7 +20,7 @@
     <!-- 子模块 -->
     <modules>
         <module>common-utils</module>
-        <module>dbmanager</module>
+        <module>zel-mysql</module>
         <module>zel-mq</module>
         <module>zel-web</module>
         <module>zel-pojo</module>

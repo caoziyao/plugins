@@ -17,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class InterceptorConfigurer implements WebMvcConfigurer {
 
     @Autowired
-    private LoginInterceptor httpInterceptor;
+    private LoginInterceptor loginInterceptor;
 
     //private static final Set<String> ALLOWED_PATHS = Collections.unmodifiableSet(new HashSet<>(
     //        Arrays.asList("/login", "/superlogin", "/logout", "/swagger-ui.html", "/webjars", "/v2/api-docs", "/csrf")));
@@ -30,8 +30,7 @@ public class InterceptorConfigurer implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // registry.addInterceptor(httpInterceptor).addPathPatterns("/*");
-        registry.addInterceptor(httpInterceptor).addPathPatterns("/*/*");
-        registry.addInterceptor(httpInterceptor).excludePathPatterns("/login", "/superlogin", "/oauth/*", "/oauth/*/*");
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/*/*");
+        registry.addInterceptor(loginInterceptor).excludePathPatterns("/login", "/superlogin", "/oauth/*", "/oauth/*/*");
     }
 }

@@ -1,6 +1,10 @@
 package com.zel.market;
 
+import com.zel.dbmanager.mapper.UserMapper;
+import com.zel.market.app.service.user.UserService;
+import com.zel.pojo.entity.User;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 创建一个mybatis-plus数据库
@@ -19,8 +23,13 @@ import org.junit.jupiter.api.Test;
  */
 public class DBTest extends BaseTest {
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Test
     public void test() {
-
+        User user = new User();
+        user.setAge(123);
+        userMapper.insert(user);
     }
 }
