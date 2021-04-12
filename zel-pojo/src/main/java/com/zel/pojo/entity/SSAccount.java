@@ -1,12 +1,15 @@
 package com.zel.pojo.entity;
 
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.Date;
 
 @TableName(value = "ss_account")
+@Getter
+@Setter
 public class SSAccount {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
@@ -32,69 +35,12 @@ public class SSAccount {
     @TableField(value = "plian")
     private String plian;
 
-    public Long getId() {
-        return id;
-    }
+    @TableField(value = "update_time", fill = FieldFill.INSERT)
+    private Date updateTime;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public String getPort() {
-        return port;
-    }
-
-    public void setPort(String port) {
-        this.port = port;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEncry() {
-        return encry;
-    }
-
-    public void setEncry(String encry) {
-        this.encry = encry;
-    }
-
-    public String getProtocol() {
-        return protocol;
-    }
-
-    public void setProtocol(String protocol) {
-        this.protocol = protocol;
-    }
-
-    public String getPlian() {
-        return plian;
-    }
-
-    public void setPlian(String plian) {
-        this.plian = plian;
-    }
+    // FieldFill自动填充
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
+    private Date createTime;
 
     @Override
     public String toString() {

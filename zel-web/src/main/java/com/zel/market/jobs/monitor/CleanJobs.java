@@ -26,8 +26,8 @@ public class CleanJobs {
     public void reportCurrentTime() {
         // 清理 redis 在线用户
         Date now = new Date();
-        Date day7 = DateUtil.add(now, -7);
-        Date dayLong = DateUtil.add(now, -100);
+        Date day7 = DateUtil.plusDays(now, -7);
+        Date dayLong = DateUtil.plusDays(now, -100);
         Long aLong = redisUtils.zRemRangeByScore(Config.USER_ONLINE_KEY, dayLong.getTime(), day7.getTime());
         System.out.println("删除了: " + aLong + "条数据");
     }

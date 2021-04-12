@@ -30,35 +30,26 @@ public class DateUtil {
     public static final SimpleDateFormat YMD_HMS_2 = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
 
     public static final SimpleDateFormat YMD_HMS_3 = new SimpleDateFormat("MM-dd-HH:mm");
+
     /**
-     * 当天0点
-     * @param date
+     * 当前时间
      * @return
      */
-    public static Date dawnOf(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        return  calendar.getTime();
+    public static Date now() {
+        return new Date();
     }
 
     /**
-     * 当天 23：59:59
-     * @param date
+     * 时区 todo
+     * @param zone
      * @return
      */
-    public static Date nightOf(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 59);
-        calendar.set(Calendar.SECOND, 59);
-        calendar.set(Calendar.MILLISECOND, 0);
-        return  calendar.getTime();
-    }
+    //public static Date now(DateTimeZone zone) {
+    //    if (zone == null) {
+    //        throw new NullPointerException("Zone must not be null");
+    //    }
+    //    return new DateTime(zone);
+    //}
 
     /**
      * 格式化
@@ -74,6 +65,83 @@ public class DateUtil {
     public static String format(Date date) {
         return YMD_HMS.format(date);
     }
+
+    ///**
+    // *
+    // * @param str
+    // * @return
+    // */
+    //public static Date parse(String str) {
+    //    return parse(str, YMD_HMS);
+    //}
+
+    /**
+     * 当天0点
+     * @param date
+     * @return
+     */
+    public static Date withTimeAtStartOfDay(Date date) {
+        // import org.joda.time.DateTime;
+        //Date createEnd = DateTime.now().minusDays(invalidDay).withTimeAtStartOfDay().toDate();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return  calendar.getTime();
+    }
+
+    /**
+     * 当天 23：59:59
+     * @param date
+     * @return
+     */
+    public static Date withTimeAtEndOfDay(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return  calendar.getTime();
+    }
+
+    /**
+     * 时间 +- 天数
+     */
+    public static Date plusDays(Date date, int day) {
+        return plus(date, 0, day, 0, 0);
+    }
+
+    /**
+     * 时间 +- 分钟
+     * @param date
+     * @param minute
+     * @return
+     */
+    public static Date plusMinutes(Date date, int minute) {
+        return plus(date, 0, 0, 0, minute);
+    }
+
+    /**
+     * 时间 +-
+     */
+    public static Date plus(Date date, int year, int day, int hours, int minute) {
+        // Calendar 加减
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.YEAR, year);
+        c.add(Calendar.DAY_OF_WEEK, day);
+        c.add(Calendar.HOUR, hours);
+        c.add(Calendar.MINUTE, minute);
+        return c.getTime();
+    }
+
+
+
+
 
     /**
      * 时间format
@@ -104,36 +172,7 @@ public class DateUtil {
         return d1.getTime() > d2.getTime();
     }
 
-    /**
-     * 时间 +- 天数
-     */
-    public static Date add(Date date, int day) {
-        return add(date, 0, day, 0, 0);
-    }
 
-    /**
-     * 时间 +-
-     * @param date
-     * @param minute
-     * @return
-     */
-    public static Date addMinute(Date date, int minute) {
-        return add(date, 0, 0, 0, minute);
-    }
-
-    /**
-     * 时间 +-
-     */
-    public static Date add(Date date, int year, int day, int hours, int minute) {
-        // Calendar 加减
-        Calendar c = Calendar.getInstance();
-        c.setTime(date);
-        c.add(Calendar.YEAR, year);
-        c.add(Calendar.DAY_OF_WEEK, day);
-        c.add(Calendar.HOUR, hours);
-        c.add(Calendar.MINUTE, minute);
-        return c.getTime();
-    }
 
     /**
      * 时间 +-
@@ -189,8 +228,8 @@ public class DateUtil {
      * test: 遍历当天0点到24点，间隔 30 min
      */
     public static void test30Min() {
-        Date wee = dawnOf(new Date());
-        Date nextDay = add(wee, 1);
+        Date wee = withTimeAtEndOfDay(new Date());
+        Date nextDay = plusDays(wee, 1);
 
         Calendar c1 = Calendar.getInstance();
         c1.setTime(wee);
@@ -263,7 +302,7 @@ public class DateUtil {
     }
 
     public static void test() {
-        foreach(new Date(), add(new Date(), 7), (c1, c2) -> {
+        foreach(new Date(), plusDays(new Date(), 7), (c1, c2) -> {
             System.out.println(c1.getTime());
         });
     }

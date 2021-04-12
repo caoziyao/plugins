@@ -75,7 +75,7 @@ public class UserService {
      */
     public long onlineUserNumToday() {
         Date now = new Date();
-        Date dawn = DateUtil.addMinute(now, -30);
+        Date dawn = DateUtil.plusMinutes(now, -30);
         return onlineUserNum(dawn, now);
     }
 

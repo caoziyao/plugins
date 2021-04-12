@@ -102,7 +102,7 @@ public class ShopOrderService {
      * 查询获取超过 n 天未支付的订单
      */
     public List<ShopOrder> listExpiredOrders(int invalidDay) {
-        Date createEnd = DateUtil.add(new Date(), -1 * invalidDay);
+        Date createEnd = DateUtil.plusDays(new Date(), -1 * invalidDay);
         Map<String, Object> param = new HashMap<>(2);
         param.put("createEnd", createEnd);
         param.put("status", EPayStatusCode.WAITPAY.toCode());

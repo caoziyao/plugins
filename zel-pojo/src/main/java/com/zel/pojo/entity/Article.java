@@ -1,9 +1,6 @@
 package com.zel.pojo.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.ibatis.annotations.Select;
@@ -30,17 +27,18 @@ public class Article {
     @TableField(value = "column_id")
     private Integer columnsId;
 
-    @TableField(value = "update_time")
-    private Date updateTime;
-
-    @TableField(value = "create_time")
-    private Date createTime;
-
     @TableField(value = "title")
     private String title;
 
     @TableField(value = "content")
     private String content;
+
+    @TableField(value = "update_time", fill = FieldFill.INSERT)
+    private Date updateTime;
+
+    // FieldFill自动填充
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
+    private Date createTime;
 
     // 专栏
     private Column column;

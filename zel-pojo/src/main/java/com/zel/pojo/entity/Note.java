@@ -1,9 +1,6 @@
 package com.zel.pojo.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,9 +26,10 @@ public class Note {
     @TableField(value = "content")
     private String content;
 
-    @TableField(value = "update_time")
+    @TableField(value = "update_time", fill = FieldFill.INSERT)
     private Date updateTime;
 
-    @TableField(value = "create_time")
+    // FieldFill自动填充
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private Date createTime;
 }

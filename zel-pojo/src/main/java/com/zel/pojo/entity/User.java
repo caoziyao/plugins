@@ -1,20 +1,25 @@
 package com.zel.pojo.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 /**
  * Description: 创建User表
- *
- * @author csy
- * @version 1.0.0
- * @since 2020/10/25
+
+ IdType类中枚举解释:
+
+ AUTO(0),           // 数据库id自增
+ NONE(1),           // 未设置主键
+ INPUT(2),          // 手动输入
+ ID_WORKER(3),      // 默认的全局唯一id
+ UUID(4),           // 全局唯-id uuid
+ ID_WORKER_STR(5);  // ID_WORKER 字符串表示法
+
  */
-// @Builder 垃圾
+
 @TableName(value = "user")
 @Getter
 @Setter
@@ -37,37 +42,12 @@ public class User {
     //1-禁用
     private int status;
 
-    public Long getId() {
-        return id;
-    }
+    @TableField(value = "update_time", fill = FieldFill.INSERT)
+    private Date updateTime;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
+    // FieldFill自动填充
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
+    private Date createTime;
 
     @Override
     public String toString() {
