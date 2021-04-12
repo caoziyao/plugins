@@ -42,7 +42,7 @@
         <dependency>
             <groupId>com.zel</groupId>
             <artifactId>zel-mysql</artifactId>
-            <scope>compile</scope>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.zel</groupId>
