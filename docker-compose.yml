@@ -1,0 +1,15 @@
+
+version: '3.1'
+services:
+  zel-web:
+    image: 47.112.215.170:5000/zel-web:v1.0.0
+    container_name: zel-web
+    ports:
+      - 8088:8088
+      - 22222:22222
+      - 20881:20881
+
+networks:
+  default:
+    external:
+      name: dubbo
