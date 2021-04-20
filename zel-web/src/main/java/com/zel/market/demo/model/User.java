@@ -1,6 +1,5 @@
 package com.zel.market.demo.model;
 
-import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 public class User implements Serializable {
