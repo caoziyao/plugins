@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
  * @since 2020/4/20
  */
 @RestController
-@RequestMapping(value = "/article")
+@RequestMapping(value = "/api/article")
 public class ArticleController {
 
     private final static Logger log = LogManager.getLogger(ArticleController.class);

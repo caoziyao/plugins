@@ -16,7 +16,7 @@ import java.util.List;
  * @since 2021/1/3
  */
 @RestController
-@RequestMapping(value = "/column")
+@RequestMapping(value = "/api/column")
 public class ColumnController {
 
     @Autowired

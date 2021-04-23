@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping(value = "/logger")
+@RequestMapping(value = "/api/logger")
 public class LoggerController {
 
     /**

@@ -23,7 +23,7 @@ import java.util.Map;
  * @since 2020/3/20
  */
 @RestController
-@RequestMapping(value = "/ss")
+@RequestMapping(value = "/api/ss")
 public class SSController {
 
     @Autowired

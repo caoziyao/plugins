@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>vue 1-2</title>
+    <link rel="stylesheet" href="css/common.css">
+    <style type="text/css">
+    </style>
+</head>
+<body>
+<div class="app1-2">
+    <div>
+        <button><a href="/ss/account/enable">点击激活ss</a></button>
+    </div>
+
+
+    <h4>hello: <span th:text="${user.username}"></span></h4>
+    <h4>在线用户数: <span th:text="${onlineUserNum}"></span></h4>
+
+
+    <div>
+        <div><a href="/enote">跳转到 note </a></div>
+        <div><a href="/article">跳转到 article </a></div>
+    </div>
+
+</div>
+
+</body>
+
+<!--https://github.com/ElementUI/theme-chalk/tree/master/lib/fonts-->
+<!--<script src="libs/vue@2.6.10.js"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    let app = new Vue({
+        // 既然 el 是选择器，那么 class 选择器也是可以的
+        el: '.app1-2',
+        data: function () {
+            return {}
+        },
+        methods: {},
+        mounted() {
+
+        }
+    })
+</script>
+</html>

@@ -16,7 +16,7 @@ import java.util.List;
  * @since 2020/11/4
  */
 @RestController
-@RequestMapping(value = "/enote")
+@RequestMapping(value = "/api/enote")
 public class NoteController {
 
     @Autowired

@@ -32,7 +32,7 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-    @PostMapping("/addCart")
+    @PostMapping("/api/addCart")
     public Response addCart(HttpServletRequest request, HttpServletResponse response) {
         User user = Env.getContext().getUser();
         long goodId = RequestUtil.getLong(request, "goodId", 0L);
