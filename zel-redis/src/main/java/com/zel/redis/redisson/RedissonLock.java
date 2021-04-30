@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  * https://github.com/yudiandemingzi/spring-boot-distributed-redisson
  * redis 分布式锁
  */
-@Component
+//@Component
 @Slf4j
 public class RedissonLock {
 

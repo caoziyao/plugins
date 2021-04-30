@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.connection.DataType;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.support.atomic.RedisAtomicLong;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -502,15 +503,33 @@ public class BaseRedisUtils {
 
 
     /**
+     * 自增主键incr
+     * @param key
+     * @param liveTime
+     * @return
+     */
+    public Long incr(String key, long liveTime) {
+        RedisAtomicLong entityIdCounter = new RedisAtomicLong(key, redisTemplate.getConnectionFactory());
+        Long increment = entityIdCounter.getAndIncrement();
+
+        if ((null == increment || increment.longValue() == 0) && liveTime > 0) {//初始设置过期时间
+            entityIdCounter.expire(liveTime, TimeUnit.SECONDS);
+        }
+
+        return increment;
+    }
+
+
+    /**
      * 实现命令 : INCR key
      * 给 value 加 1,value 必须是整数
      *
      * @param key
      * @return
      */
-    public Long inCr(String key) {
-        return redisTemplate.opsForValue().increment(key);
-    }
+    //public Long inCr(String key) {
+    //    return redisTemplate.opsForValue().increment(key);
+    //}
 
     /**
      * 实现命令 : INCRBY key 整数
@@ -519,9 +538,9 @@ public class BaseRedisUtils {
      * @param key
      * @return
      */
-    public Long inCrBy(String key, Long number) {
-        return redisTemplate.opsForValue().increment(key, number);
-    }
+    //public Long inCrBy(String key, Long number) {
+    //    return redisTemplate.opsForValue().increment(key, number);
+    //}
 
     /**
      * 实现命令 : INCRBYFLOAT key 数
