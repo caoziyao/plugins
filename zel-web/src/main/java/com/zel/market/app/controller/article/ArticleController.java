@@ -2,7 +2,7 @@ package com.zel.market.app.controller.article;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.zel.commonutils.JsonHelper;
-import com.zel.commonutils.redis.RedisUtils;
+import com.zel.redis.RedisUtils;
 import com.zel.market.common.enumcom.ERedisKey;
 import com.zel.market.app.controller.article.dto.ArticleListVO;
 import com.zel.pojo.entity.Article;

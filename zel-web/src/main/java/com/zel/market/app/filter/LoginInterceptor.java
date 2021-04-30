@@ -4,7 +4,7 @@ import com.zel.commonutils.JsonHelper;
 import com.zel.commonutils.client.CookieUtil;
 import com.zel.commonutils.client.RequestUtil;
 import com.zel.commonutils.crypto.AESEncrypt;
-import com.zel.commonutils.redis.RedisUtils;
+import com.zel.redis.RedisUtils;
 import com.zel.market.common.enumcom.EResponseCode;
 import com.zel.market.exception.BusinessException;
 import com.zel.pojo.entity.User;

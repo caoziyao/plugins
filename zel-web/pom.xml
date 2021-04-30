@@ -49,6 +49,12 @@
             <artifactId>zel-mq</artifactId>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.zel</groupId>
+            <artifactId>zel-redis</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
 
 
         <dependency>
@@ -121,6 +127,8 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
             <version>${spring.boot.version}</version>
         </dependency>
+
+
 
         <!-- httpclient -->
         <dependency>

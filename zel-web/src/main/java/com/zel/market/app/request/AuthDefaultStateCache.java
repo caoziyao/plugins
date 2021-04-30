@@ -1,7 +1,7 @@
 package com.zel.market.app.request;
 
 
-import com.zel.commonutils.redis.RedisUtils;
+import com.zel.redis.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

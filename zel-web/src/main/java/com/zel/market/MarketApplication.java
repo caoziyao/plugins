@@ -16,7 +16,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @MapperScan(value = "com.zel.dbmanager.mapper")
 //@EnableAutoConfiguration(exclude = {RabbitAutoConfiguration.class})
 //@ComponentScan(value ={"com.zel.commonutils.redis", "com.zel.market", "com.zel.mq"})
-@ComponentScan(value ={"com.zel.commonutils.redis", "com.zel.market"})
+@ComponentScan(value ={"com.zel.redis", "com.zel.market"})
 public class MarketApplication {
 
     public static void main(String[] args) {

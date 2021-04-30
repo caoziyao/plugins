@@ -1,6 +1,6 @@
 package com.zel.market.jobs.order;
 
-import com.zel.commonutils.redis.RedisUtils;
+import com.zel.redis.RedisUtils;
 import com.zel.market.common.enumcom.EResponseCode;
 import com.zel.market.app.controller.order.bussiness.ShopOrderService;
 import com.zel.market.app.controller.order.dto.EPayStatusCode;

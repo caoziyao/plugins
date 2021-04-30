@@ -1,6 +1,6 @@
 package com.zel.market.app.service.login.impl;
 
-import com.zel.commonutils.redis.RedisUtils;
+import com.zel.redis.RedisUtils;
 import com.zel.dbmanager.mapper.UserMapper;
 import com.zel.market.common.enumcom.EResponseCode;
 import com.zel.market.app.controller.user.dto.LoginVO;

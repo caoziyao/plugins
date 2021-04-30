@@ -1,6 +1,6 @@
 package com.zel.market.app.controller.user;
 
-import com.zel.commonutils.redis.RedisUtils;
+import com.zel.redis.RedisUtils;
 import com.zel.market.common.Response;
 import com.zel.market.app.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

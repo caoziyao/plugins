@@ -1,7 +1,7 @@
 package com.zel.market.app.service.user;
 
 import com.zel.commonutils.DateUtil;
-import com.zel.commonutils.redis.RedisUtils;
+import com.zel.redis.RedisUtils;
 import com.zel.market.app.service.login.db.UserThird;
 import com.zel.pojo.entity.User;
 import com.zel.dbmanager.mapper.UserMapper;

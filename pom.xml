@@ -20,12 +20,16 @@
     <!-- 子模块 -->
     <modules>
         <module>common-utils</module>
+        <module>zel-pojo</module>
+
         <module>zel-mysql</module>
+        <module>zel-redis</module>
         <module>zel-mq</module>
         <module>zel-web</module>
-        <module>zel-pojo</module>
+
         <module>game</module>
         <module>zel-awesome</module>
+
 
     </modules>
 
@@ -64,6 +68,13 @@
             <scope>provided</scope>
         </dependency>
         <!--lombok end-->
+
+        <!-- hutool -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.6.3</version>
+        </dependency>
 
         <!--mybatis-plus-->
         <!--        <dependency>-->
