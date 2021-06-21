@@ -8,7 +8,7 @@
         <artifactId>root</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-<!-- todo jooq -->
+
     <artifactId>zel-mysql</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>zel-mysql</name>

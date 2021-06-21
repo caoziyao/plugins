@@ -13,6 +13,10 @@ spring:
     mode: HTML5
 
 
+#  datasource:
+#    url: jdbc:mysql://49.234.12.16:3306/user?serverTimezone=GMT%2B8
+#    username: root
+#    password: zk123n456
 
 #mybatis:
 #  mapper-locations: classpath*:mapper/*.xml     # mapper映射文件

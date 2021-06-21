@@ -37,66 +37,66 @@ import java.util.List;
 @Slf4j
 public class MysqlBackupJob {
 
-    @Value("${spring.datasource.username}")
-    private String username;
-
-    @Value("${spring.datasource.password}")
-    private String password;
-
-    @Value("${mysqlhost}")
-    private String host;
-
-    @Value("${mysqlport}")
-    private String port;
-
-    private String dbname = "user";
-
-    private String fileName = "user_{}.sql";
-
-    /**
-     * 每天中午12点触发
-     * todo 未完成
-     */
-    //@Scheduled(cron = "0 0 12 * * ?")
-    public void backupDatebase() {
-
-        String outputFile = StrUtil.format(fileName, DateUtil.format(new Date(), DateUtil.YMD_HMS_2));
-        System.out.println("执行数据库备份" + outputFile);
-        backup(outputFile);
-    }
-
-    /**
-     * 数据库备份
-     *
-     * @param outputFile
-     * @return
-     * @throws IOException
-     * @throws InterruptedException
-     */
-    public boolean backup(String outputFile) {
-        // sudo docker exec -it  Mymysql mysqldump
-        String pre = "sudo docker exec -it  Mymysql ";
-        String command = String.format("mysqldump -h%s -P%s -u%s -p%s --add-drop-table --databases %s -r %s",
-                host, port, username, password, dbname, outputFile);
-        command = pre + " " + command;
-        System.out.println(command);
-        List<String>  strList = ShellUtil.run(command);
-        System.out.println(strList);
-        return true;
-    }
-
-    public static boolean restore(String dbUsername, String dbPassword, String dbName, String sourceFile)
-            throws IOException, InterruptedException {
-        String[] command = new String[]{
-                "mysql",
-                "-u" + dbUsername,
-                "-p" + dbPassword,
-                "-e",
-                " source " + sourceFile,
-                dbName
-        };
-        Process runtimeProcess = Runtime.getRuntime().exec(command);
-        int processComplete = runtimeProcess.waitFor();
-        return processComplete == 0;
-    }
+    //@Value("${spring.datasource.username}")
+    //private String username;
+    //
+    //@Value("${spring.datasource.password}")
+    //private String password;
+    //
+    //@Value("${mysqlhost}")
+    //private String host;
+    //
+    //@Value("${mysqlport}")
+    //private String port;
+    //
+    //private String dbname = "user";
+    //
+    //private String fileName = "user_{}.sql";
+    //
+    ///**
+    // * 每天中午12点触发
+    // * todo 未完成
+    // */
+    ////@Scheduled(cron = "0 0 12 * * ?")
+    //public void backupDatebase() {
+    //
+    //    String outputFile = StrUtil.format(fileName, DateUtil.format(new Date(), DateUtil.YMD_HMS_2));
+    //    System.out.println("执行数据库备份" + outputFile);
+    //    backup(outputFile);
+    //}
+    //
+    ///**
+    // * 数据库备份
+    // *
+    // * @param outputFile
+    // * @return
+    // * @throws IOException
+    // * @throws InterruptedException
+    // */
+    //public boolean backup(String outputFile) {
+    //    // sudo docker exec -it  Mymysql mysqldump
+    //    String pre = "sudo docker exec -it  Mymysql ";
+    //    String command = String.format("mysqldump -h%s -P%s -u%s -p%s --add-drop-table --databases %s -r %s",
+    //            host, port, username, password, dbname, outputFile);
+    //    command = pre + " " + command;
+    //    System.out.println(command);
+    //    List<String>  strList = ShellUtil.run(command);
+    //    System.out.println(strList);
+    //    return true;
+    //}
+    //
+    //public static boolean restore(String dbUsername, String dbPassword, String dbName, String sourceFile)
+    //        throws IOException, InterruptedException {
+    //    String[] command = new String[]{
+    //            "mysql",
+    //            "-u" + dbUsername,
+    //            "-p" + dbPassword,
+    //            "-e",
+    //            " source " + sourceFile,
+    //            dbName
+    //    };
+    //    Process runtimeProcess = Runtime.getRuntime().exec(command);
+    //    int processComplete = runtimeProcess.waitFor();
+    //    return processComplete == 0;
+    //}
 }

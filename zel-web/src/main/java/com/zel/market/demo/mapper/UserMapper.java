@@ -3,7 +3,7 @@ package com.zel.market.demo.mapper;
 import com.zel.market.demo.model.User;
 import com.zel.market.demo.model.UserExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
+//import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
     int countByExample(UserExample example);
@@ -20,9 +20,9 @@ public interface UserMapper {
 
     User selectByPrimaryKey(Integer id);
 
-    int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
+    int updateByExampleSelective(User record,  UserExample example);
 
-    int updateByExample(@Param("record") User record, @Param("example") UserExample example);
+    int updateByExample( User record,  UserExample example);
 
     int updateByPrimaryKeySelective(User record);
 

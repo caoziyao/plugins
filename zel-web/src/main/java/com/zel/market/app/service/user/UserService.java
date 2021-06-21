@@ -4,7 +4,7 @@ import com.zel.commonutils.DateUtil;
 import com.zel.redis.RedisUtils;
 import com.zel.market.app.service.login.db.UserThird;
 import com.zel.pojo.entity.User;
-import com.zel.dbmanager.mapper.UserMapper;
+//import com.zel.dbmanager.mapper.UserMapper;
 import com.zel.market.config.Config;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +24,8 @@ import java.util.List;
 @Service
 public class UserService {
 
-    @Autowired
-    private UserMapper userMapper;
+    //@Autowired
+    //private UserMapper userMapper;
 
     @Autowired
     private RedisUtils redisUtils;
@@ -89,19 +89,19 @@ public class UserService {
 
     //@Transactional
     public void transactTest() {
-        User user = userMapper.findByUsername("zhangsan");
-        User user2 = userMapper.findByUsername("lisi");
-        user.setAge(user.getAge() + 1);
-        user2.setAge(user2.getAge() + 1);
-        userMapper.updateById(user);
-        userMapper.updateById(user2);
+        //User user = userMapper.findByUsername("zhangsan");
+        //User user2 = userMapper.findByUsername("lisi");
+        //user.setAge(user.getAge() + 1);
+        //user2.setAge(user2.getAge() + 1);
+        //userMapper.updateById(user);
+        //userMapper.updateById(user2);
     }
 
     public User createUser(String username, String password) {
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
-        userMapper.insert(user);
+        //userMapper.insert(user);
         return user;
     }
 
@@ -124,7 +124,8 @@ public class UserService {
         if (StringUtils.isEmpty(id)) {
             return null;
         }
-        return userMapper.findById(id);
+        //return userMapper.findById(id);
+        return null;
     }
 
     /**
@@ -136,7 +137,8 @@ public class UserService {
         if (StringUtils.isEmpty(id)) {
             return null;
         }
-        return userMapper.findById(id);
+        //return userMapper.findById(id);
+        return null;
     }
 
 
@@ -146,15 +148,18 @@ public class UserService {
         if (StringUtils.isEmpty(id) || StringUtils.isEmpty(username)) {
             return 0;
         }
-        return userMapper.updateUser(id, username);
+        //return userMapper.updateUser(id, username);
+        return  0;
     }
 
     public List<User> findAll() {
-        List<User> all = userMapper.findAll();
-        return all;
+        //List<User> all = userMapper.findAll();
+        //return all;
+        return null;
     }
 
     public Object findTest() {
-        return userMapper.findTest();
+        //return userMapper.findTest();
+        return null;
     }
 }

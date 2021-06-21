@@ -1,6 +1,5 @@
 package com.zel.market.app.request;
 
-
 import com.zel.redis.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -43,9 +42,14 @@ public class AuthDefaultStateCache implements AuthStateCache {
      * @param value   缓存内容
      * @param timeout 指定缓存过期时间（毫秒）
      */
+    //@Override
+    //public void cache(String key, String value, long timeout) {
+    //    authCache.set(key, value, timeout);
+    //}
+
     @Override
     public void cache(String key, String value, long timeout) {
-        authCache.set(key, value, timeout);
+
     }
 
     /**

@@ -1,6 +1,6 @@
 package com.zel.pojo.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
+//import com.baomidou.mybatisplus.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,36 +20,36 @@ import java.util.Date;
 
  */
 
-@TableName(value = "user")
+//@TableName(value = "user")
 @Getter
 @Setter
 public class User {
 
     // TableId-数据库主键字段
-    @TableId(value = "id", type= IdType.AUTO)
+    //@TableId(value = "id", type= IdType.AUTO)
     private Long id;
 
-    @TableField(value = "username")
+    //@TableField(value = "username")
     private String username;
 
-    @TableField(value = "password")
+    //@TableField(value = "password")
     private String password;
 
-    @TableField(value = "age")
+    //@TableField(value = "age")
     private Integer age;
 
     // 1-黑名单
-    @TableField(value = "status")
+    //@TableField(value = "status")
     private int status;
 
-    @TableField(value = "update_time", fill = FieldFill.INSERT)
+    //@TableField(value = "update_time", fill = FieldFill.INSERT)
     private Date updateTime;
 
     // FieldFill自动填充
-    @TableField(value = "create_time", fill = FieldFill.INSERT)
+    //@TableField(value = "create_time", fill = FieldFill.INSERT)
     private Date createTime;
 
-    @Version   //乐观锁Version注解
+    //@Version   //乐观锁Version注解
     private Integer version;
 
     @Override

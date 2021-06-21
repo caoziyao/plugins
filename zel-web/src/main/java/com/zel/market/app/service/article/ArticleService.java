@@ -1,7 +1,7 @@
 package com.zel.market.app.service.article;
 
 import com.zel.pojo.entity.Article;
-import com.zel.dbmanager.mapper.ArticleMapper;
+//import com.zel.dbmanager.mapper.ArticleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +19,8 @@ import java.util.Map;
 @Service
 public class ArticleService {
 
-    @Autowired
-    private ArticleMapper articleMapper;
+    //@Autowired
+    //private ArticleMapper articleMapper;
 
     /**
      * 文章
@@ -33,8 +33,8 @@ public class ArticleService {
         int offset = limit * page - limit;
         params.put("offset", offset);
         params.put("limit", limit);
-        List<Article> all = articleMapper.findAll(params);
-        return all;
+        //List<Article> all = articleMapper.findAll(params);
+        return null;
     }
 
     /**
@@ -42,7 +42,8 @@ public class ArticleService {
      * @return
      */
     public int totalArticle() {
-        return articleMapper.countAll();
+        //return articleMapper.countAll();
+        return 0;
     }
 
     /**
@@ -50,7 +51,8 @@ public class ArticleService {
      * @return
      */
     public Article add(Article article) {
-        articleMapper.insert(article);
-        return article;
+        //articleMapper.insert(article);
+        //return article;
+        return null;
     }
 }

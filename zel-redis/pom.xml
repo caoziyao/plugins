@@ -19,15 +19,9 @@
             <version>${project.version}</version>
         </dependency>
 
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-            <version>${spring.boot.version}</version>
         </dependency>
 
         <!--test-->
@@ -38,6 +32,14 @@
             <scope>test</scope>
         </dependency>
         <!--test end-->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+
+
 
         <!--redisson 也是一个客户端，用来做分布式锁-->
         <dependency>

@@ -8,10 +8,7 @@ import org.springframework.data.redis.support.atomic.RedisAtomicLong;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -254,26 +251,29 @@ public class BaseRedisUtils {
      * 实现命令 : SET key value EX 秒、 setex  key value 秒
      * 添加一个 String 类型的键值对，并设置生存时间
      *
+     * 注意：防止缓存雪崩，加上随机值 0 - 10秒
+     *
      * @param key
      * @param value
      * @param ttl   key 的生存时间，单位:秒
      */
     public void set(String key, Object value, int ttl) {
-        redisTemplate.opsForValue().set(key, value, ttl, TimeUnit.SECONDS);
+        int random = new Random().nextInt(10);
+        redisTemplate.opsForValue().set(key, value, ttl + random, TimeUnit.SECONDS);
     }
 
 
-    /**
-     * 实现命令 : SET key value PX 毫秒 、 psetex key value 毫秒
-     * 添加一个 String 类型的键值对，并设置生存时间
-     *
-     * @param key
-     * @param value
-     * @param ttl   key 的生存时间，单位:毫秒
-     */
-    public void set(String key, Object value, long ttl) {
-        redisTemplate.opsForValue().set(key, value, ttl, TimeUnit.MILLISECONDS);
-    }
+    ///**
+    // * 实现命令 : SET key value PX 毫秒 、 psetex key value 毫秒
+    // * 添加一个 String 类型的键值对，并设置生存时间
+    // *
+    // * @param key
+    // * @param value
+    // * @param ttl   key 的生存时间，单位:毫秒
+    // */
+    //public void set(String key, Object value, long ttl) {
+    //    redisTemplate.opsForValue().set(key, value, ttl, TimeUnit.MILLISECONDS);
+    //}
 
     /**
      * 实现命令 : SET key value [EX 秒|PX 毫秒]

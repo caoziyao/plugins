@@ -26,14 +26,14 @@ public class NoteController {
     public Response add(@RequestBody NoteReqVO body) {
 
         Note note = body.getNote();
-        noteService.add(note);
+        //noteService.add(note);
 
         return Response.ok(note);
     }
 
     @GetMapping(value = "/all")
     public Response all() {
-        List<Note> all = noteService.all();
+        List<Note> all = null;
         NoteRspVO vo = new NoteRspVO();
         vo.setNotes(all);
         System.out.println("new ddd");
@@ -43,7 +43,7 @@ public class NoteController {
     @GetMapping(value = "/one/{id}")
     public Response getNote(@PathVariable String id) {
 
-        List<Note> all = noteService.find(id);
+        List<Note> all =null;
 
         Note note = null;
         if (all != null && all.size() > 0) {

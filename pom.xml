@@ -22,13 +22,15 @@
         <module>common-utils</module>
         <module>zel-pojo</module>
 
-        <module>zel-mysql</module>
+<!--        <module>zel-mysql</module>-->
         <module>zel-redis</module>
         <module>zel-mq</module>
         <module>zel-web</module>
 
         <module>game</module>
         <module>zel-awesome</module>
+        <module>zel-pay</module>
+        <module>zel-jooq</module>
 
 
     </modules>
@@ -43,6 +45,7 @@
         <jackson-version>2.12.0</jackson-version>
         <elasticsearch.version>7.10.1</elasticsearch.version>
         <elasticsearch>7.10.1</elasticsearch>
+        <jooq.version>3.12.3</jooq.version>
     </properties>
 
     <!--依赖-->
@@ -165,6 +168,24 @@
                 <version>${spring.boot.version}</version>
             </dependency>
 
+            <!--jooq-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-jooq</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>8.0.21</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jooq</groupId>
+                <artifactId>jooq-codegen</artifactId>
+                <version>${jooq.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <!--jooq end-->
 
             <!--mybatis-plus-->
             <!--        <dependency>-->
@@ -172,21 +193,21 @@
             <!--            <artifactId>mybatis-plus</artifactId>-->
             <!--            <version>3.4.1</version>-->
             <!--        </dependency>-->
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>8.0.21</version>
-            </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>3.4.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>2.1.4</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>mysql</groupId>-->
+<!--                <artifactId>mysql-connector-java</artifactId>-->
+<!--                <version>8.0.21</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>com.baomidou</groupId>-->
+<!--                <artifactId>mybatis-plus-boot-starter</artifactId>-->
+<!--                <version>3.4.0</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>org.mybatis.spring.boot</groupId>-->
+<!--                <artifactId>mybatis-spring-boot-starter</artifactId>-->
+<!--                <version>2.1.4</version>-->
+<!--            </dependency>-->
             <!--end mybatis-plus-->
         </dependencies>
 
@@ -217,6 +238,40 @@
                     <skipTests>true</skipTests>    <!--默认关掉单元测试 -->
                 </configuration>
             </plugin>
+
+
+            <plugin>
+                <groupId>org.jooq</groupId>
+                <artifactId>jooq-codegen-maven</artifactId>
+                <configuration>
+                    <jdbc>
+                        <driver>com.mysql.cj.jdbc.Driver</driver>
+                        <url>jdbc:mysql://49.234.12.16:3306/user</url>
+                        <user>root</user>
+                        <password>zk123n456</password>
+                    </jdbc>
+                    <generator>
+                        <!--                        <strategy>-->
+                        <!--                            <name>com.diamondfsd.jooq.learn.CustomGeneratorStrategy</name>-->
+                        <!--                        </strategy>-->
+                        <generate>
+                            <pojos>true</pojos>
+                            <daos>true</daos>
+                            <interfaces>true</interfaces>
+                            <springAnnotations>true</springAnnotations>
+                        </generate>
+                        <database>
+                            <!--                            <includes>(s1_.*)|(s2_.*)|(s4_.*)</includes>-->
+                            <inputSchema>user</inputSchema>
+                        </database>
+                        <target>
+                            <packageName>com.zel.dbjooq.codegen</packageName>
+                            <directory>/src/main/java</directory>
+                        </target>
+                    </generator>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 

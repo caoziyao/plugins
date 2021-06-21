@@ -1,9 +1,9 @@
 package com.zel.market.app.service.note;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zel.dbmanager.mapper.NoteMapper;
+//import com.baomidou.mybatisplus.core.conditions.Wrapper;
+//import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+//import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+//import com.zel.dbmanager.mapper.NoteMapper;
 import com.zel.pojo.entity.Note;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,85 +30,86 @@ import java.util.function.Function;
 @Service
 public class NoteServiceImpl implements NoteService {
 
-    @Autowired
-    private NoteMapper noteMapper;
+    //@Autowired
+    //private NoteMapper noteMapper;
 
-    /**
-     * @return
-     */
-    public Note add(Note note) {
-        note.setUpdateTime(new Date());
-        saveOrUpdate(note);
-
-        return note;
-    }
-
-    public List<Note> all() {
-        Map<String, Object> map = new HashMap<>();
-        QueryWrapper<Note> queryWrapper = new QueryWrapper<>();
-        queryWrapper.orderByDesc("update_time");
-
-        List<Note> notes = list(queryWrapper);
-        //List<Note> notes = noteMapper.selectByMap(map);
-        //List<Note> notes = noteMapper.findAll(map);
-        return notes;
-
-    }
-
-    public List<Note> find(String id) {
-        //Map<String, Object> map = new HashMap<>();
-        //map.put("id", id);
-        //List<Note> notes = noteMapper.selectByMap(map);
-        QueryWrapper<Note> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("id", id);
-
-        List<Note> notes = list(queryWrapper);
-        return notes;
-    }
-
-    @Override
-    public boolean saveBatch(Collection<Note> entityList, int batchSize) {
-        return false;
-    }
-
-    @Override
-    public boolean saveOrUpdateBatch(Collection<Note> entityList, int batchSize) {
-        return false;
-    }
-
-    @Override
-    public boolean updateBatchById(Collection<Note> entityList, int batchSize) {
-        return false;
-    }
-
-    @Override
-    public boolean saveOrUpdate(Note entity) {
-        if (entity.getId() != null) {
-            noteMapper.updateById(entity);
-        } else {
-            entity.setCreateTime(new Date());
-            noteMapper.insert(entity);
-        }
-        return false;
-    }
-
-    @Override
-    public Note getOne(Wrapper<Note> queryWrapper, boolean throwEx) {
-        return null;
-    }
-
-    @Override
-    public Map<String, Object> getMap(Wrapper<Note> queryWrapper) {
-        return null;
-    }
-
-    @Override
-    public <V> V getObj(Wrapper<Note> queryWrapper, Function<? super Object, V> mapper) {
-        return null;
-    }
-
-    @Override
-    public BaseMapper<Note> getBaseMapper() {
-        return noteMapper;
-    }
+    ///**
+    // * @return
+    // */
+    //public Note add(Note note) {
+    //    note.setUpdateTime(new Date());
+    //    saveOrUpdate(note);
+    //
+    //    return note;
+    //}
+    //
+    //public List<Note> all() {
+    //    Map<String, Object> map = new HashMap<>();
+    //    QueryWrapper<Note> queryWrapper = new QueryWrapper<>();
+    //    queryWrapper.orderByDesc("update_time");
+    //
+    //    List<Note> notes = list(queryWrapper);
+    //    //List<Note> notes = noteMapper.selectByMap(map);
+    //    //List<Note> notes = noteMapper.findAll(map);
+    //    return notes;
+    //
+    //}
+    //
+    //public List<Note> find(String id) {
+    //    //Map<String, Object> map = new HashMap<>();
+    //    //map.put("id", id);
+    //    //List<Note> notes = noteMapper.selectByMap(map);
+    //    QueryWrapper<Note> queryWrapper = new QueryWrapper<>();
+    //    queryWrapper.eq("id", id);
+    //
+    //    List<Note> notes = list(queryWrapper);
+    //    return notes;
+    //}
+    //
+    //@Override
+    //public boolean saveBatch(Collection<Note> entityList, int batchSize) {
+    //    return false;
+    //}
+    //
+    //@Override
+    //public boolean saveOrUpdateBatch(Collection<Note> entityList, int batchSize) {
+    //    return false;
+    //}
+    //
+    //@Override
+    //public boolean updateBatchById(Collection<Note> entityList, int batchSize) {
+    //    return false;
+    //}
+    //
+    //@Override
+    //public boolean saveOrUpdate(Note entity) {
+    //    //if (entity.getId() != null) {
+    //    //    noteMapper.updateById(entity);
+    //    //} else {
+    //    //    entity.setCreateTime(new Date());
+    //    //    noteMapper.insert(entity);
+    //    //}
+    //    return false;
+    //}
+    //
+    //@Override
+    //public Note getOne(Wrapper<Note> queryWrapper, boolean throwEx) {
+    //    return null;
+    //}
+    //
+    //@Override
+    //public Map<String, Object> getMap(Wrapper<Note> queryWrapper) {
+    //    return null;
+    //}
+    //
+    //@Override
+    //public <V> V getObj(Wrapper<Note> queryWrapper, Function<? super Object, V> mapper) {
+    //    return null;
+    //}
+    //
+    //@Override
+    //public BaseMapper<Note> getBaseMapper() {
+    //    //return noteMapper;
+    //    return null;
+    //}
 }

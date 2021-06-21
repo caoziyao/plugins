@@ -1,6 +1,6 @@
 package com.zel.market.app.service.column;
 
-import com.zel.dbmanager.mapper.ColumnMapper;
+//import com.zel.dbmanager.mapper.ColumnMapper;
 import com.zel.pojo.entity.Column;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,13 +19,14 @@ import java.util.Map;
 @Service
 public class ColumnService {
 
-    @Autowired
-    private ColumnMapper columnMapper;
+    //@Autowired
+    //private ColumnMapper columnMapper;
 
     public List<Column> allColumn() {
         Map<String, Object> map = new HashMap<>();
-        List<Column> columns = columnMapper.selectByMap(map);
-        return columns;
+        //List<Column> columns = columnMapper.selectByMap(map);
+        //return columns;
+        return null;
     }
 
 }

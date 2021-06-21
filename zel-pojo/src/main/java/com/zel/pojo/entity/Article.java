@@ -1,9 +1,9 @@
 package com.zel.pojo.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
+//import com.baomidou.mybatisplus.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.ibatis.annotations.Select;
+//import org.apache.ibatis.annotations.Select;
 
 import java.util.Date;
 
@@ -16,28 +16,28 @@ import java.util.Date;
  */
 @Getter
 @Setter
-@TableName(value = "tb_article")
+//@TableName(value = "tb_article")
 public class Article {
-    @TableId(value = "id", type= IdType.AUTO)
+    //@TableId(value = "id", type= IdType.AUTO)
     private Long id;
 
-    @TableField(value = "article_url")
+    //@TableField(value = "article_url")
     private String articleUrl;
 
-    @TableField(value = "column_id")
+    //@TableField(value = "column_id")
     private Integer columnsId;
 
-    @TableField(value = "title")
+    //@TableField(value = "title")
     private String title;
 
-    @TableField(value = "content")
+    //@TableField(value = "content")
     private String content;
 
-    @TableField(value = "update_time", fill = FieldFill.INSERT)
+    //@TableField(value = "update_time", fill = FieldFill.INSERT)
     private Date updateTime;
 
     // FieldFill自动填充
-    @TableField(value = "create_time", fill = FieldFill.INSERT)
+    //@TableField(value = "create_time", fill = FieldFill.INSERT)
     private Date createTime;
 
     // 专栏

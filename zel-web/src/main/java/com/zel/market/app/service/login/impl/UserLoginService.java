@@ -1,7 +1,7 @@
 package com.zel.market.app.service.login.impl;
 
 import com.zel.redis.RedisUtils;
-import com.zel.dbmanager.mapper.UserMapper;
+//import com.zel.dbmanager.mapper.UserMapper;
 import com.zel.market.common.enumcom.EResponseCode;
 import com.zel.market.app.controller.user.dto.LoginVO;
 import com.zel.market.exception.BusinessException;
@@ -17,8 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserLoginService implements LoginService {
 
-    @Autowired
-    private UserMapper userMapper;
+    //@Autowired
+    //private UserMapper userMapper;
 
     @Autowired
     private RedisUtils redisUtils;
@@ -27,7 +27,8 @@ public class UserLoginService implements LoginService {
     public User login(LoginVO loginVo) {
         String username = loginVo.getUsername();
         String password = loginVo.getPassword();
-        User user = userMapper.findByUsernameAndPassword(username, password);
+        //User user = userMapper.findByUsernameAndPassword(username, password);
+        User user = null;
         if (user == null) {
             throw new BusinessException(EResponseCode.NOT_REGISTER);
         }

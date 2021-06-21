@@ -31,6 +31,8 @@ public class InterceptorConfigurer implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginInterceptor).addPathPatterns("/*/*");
+        // todo
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/api/pay/*");
         registry.addInterceptor(loginInterceptor).excludePathPatterns("/login", "/api/user/superlogin", "/api/user/oauth/*", "/api/user/oauth/*/*");
     }
 }

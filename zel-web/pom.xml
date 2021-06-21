@@ -39,11 +39,20 @@
             <version>${project.version}</version>
         </dependency>
 
+        <!--jooq-->
         <dependency>
             <groupId>com.zel</groupId>
-            <artifactId>zel-mysql</artifactId>
+            <artifactId>zel-jooq</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>com.zel</groupId>-->
+<!--            <artifactId>zel-mysql</artifactId>-->
+<!--            <version>${project.version}</version>-->
+<!--        </dependency>-->
+
+
         <dependency>
             <groupId>com.zel</groupId>
             <artifactId>zel-mq</artifactId>
@@ -52,6 +61,12 @@
         <dependency>
             <groupId>com.zel</groupId>
             <artifactId>zel-redis</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.zel</groupId>
+            <artifactId>zel-pay</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
@@ -108,11 +123,11 @@
         </dependency>
 
         <!-- MyBatis 生成器 -->
-        <dependency>
-            <groupId>org.mybatis.generator</groupId>
-            <artifactId>mybatis-generator-core</artifactId>
-            <version>1.3.3</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.mybatis.generator</groupId>-->
+<!--            <artifactId>mybatis-generator-core</artifactId>-->
+<!--            <version>1.3.3</version>-->
+<!--        </dependency>-->
 
         <!-- 参数校验 -->
         <dependency>
@@ -165,6 +180,25 @@
         <!--kafka end-->
 
 
+        <!--jooq-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jooq</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.21</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-codegen</artifactId>
+            <version>${jooq.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--jooq end-->
+
         <!--es 版本7.10.1-->
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.boot</groupId>-->
@@ -191,18 +225,18 @@
         <!--            <groupId>com.baomidou</groupId>-->
         <!--            <artifactId>mybatis-plus</artifactId>-->
         <!--        </dependency>-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>mysql</groupId>-->
+<!--            <artifactId>mysql-connector-java</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.baomidou</groupId>-->
+<!--            <artifactId>mybatis-plus-boot-starter</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.mybatis.spring.boot</groupId>-->
+<!--            <artifactId>mybatis-spring-boot-starter</artifactId>-->
+<!--        </dependency>-->
         <!--end mybatis-plus-->
 
         <!--swagger start /swagger-ui.html-->

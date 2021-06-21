@@ -1,8 +1,8 @@
 package com.zel.market.app.service.login.db;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+//import com.baomidou.mybatisplus.annotation.IdType;
+//import com.baomidou.mybatisplus.annotation.TableId;
+//import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.ToString;
 
@@ -11,10 +11,10 @@ import java.util.Date;
 
 @Data
 @ToString
-@TableName("tb_sso")
+//@TableName("tb_sso")
 public class UserThird implements Serializable {
 
-    @TableId(value = "id", type = IdType.AUTO)
+    //@TableId(value = "id", type = IdType.AUTO)
     private Long id; //主键id
 
     private Long userId;
