@@ -6,7 +6,7 @@
 
     <!--properties这个标签来自定义变量-->
     <properties>
-        <JackVersion>2.11.3</JackVersion>
+        <JackVersion>2.12.6.1</JackVersion>
     </properties>
     <parent>
         <groupId>org.springframework.boot</groupId>
